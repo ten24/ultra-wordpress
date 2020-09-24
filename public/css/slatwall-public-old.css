@@ -1,0 +1,30 @@
+/**
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+body img{
+    display: inherit;
+}
+#qloader{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    background-color: rgba(238, 238, 238, 0.34901960784313724);
+}
+#qloader img{
+        position: absolute;
+    left: 50%;
+    top: 50%;
+}
+.list-group a{
+    text-decoration: none;
+    font-size: 18px;
+}
