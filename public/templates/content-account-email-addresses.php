@@ -1,10 +1,3 @@
-<?php>
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-?>
-
 <div class="container my-5">
 <h1 class="mb-4">Account Email Addresses</h1>
         <div class="row">

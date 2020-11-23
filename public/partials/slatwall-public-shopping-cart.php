@@ -1,16 +1,11 @@
-<?php
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-?>
-<div class="container my-5">
+<?php //d($cart_data); ?>
+<div class="container my-5 cart-area">
             <h1>Shopping Cart</h1>
 <?php if(isset($cart_data->orderItems) && !empty($cart_data->orderItems)){ ?>
             <div class="row">
-                <div class="col-lg-8 col-md-12">
+                <div class="col-lg-8 col-md-12 ">
                     <!-- Alert message for no items in cart -->
-
+                    <div class="cart-update-alert">
                     <?php if(isset($_GET['itemRemove'])){ ?>
                     <!-- Alert message for item removed from cart -->
                     <div class="alert alert-success">Item removed from your cart</div>
@@ -18,15 +13,15 @@
                     <?php if(isset($_GET['itemUpdate'])){ ?>
                     <div class="alert alert-success"><small>Quantity updated</small></div>
                    <?php } ?>
-
+</div>
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between">
                             <h4 class="mb-0">Order Items</h4>
                         </div>
                         <?php if(isset($cart_data->orderItems) && !empty($cart_data->orderItems)){ ?>
-                        <div class="card-body">
+                        <div class="card-body cart-items">
 
-                            <?php foreach($cart_data->orderItems as $item){
+                            <?php foreach($cart_data->orderItems as $item){  
                                 $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle;
                                 ?>
                             <!-- Order Item 1 -->
@@ -126,13 +121,17 @@
                                         </div>
                                     </form>
                                 </div>
+                               
                               <?php if($cart_data->cart->promotionCodeList){?>
+                                <div class="card-footer-area">
                                 <div class="card-footer">
 
                                     <span class="badge badge-success" id="<?php echo $cart_data->cart->promotionCodeList; ?>"><?php echo $cart_data->cart->promotionCodeList; ?><a href="javascript:void(0);" class="remove-promo">&times;</a> </span>
 
                                 </div>
+                                </div>
                               <?php } ?>
+                                    
                             </div>
                         </div>
                     </div>
@@ -166,7 +165,15 @@ var ajax_url = '<?php echo get_site_url()."/wp-admin/admin-ajax.php"; ?>';
               if(response.successfulActions && response.successfulActions.includes("public:cart.removeOrderItem")){
            var url = window.location.href.split('?')[0];
                     url += '?itemRemove=1';
-                 window.location.href = url;
+                // window.location.href = url;
+                update_cart_items(response.cart.orderItems);
+               update_cart_payment(response);
+               update_mini_cart(response.cart);
+               if(typeof response.cart.orderItems !== 'undefined' && response.cart.orderItems.length > 0){
+               jQuery('.cart-update-alert').html('<div class="alert alert-success"><small>Item Removed</small></div>');
+           } else { 
+           jQuery('.cart-area').html('<h1>Shopping Cart</h1> <div class="alert alert-info">There are no items in your cart</div>');
+           }
                 }
             }
 
@@ -185,7 +192,11 @@ var ajax_url = '<?php echo get_site_url()."/wp-admin/admin-ajax.php"; ?>';
             if(result){
                 console.log(result);
               if(response.successfulActions && response.successfulActions.includes("public:cart.clear")){
-             window.location.reload();
+                   update_cart_items(response.cart.orderItems);
+               update_cart_payment(response);
+               update_mini_cart(response.cart);
+               jQuery('.cart-update-alert').html('<div class="alert alert-success"><small>Item Removed</small></div>');
+            
                 }
             }
 
@@ -215,9 +226,14 @@ var ajax_url = '<?php echo get_site_url()."/wp-admin/admin-ajax.php"; ?>';
         var response = jQuery.parseJSON(result);
 
               if(response.successfulActions && response.successfulActions.includes("public:cart.updateOrderItem")){
+                  console.log(response.cart.orderItems);
             var url = window.location.href.split('?')[0];
                url += '?itemUpdate=1';
-            window.location.href = url;
+               update_cart_items(response.cart.orderItems);
+               update_cart_payment(response);
+               update_mini_cart(response.cart);
+               jQuery('.cart-update-alert').html('<div class="alert alert-success"><small>Quantity updated</small></div>');
+           // window.location.href = url;
                             }
 
             }
@@ -226,7 +242,7 @@ var ajax_url = '<?php echo get_site_url()."/wp-admin/admin-ajax.php"; ?>';
     } );
 
     }
-
+    
 
     jQuery(document).on('click','.cart-update',function(){
       var qty =  jQuery(this).parent().find('input').val();

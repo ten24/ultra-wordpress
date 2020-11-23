@@ -1,10 +1,3 @@
-<?php>
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-?>
-
 <!-- Start Body -->
 <div class="col-xl-7 col-md-8 checkoutforms">
 	<!-- Account Login / Create Account -->

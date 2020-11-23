@@ -1,10 +1,3 @@
-<?php>
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-?>
-
 <?php if(isset($_SESSION['token'])){
      wp_redirect(get_site_url().'/'.MY_ACCOUNT_SLUG.'/dashboard');
 } ?>
@@ -42,8 +35,8 @@
                                 <button type="submit" value="reset_password" class="btn btn-primary">Reset Password</button>
                             </div>
                         </form>
-
-
+                    
+                
                              </div>
                         </div>
                     </div>
@@ -89,12 +82,12 @@ jQuery(document).ready(function(){
         'action' : action,
         'form_data': form_data
     };
-
+    
     jQuery.post(ajax_url, data, function( result ) {
        console.log(result.status_code);
     var response = jQuery.parseJSON(result);
     if(response.successfulActions.length>0)
-    {
+    {  
          localStorage.setItem("Status",'succes')
     window.location.reload();
     } else if(response.failureActions.length>0)
@@ -102,7 +95,7 @@ jQuery(document).ready(function(){
     window.location.reload();
     }
     } );
-
+        
     }
     jQuery(document).on('submit','#reset_password',function(e){
         e.preventDefault();
@@ -117,12 +110,12 @@ jQuery(document).ready(function(){
 					 jQuery(this).removeClass('is-invalid');
 				 }
 			 });
-       var form_data = jQuery('#reset_password').serializeArray();
+       var form_data = jQuery('#reset_password').serializeArray(); 
        var action = jQuery('#reset_password').attr('action');
        console.log(form_data);
 	   if(error_require == 0) {
         reset_password(form_data,action);
-			 }
+			 }      
        return false;
     });
 </script>

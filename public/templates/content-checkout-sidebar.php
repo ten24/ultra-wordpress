@@ -1,10 +1,3 @@
-<?php>
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-?>
-
 <?php //d($cart_data->orderItems); ?>
 
                 <!-- Sidebar -->
@@ -12,11 +5,11 @@
                     <?php if($cart_data->orderID){ ?>
                 	<!-- Order Items -->
                         <div class="order_items_checkout">
-
+                    
                 	<h3 class="mb-3 pt-3 pb-3 border-bottom">Order Items</h3>
 
                     <ul class="list-unstyled ml-0 mb-5 orderitems">
-                        <?php foreach($cart_data->orderItems as $item){
+                        <?php foreach($cart_data->orderItems as $item){ 
                             $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle;
                             ?>
                         <li class="media mb-4 pb-4 ml-0 border-bottom">
@@ -39,7 +32,7 @@
                         <?php } ?>
                     </ul>
                     <!-- /End Order Items -->
-
+                   
                         </div>
                 	<!-- Order Totals -->
                     <div class="bg-light p-4 mb-5">
@@ -66,8 +59,12 @@
                     <!--/End Order Totals -->
 
                     <!-- Place Order: Toggle disabled attribute after form submit validation to continue -->
-                	<button type="button" id="place-order" class="btn btn-block btn-primary sidebar-place-order" disabled="disabled">Place Order <i class="fas fa-circle-notch fa-spin"></i></button>
-                 <?php } else { ?>
+                    <?php if($cart_data->cart->orderRequirementsList == ''){?>
+                	<button type="button" id="place-order" class="btn btn-block btn-primary sidebar-place-order">Place Order <i class="fas fa-circle-notch fa-spin"></i></button>
+                    <?php } else { ?>
+                        <button type="button" id="place-order" class="btn btn-block btn-primary sidebar-place-order" disabled="disabled">Place Order <i class="fas fa-circle-notch fa-spin"></i></button>
+                    <?php } ?>
+  <?php } else { ?>
                         <p>No Items In Your Shopping Cart</p>
                  <?php } ?>
                 </div>

@@ -1,8 +1,4 @@
 <?php
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
 
 /**
  * Register all actions and filters for the slatwall
@@ -23,6 +19,7 @@
  *
  * @package    Slatwall_Ecommerce
  * @subpackage Slatwall_Ecommerce/includes
+ * @author     Yash <raj.yash@orangemantra.in>
  */
 class Slatwall_Loader {
 
@@ -49,7 +46,7 @@ class Slatwall_Loader {
 	 *
 	 * @since    1.0.0
 	 */
-
+        
         protected $shortcodes;
 
 
@@ -61,22 +58,22 @@ class Slatwall_Loader {
 
 	}
 
-
+	
 	public function add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->actions = $this->add( $this->actions, $hook, $component, $callback, $priority, $accepted_args );
 	}
 
-
+	
 	public function add_filter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->filters = $this->add( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
 	}
-
-
+        
+        
         public function add_shortcode( $tag, $component, $callback, $priority = 10, $accepted_args = 2 ) {
         $this->shortcodes = $this->add( $this->shortcodes, $tag, $component, $callback, $priority, $accepted_args );
     }
-
-
+        
+        
 	private function add( $hooks, $hook, $component, $callback, $priority, $accepted_args ) {
 
 		$hooks[] = array(
@@ -90,8 +87,8 @@ class Slatwall_Loader {
 		return $hooks;
 
 	}
-
-
+        
+        
 
 	/**
 	 * Register the filters and actions with WordPress.
@@ -107,15 +104,15 @@ class Slatwall_Loader {
 		foreach ( $this->actions as $hook ) {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
-
+                
                 foreach ( $this->shortcodes as $hook ) {
 			add_shortcode( $hook['hook'], array( $hook['component'], $hook['callback'] ));
 		}
-
-
+                    
+                
 	}
-
-
-
+        
+       
+ 
 
 }

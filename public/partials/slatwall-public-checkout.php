@@ -1,13 +1,8 @@
-<?php
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-
-//d($availale_payment_method);
+<?php //d($availale_payment_method);
 //echo $_SESSION['token'];
 $cart_data = json_decode($cart_data);
-//d($cart_data);
+
+$eligiblePaymentMethodDetails = $cart_data->eligiblePaymentMethodDetails;
 $orderFulfillmentID = '';
 $selected_shipping = isset($cart_data->cart->orderFulfillments[0]->shippingMethod)?$cart_data->cart->orderFulfillments[0]->shippingMethod:'';
 $countries_obj = json_decode($countries_data);
@@ -17,7 +12,7 @@ foreach($cart_data->orderFulfillments as $orderFulfillments){
       if(isset($orderFulfillments->fulfillmentMethod->fulfillmentMethodType) && $orderFulfillments->fulfillmentMethod->fulfillmentMethodType == 'shipping'){
            $orderFulfillmentID = $orderFulfillments->orderFulfillmentID;
            break;
-        }
+        }   
 }
 $account = json_decode($account);
 $account_address = $account->accountAddresses;
@@ -41,11 +36,11 @@ $account_address = $account->accountAddresses;
                $templates->set_template_data( $cart_data->orderItems, 'orderItems' )->set_template_data( $orderFulfillmentID, 'orderFulfillmentID' )->set_template_data( $selected_shipping, 'selected_shipping' )->set_template_data( $default_state_code->stateCodeOptions, 'default_states' )->set_template_data( $countries, 'countries' )->set_template_data( $availale_shipping_method, 'availale_shipping_method' )->set_template_data( $account_address, 'account_address' )->get_template_part( 'content', 'checkout-shipping',true );
 
                /* Add And Select Billing Address */
-               $templates->set_template_data( $account_address, 'account_address' )->set_template_data( $default_state_code->stateCodeOptions, 'default_states' )->set_template_data( $countries, 'countries' )->get_template_part( 'content', 'checkout-billing',true );
+               $templates->set_template_data( $eligiblePaymentMethodDetails, 'eligiblePaymentMethodDetails' )->set_template_data( $account_address, 'account_address' )->set_template_data( $default_state_code->stateCodeOptions, 'default_states' )->set_template_data( $countries, 'countries' )->get_template_part( 'content', 'checkout-billing',true );
 
                /* Order Review */
                $templates->set_template_data( $cart_data, 'cart_data' )->get_template_part( 'content', 'checkout-order-review',true );
-
+               
                /* Order Confirm */
                $templates->set_template_data( $cart_data, 'cart_data' )->get_template_part( 'content', 'checkout-order-confirm',true );
 
@@ -81,3 +76,4 @@ if (typeof token !== 'undefined') {
 /********************** End Hide and show shipping section based on login ********************/
 
 </script>
+

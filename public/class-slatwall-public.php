@@ -1,8 +1,4 @@
 <?php
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
 
 /**
  * The public-facing functionality of the plugin.
@@ -23,6 +19,7 @@
  * @since      1.0.0
  * @package    Slatwall_Ecommerce
  * @subpackage Slatwall_Ecommerce/public
+ * @author     Yash <raj.yash@orangemantra.in>
  */
 require SLATWALL_PLUGIN_DIR . 'includes/class-slatwall-integration.php';
 require 'class-slatwall-products.php';
@@ -90,7 +87,11 @@ class Slatwall_Public extends Slatwall_Products {
                 /* add to cart ajax funcition define */
                 add_action( 'wp_ajax_nopriv_add_to_cart', array( $this, 'add_to_cart' ) );
                 add_action( 'wp_ajax_add_to_cart', array( $this, 'add_to_cart' ) );
-
+                
+                /* add to cart ajax funcition define */
+                add_action( 'wp_ajax_nopriv_header_append_data', array( $this, 'header_append_data' ) );
+                add_action( 'wp_ajax_header_append_data', array( $this, 'header_append_data' ) );
+                
                 /* remove to cart ajax funcition define */
                 add_action( 'wp_ajax_nopriv_remove_cart_item', array( $this, 'remove_cart_item' ) );
                 add_action( 'wp_ajax_remove_cart_item', array( $this, 'remove_cart_item' ) );
@@ -116,11 +117,11 @@ class Slatwall_Public extends Slatwall_Products {
                 /* add shipping checkout ajax funcition define */
                 add_action( 'wp_ajax_nopriv_add_shipping_address', array( $this, 'add_shipping_address' ) );
                 add_action( 'wp_ajax_add_shipping_address', array( $this, 'add_shipping_address' ) );
-
+                
                 /* add pickup checkout ajax funcition define */
                 add_action( 'wp_ajax_nopriv_pickup', array( $this, 'pickup' ) );
                 add_action( 'wp_ajax_pickup', array( $this, 'pickup' ) );
-
+                
                 /* add pickup shipping checkout ajax funcition define */
                 add_action( 'wp_ajax_nopriv_pickup_shipping', array( $this, 'pickup_shipping' ) );
                 add_action( 'wp_ajax_pickup_shipping', array( $this, 'pickup_shipping' ) );
@@ -136,7 +137,7 @@ class Slatwall_Public extends Slatwall_Products {
                   /* Clear Cart ajax funcition define */
                 add_action( 'wp_ajax_nopriv_clear_cart', array( $this, 'clear_cart' ) );
                 add_action( 'wp_ajax_clear_cart', array( $this, 'clear_cart' ) );
-
+                
                   /* Reopen Cart ajax funcition define */
                 add_action( 'wp_ajax_nopriv_reopen_cart', array( $this, 'reopen_cart' ) );
                 add_action( 'wp_ajax_reopen_cart', array( $this, 'reopen_cart' ) );
@@ -210,6 +211,8 @@ class Slatwall_Public extends Slatwall_Products {
                  /* update profile ajax funcition define */
                  add_action( 'wp_ajax_nopriv_profile_update_account', array( $this, 'profile_update_account' ) );
                  add_action( 'wp_ajax_profile_update_account', array( $this, 'profile_update_account' ) );
+                 
+               //  add_filter( 'wp_title', array( $this, 'slatwall_wp_title_filter' ) );
 
 	}
 
@@ -261,8 +264,7 @@ class Slatwall_Public extends Slatwall_Products {
             wp_enqueue_script( $this->slatwall.'_popper_min_js', plugin_dir_url( __FILE__ ) . 'js/popper.min.js', array( 'jquery' ), $this->version, false );
             wp_enqueue_script( $this->slatwall.'_bootstrap_min_js', plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array( 'jquery' ), $this->version, false );
             wp_enqueue_script( $this->slatwall.'_jquery', plugin_dir_url( __FILE__ ) . 'js/slatwall-public.js', array( 'jquery' ), $this->version, false );
-            // wp_enqueue_script( $this->slatwall.'_product_zoom_jquery', plugin_dir_url( __FILE__ ) . 'js/xzoom.min.js', array( 'jquery' ), $this->version, false );
-
+            
             wp_enqueue_script( $this->slatwall.'_product_zoom_jquery', plugin_dir_url( __FILE__ ) . 'js/jquery.elevatezoom.js', array( 'jquery' ), $this->version, false );
             wp_enqueue_script( $this->slatwall.'_jquery_fancybox', plugin_dir_url( __FILE__ ) . 'js/jquery.fancybox.js', array( 'jquery' ), $this->version, false );
             wp_enqueue_script( $this->slatwall.'_jquery_ui', plugin_dir_url( __FILE__ ) . 'js/jquery-ui.min.js', array( 'jquery' ), $this->version, false );
@@ -277,21 +279,52 @@ class Slatwall_Public extends Slatwall_Products {
     }
         }
 
-        public function product_listing(){
+        function home_page(){
+             ob_start();
+         require 'partials/slatwall-public-home-page.php';   
+         return ob_get_clean();
+        }
+        
+        
+        public function product_listing($atts,$content = null){
          //   $currentPage = ( isset( $_GET['currentpage'] ) ) ? $_GET['currentpage'] : 1;
-
+            $atts = shortcode_atts( array(
+      'products' => '',
+   ), $atts, 'product-listing' );
+             ob_start();
+        if($atts['products'] != ''){
+            $product_codes = $atts['products'];
+             $templates = new SW_Template_Loader;
+$typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:productCode:eq='.$product_codes;
+$products =  $this->productListIntegration($typePara);
+         if(isset($products->cookies)){
+               if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){
+                      
+         $_SESSION['cfid'] = $products->cookies['cfid'];
+         $_SESSION['cftoken'] = $products->cookies['cftoken'];
+             }
+         }
+         if($products){
+                $totalPages =  $products->totalPages;
+                $paginator = new Paginator(1, $totalPages);
+                $links = 3;
+                $pagination = $paginator->createLinks($links, 'pagination justify-content-center');
+               
+           require 'partials/slatwall-public-specific-product-listing.php';
+                }
+        } else {
              $templates = new SW_Template_Loader;
              $slatwall_brands = new Slatwall_Brands;
              $slatwall_category = new Slatwall_Categoy;
              $slatwall_types = new Slatwall_Type;
              $slatwall_options = new Slatwall_Options;
-            ob_start();
+           
             $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC';
+            
          $products =  $this->productListIntegration($typePara);
          if(isset($products->cookies)){
-           //  d($products->cookies);
-                  if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){
-
+               if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){
+                      
          $_SESSION['cfid'] = $products->cookies['cfid'];
          $_SESSION['cftoken'] = $products->cookies['cftoken'];
              }
@@ -305,15 +338,193 @@ class Slatwall_Public extends Slatwall_Products {
                 $paginator = new Paginator(1, $totalPages);
                 $links = 3;
                 $pagination = $paginator->createLinks($links, 'pagination justify-content-center');
-
+               
            require 'partials/slatwall-public-product-listing.php';
+                }
+            }
+           return ob_get_clean();
+        }
+        
+        public function product_listing_search(){
+         //   $currentPage = ( isset( $_GET['currentpage'] ) ) ? $_GET['currentpage'] : 1;
+
+             $templates = new SW_Template_Loader;
+             $slatwall_brands = new Slatwall_Brands;
+             $slatwall_category = new Slatwall_Categoy;
+             $slatwall_types = new Slatwall_Type;
+             $slatwall_options = new Slatwall_Options;
+            ob_start();
+            $search_val = isset($_GET['search'])?$_GET['search']:'';
+            
+            $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC';
+            if($search_val){
+              $search_val_encoded = urlencode($search_val);
+                 $typePara .= "&keywords=$search_val_encoded";
+            
+         $products =  $this->productListIntegration($typePara);
+         if(isset($products->cookies)){
+               if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){
+                      
+         $_SESSION['cfid'] = $products->cookies['cfid'];
+         $_SESSION['cftoken'] = $products->cookies['cftoken'];
+             }
+         }
+         $brands = $slatwall_brands->brandListIntegration();
+         $options = $slatwall_options->optionListIntegration();
+         $categories = $slatwall_category->categoryListIntegration();
+         $types = $slatwall_types->producttypeListIntegration();
+            if($products){
+                $totalPages =  $products->totalPages;
+                $paginator = new Paginator(1, $totalPages);
+                $links = 3;
+                $pagination = $paginator->createLinks($links, 'pagination justify-content-center');
+               
+           require 'partials/slatwall-public-product-listing-search.php';
+            }
+            
+            } else {
+                echo '<div class="container"><p>Search Value not found</p></div>';
+            }
+           return ob_get_clean();
+        }
+        
+         public function product_listing_brand(){
+         ob_start();
+               $urlTitle_slug = get_query_var('bslug');
+              
+             $templates = new SW_Template_Loader;
+             $slatwall_brands = new Slatwall_Brands;
+             $slatwall_category = new Slatwall_Categoy;
+             $slatwall_types = new Slatwall_Type;
+             $slatwall_options = new Slatwall_Options;
+            ob_start();
+            $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:brand.urlTitle='.$urlTitle_slug;
+         $products =  $this->productListIntegration($typePara);
+         if(isset($products->cookies)){
+               if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){
+                      
+         $_SESSION['cfid'] = $products->cookies['cfid'];
+         $_SESSION['cftoken'] = $products->cookies['cftoken'];
+             }
+         }
+         $brands = $slatwall_brands->brandListIntegration();
+         $options = $slatwall_options->optionListIntegration();
+         $categories = $slatwall_category->categoryListIntegration();
+         $types = $slatwall_types->producttypeListIntegration();
+            if($products){
+                $totalPages =  $products->totalPages;
+                $paginator = new Paginator(1, $totalPages);
+                $links = 3;
+                $pagination = $paginator->createLinks($links, 'pagination justify-content-center');
+ 
+           require 'partials/slatwall-public-product-listing-brand.php';
             }
            return ob_get_clean();
         }
 
+         public function product_listing_category(){
+         ob_start();
+               $urlTitle_slug = get_query_var('cslug');
+             $templates = new SW_Template_Loader;
+             $slatwall_brands = new Slatwall_Brands;
+             $slatwall_category = new Slatwall_Categoy;
+             $slatwall_types = new Slatwall_Type;
+             $slatwall_options = new Slatwall_Options;
+            ob_start();
+            $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:categories.urlTitle:eq='.$urlTitle_slug;
+         $products =  $this->productListIntegration($typePara);
+         if(isset($products->cookies)){
+               if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){
+                      
+         $_SESSION['cfid'] = $products->cookies['cfid'];
+         $_SESSION['cftoken'] = $products->cookies['cftoken'];
+             }
+         }
+         $brands = $slatwall_brands->brandListIntegration();
+         $options = $slatwall_options->optionListIntegration();
+         $categories = $slatwall_category->categoryListIntegration();
+         $types = $slatwall_types->producttypeListIntegration();
+            if($products){
+                $totalPages =  $products->totalPages;
+                $paginator = new Paginator(1, $totalPages);
+                $links = 3;
+                $pagination = $paginator->createLinks($links, 'pagination justify-content-center');
+ 
+           require 'partials/slatwall-public-product-listing-category.php';
+            }
+           return ob_get_clean();
+        }
+        
+         public function product_listing_option(){
+         ob_start();
+               $urlTitle_slug = get_query_var('oslug');
+             $templates = new SW_Template_Loader;
+             $slatwall_brands = new Slatwall_Brands;
+             $slatwall_category = new Slatwall_Categoy;
+             $slatwall_types = new Slatwall_Type;
+             $slatwall_options = new Slatwall_Options;
+            ob_start();
+            $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:defaultSku.options.optionName='.$urlTitle_slug;
+         $products =  $this->productListIntegration($typePara);
+         if(isset($products->cookies)){
+               if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){
+                      
+         $_SESSION['cfid'] = $products->cookies['cfid'];
+         $_SESSION['cftoken'] = $products->cookies['cftoken'];
+             }
+         }
+         $brands = $slatwall_brands->brandListIntegration();
+         $options = $slatwall_options->optionListIntegration();
+         $categories = $slatwall_category->categoryListIntegration();
+         $types = $slatwall_types->producttypeListIntegration();
+            if($products){
+                $totalPages =  $products->totalPages;
+                $paginator = new Paginator(1, $totalPages);
+                $links = 3;
+                $pagination = $paginator->createLinks($links, 'pagination justify-content-center');
+ 
+           require 'partials/slatwall-public-product-listing-option.php';
+            }
+           return ob_get_clean();
+        }
+        
+         public function product_listing_type(){
+         ob_start();
+               $urlTitle_slug = get_query_var('tslug');
+             $templates = new SW_Template_Loader;
+             $slatwall_brands = new Slatwall_Brands;
+             $slatwall_category = new Slatwall_Categoy;
+             $slatwall_types = new Slatwall_Type;
+             $slatwall_options = new Slatwall_Options;
+            ob_start();
+            $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:productType.urlTitle='.$urlTitle_slug;
+         $products =  $this->productListIntegration($typePara);
+         if(isset($products->cookies)){
+               if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){
+                      
+         $_SESSION['cfid'] = $products->cookies['cfid'];
+         $_SESSION['cftoken'] = $products->cookies['cftoken'];
+             }
+         }
+         $brands = $slatwall_brands->brandListIntegration();
+         $options = $slatwall_options->optionListIntegration();
+         $categories = $slatwall_category->categoryListIntegration();
+         $types = $slatwall_types->producttypeListIntegration();
+            if($products){
+                $totalPages =  $products->totalPages;
+                $paginator = new Paginator(1, $totalPages);
+                $links = 3;
+                $pagination = $paginator->createLinks($links, 'pagination justify-content-center');
+ 
+           require 'partials/slatwall-public-product-listing-type.php';
+            }
+           return ob_get_clean();
+        }
+        
          public function product_filter_data(){
             $form_data = ( isset( $_POST['form_data'] ) ) ? $_POST['form_data'] : '';
             $sorting = ( isset( $_POST['sorting'] ) ) ? $_POST['sorting'] : '';
+            $specific_products = ( isset( $_POST['specific_products'] ) ) ? $_POST['specific_products'] : '';
             $typePara = '';
             $types = array();
             $categories = array();
@@ -357,16 +568,19 @@ class Slatwall_Public extends Slatwall_Products {
            }
            if($categories){
                 $categoryString = implode(',', $categories);
-            $typePara .= "&f:category.categoryID=$categoryString";
+            $typePara .= "&f:categories.categoryID:eq=$categoryString";
            }
-
+           
            if($options){
                 $optionString = implode(',', $options);
             $typePara .= "&f:defaultSku.options.optionID=$optionString";
            }
-
+           
            if($sorting){
                $typePara .= "&orderBy=$sorting";
+           }
+           if($specific_products){
+                               $typePara .= "&f:productCode:eq=$specific_products";
            }
             if($max || $min){
                 $calculatedMinPrice = isset($min)?$min:0;
@@ -383,7 +597,7 @@ class Slatwall_Public extends Slatwall_Products {
             $typePara .= '&pageShow=12&f:publishedFlag=1&f:activeFlag=1';
             $currentPage = ( isset( $_POST['id'] ) ) ? $_POST['id'] : 1;
             $urlPara = "?p:current=$currentPage$typePara";
-            $products =  $this->productListIntegration($urlPara);
+            $products =  $this->productListIntegration($urlPara); 
             if($products->pageRecords){
                 echo '<span id="records_count" data-records="'.$products->recordsCount.'"></span>';
                  $templates = new SW_Template_Loader;
@@ -406,13 +620,19 @@ class Slatwall_Public extends Slatwall_Products {
                ob_start();
                $product_slug = get_query_var('pslug');
                if($product_slug){
-
-
-
-               $urlPara = "?f:urlTitle=$product_slug";
-            $product_data =  $this->productListIntegration($urlPara);
-              $product = $product_data->pageRecords[0];
+                   global $product_single_data;
+            
+              $product = $product_single_data->pageRecords[0];
+              if(isset($product_single_data->cookies)){
+               if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){                     
+                $_SESSION['cfid'] = $product_single_data->cookies['cfid'];
+                $_SESSION['cftoken'] = $product_single_data->cookies['cftoken'];
+                
+                    }
+                }
               if($product){
+                  $templates = new SW_Template_Loader;
+          
                   $product_id = $product->productID;
                   $product_reviews = new Slatwall_Reviews();
                   $reviews = $product_reviews->getProductReviews($product_id);
@@ -420,6 +640,11 @@ class Slatwall_Public extends Slatwall_Products {
                   $related_product_data = $related_products->getRelatedProducts($product_id);
                   $sku = new Slatwall_Sku();
                   $product_sku = $sku->getProductSku($product_id);
+                  $cart = new Slatwall_Cart();
+                $token = isset($_SESSION['token'])?$_SESSION['token']:'';
+                $result = $cart->get_cart($token);
+                $cart_data = json_decode($result);
+                
                   require 'partials/slatwall-public-product-details.php';
               }
                 }
@@ -430,13 +655,13 @@ class Slatwall_Public extends Slatwall_Products {
                ob_start();
                $templates = new SW_Template_Loader;
                $account = get_query_var('maslug');
-               $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+               $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); 
                 $uri_segments = explode('/', $uri_path);
                 if((in_array('order-details',$uri_segments) || in_array('cart-details',$uri_segments))&& isset($_SESSION['token']))
                 {
                     $orderId=$uri_segments[count($uri_segments)-2];
                     $order_details=$this->order_details($_SESSION['token'],array('orderID' =>$orderId,'returnJSONObjects' => 'account'));
-                }
+                } 
                if($account == 'logout' && isset($_SESSION['token'])){
                   $this->logout($_SESSION['token']);
 
@@ -451,13 +676,7 @@ class Slatwall_Public extends Slatwall_Products {
                        $_SESSION['token'] = $registration_data->token;
                         unset($_SESSION['cfid']);
                         unset($_SESSION['cftoken']);
-//                       if(isset($registration_data->cookies)){
-//                        $_SESSION['cfid'] = $registration_data->cookies['cfid'];
-//                       $_SESSION['cftoken'] = $registration_data->cookies['cftoken'];
-//                       $_SESSION['SLATWALL-NPSID'] = $registration_data->cookies['SLATWALL-NPSID'];
-//                       $_SESSION['SLATWALL-PSID'] = $registration_data->cookies['SLATWALL-PSID'];
-//                       $_SESSION['JSESSIONID'] = $registration_data->cookies['JSESSIONID'];
-//                       }
+
                        $_SESSION['login_status'] = 1;
                         wp_redirect(get_site_url().'/'.MY_ACCOUNT_SLUG.'/dashboard');
                } else {
@@ -472,11 +691,6 @@ class Slatwall_Public extends Slatwall_Products {
                    $login_status = $login->login($_POST);
                    $login_array = $login_status;
                    if($login_array && isset($login_array->token)){
-//                       $_SESSION['cfid'] = $login_status->cookies['cfid'];
-//                       $_SESSION['cftoken'] = $login_status->cookies['cftoken'];
-//                       $_SESSION['SLATWALL-NPSID'] = $login_status->cookies['SLATWALL-NPSID'];
-//                       $_SESSION['SLATWALL-PSID'] = $login_status->cookies['SLATWALL-PSID'];
-//                       $_SESSION['JSESSIONID'] = $login_status->cookies['JSESSIONID'];
 
                        $_SESSION['token'] = $login_array->token;
                         unset($_SESSION['cfid']);
@@ -484,13 +698,13 @@ class Slatwall_Public extends Slatwall_Products {
                         unset($_SESSION['JSESSIONID']);
                        $_SESSION['login_status'] = 1;
                         wp_redirect(get_site_url().'/'.MY_ACCOUNT_SLUG.'/dashboard');
-                 //  var_dump($session->userdata('auth_token'));
+                 
                    }
                } else if(isset($_POST['account']) && $_POST['account'] == 'profile_update' && isset($_SESSION['token'])){
 
                unset($_POST['account']);
                    $update_profile = $this->user_profile_update($_SESSION['token'],$_POST);
-                   //print_r($update_profile);die("myaccount");
+                  
                }
                 if(isset($_SESSION['token'])){
                  $account_details = $this->account($_SESSION['token']);
@@ -498,13 +712,13 @@ class Slatwall_Public extends Slatwall_Products {
 
                     if(!$account_id){
                      $this->logout($_SESSION['token']);
-
+                     
                     } else {
                         $request = array('accountID' => $account_id,'pageRecordsShow' => 2000,'currentPage' => 1,'orderBy','createdDateTime|DESC');
                       $all_orders = $this->all_orders($_SESSION['token'], $request);
-                   //   $all_order_history = $this->all_orders($_SESSION['token'], $request);
+                   
                       $all_cart_quotes = $this->all_cart_quotes($_SESSION['token'], $request);
-
+                      
 
                     }
                }
@@ -620,7 +834,7 @@ class Slatwall_Public extends Slatwall_Products {
            $cart = new Slatwall_Cart();
            $request = array('skuID' => $id,'quantity' => $qty,'returnJSONObjects' => 'cart');
            $token = isset($_SESSION['token'])?$_SESSION['token']:'';
-
+           
            $cart_result = $cart->add_to_cart($token,$request);
            $result_json = json_decode($cart_result);
            if(isset($result_json->token) && $result_json->token !== ""){
@@ -667,7 +881,7 @@ class Slatwall_Public extends Slatwall_Products {
            die;
 
        }
-
+       
         public function reopen_cart(){
            $token = isset($_SESSION['token'])?$_SESSION['token']:'';
             $cart = new Slatwall_Cart();
@@ -773,26 +987,26 @@ class Slatwall_Public extends Slatwall_Products {
                 $account = new Slatwall_Account($this->slatwall, $this->version);
                 $account->add_account_address($_SESSION['token'], $request_all);
                 echo $result = $checkout->add_shipping_address($_SESSION['token'], $request_all);
-
+                 
                 }
                 $cart_order = json_decode($result);
                 $_SESSION['slawall_current_order_id'] = $cart_order->cart->orderID;
             }
             die;
        }
-
+       
        public function pickup(){
           $checkout = new Slatwall_Checkout();
-          $request = array('value' => '2c9180856c26ea22016c2f7615460210','returnJSONObjects' => 'cart');
-
+          $request = array('value' => DEFAULT_LOCATION,'returnJSONObjects' => 'cart');
+          
           echo $result = $checkout->add_pickup_only($_SESSION['token'], $request);
             die;
        }
-
+       
        public function pickup_shipping(){
            $cart = new Slatwall_Cart();
            $checkout = new Slatwall_Checkout();
-           $token = $_SESSION['token'];
+           $token = $_SESSION['token'];              
            $add_pickup_location = $_POST['add_pickup_location'];
            $request = array('returnJSONObjects' => 'cart','orderItemIDList' => $_POST['sku_ids'],'fulfillmentMethodID' => $_POST['fulfillment_ids']);
            $result = $cart->change_order_fulfillment($token, $request);
@@ -801,8 +1015,8 @@ class Slatwall_Public extends Slatwall_Products {
             $cart_object->cart_data = json_decode($result);
             $cart_object->shipping_methods = $shipping_methods;
             if($add_pickup_location == true){
-          $request_pickup = array('value' => '2c9180856c26ea22016c2f7615460210','returnJSONObjects' => 'cart');
-
+          $request_pickup = array('value' => DEFAULT_LOCATION,'returnJSONObjects' => 'cart');
+          
           $result_pickup = $checkout->add_pickup_only($token, $request_pickup);
             }
             echo json_encode($cart_object);
@@ -820,7 +1034,7 @@ class Slatwall_Public extends Slatwall_Products {
            $cart_data_json = $cart->get_cart($token);
            $cart_data = json_decode($cart_data_json);
         if($same_shipping){
-
+      
           $shipping_address = isset($cart_data->cart->orderFulfillments[0]->shippingAddress)?$cart_data->cart->orderFulfillments[0]->shippingAddress:'';
        $request['newOrderPayment.billingAddress.name'] = $shipping_address->name;
        $request['newOrderPayment.billingAddress.streetAddress'] = $shipping_address->streetAddress;
@@ -873,13 +1087,7 @@ class Slatwall_Public extends Slatwall_Products {
                        unset($_SESSION['cfid']);
                        unset($_SESSION['cftoken']);
                        unset($_SESSION['JSESSIONID']);
-//                       if(isset($registration_data->cookies)){
-//                        $_SESSION['cfid'] = $registration_data->cookies['cfid'];
-//                       $_SESSION['cftoken'] = $registration_data->cookies['cftoken'];
-//                       $_SESSION['SLATWALL-NPSID'] = $registration_data->cookies['SLATWALL-NPSID'];
-//                       $_SESSION['SLATWALL-PSID'] = $registration_data->cookies['SLATWALL-PSID'];
-//                       $_SESSION['JSESSIONID'] = $registration_data->cookies['JSESSIONID'];
-//                       }
+
                        $_SESSION['login_status'] = 1;
 
                        $cart = new Slatwall_Cart();
@@ -915,11 +1123,7 @@ class Slatwall_Public extends Slatwall_Products {
                         unset($_SESSION['cfid']);
                         unset($_SESSION['cftoken']);
                         unset($_SESSION['JSESSIONID']);
-//                        $_SESSION['cfid'] = $login_status->cookies['cfid'];
-//                       $_SESSION['cftoken'] = $login_status->cookies['cftoken'];
-//                       $_SESSION['SLATWALL-NPSID'] = $login_status->cookies['SLATWALL-NPSID'];
-//                       $_SESSION['SLATWALL-PSID'] = $login_status->cookies['SLATWALL-PSID'];
-//                       $_SESSION['JSESSIONID'] = $login_status->cookies['JSESSIONID'];
+
                        $_SESSION['login_status'] = 1;
 
                        $cart = new Slatwall_Cart();
@@ -963,13 +1167,13 @@ class Slatwall_Public extends Slatwall_Products {
            if(isset($_SESSION['token'])){
                $checkout = new Slatwall_Checkout();
                $request = array('returnJSONObjects' => 'account');
-
+             
              $result = $checkout->place_order($_SESSION['token'],$request);
              $order_placed = json_decode($result);
              $_SESSION['token'] = $order_placed->token;
              if($order_placed->successfulActions > 0){
              $order_details=$this->order_details($_SESSION['token'],array('orderID' =>$_SESSION['slawall_current_order_id']));
-
+           
              }
              $response = array('order_placed' => $order_placed,'order_id' => $order_details->orderDetails->orderInfo[0]->orderNumber);
              echo json_encode($response);
@@ -1003,7 +1207,7 @@ class Slatwall_Public extends Slatwall_Products {
 
                $request = array_combine(array_column($form_data, 'name'), array_column($form_data, 'value'));
                $request['company'] = stripslashes($request['company']);
-               $request['addressID'] = $addressID;
+               $request['accountAddressID'] = $addressID;
                $request['returnJSONObjects'] = 'account';
                echo $result = $checkout->edit_account_address($_SESSION['token'], $request);
 
@@ -1200,6 +1404,38 @@ class Slatwall_Public extends Slatwall_Products {
            $templates->set_template_data( $cart_data, 'cart_data' )->get_template_part( 'content', 'mini-cart',true );
             return ob_get_clean();
         }
+        
+        public function product_search_form(){
+            ob_start();
+           $templates = new SW_Template_Loader;
+           $templates->get_template_part( 'content', 'product-search-form',true );
+            return ob_get_clean();
+        }
+        public function header_append_data(){
+            
+           $cart = new Slatwall_Cart();
+           $token = isset($_SESSION['token'])?$_SESSION['token']:'';
+           $result = $cart->get_cart($token);
+           $cart_data = json_decode($result);
+           $templates = new SW_Template_Loader;
+           $templates->set_template_data( $cart_data, 'cart_data' )->get_template_part( 'content', 'mini-cart',true );
+           $templates->get_template_part( 'content', 'product-search-form',true );
+            die;
+        }
+        
+        public function slatwall_wp_title_filter($title){    
+            $product_slug = get_query_var('pslug');
+            if($product_slug != ''){
+                global $product_single_data; 
+                $urlPara = "?f:urlTitle=$product_slug";
+            $product_single_data =  $this->productListIntegration($urlPara);
+            $product_name = $product_single_data->pageRecords[0]->productName;
+            $site_title = get_bloginfo();
+                $title = $product_name.' - '.$site_title;
+            }
+            return $title;
+        }
+
 
         public function wp_head_script(){
             $_SESSION['added_into_cart'] = 0;
@@ -1213,6 +1449,9 @@ class Slatwall_Public extends Slatwall_Products {
            $cart_result = $cart->add_to_cart($token,$request);
            $cart_added = json_decode($cart_result);
            if(isset($cart_added->successfulActions[0]) && $cart_added->successfulActions[0] == 'public:cart.addOrderItem'){
+               if(isset($cart_added->token)){
+                    $_SESSION['token'] = $cart_added->token;
+               }
                $_SESSION['added_into_cart'] = 1;
                $_SESSION['added_into_cart_error'] = 0;
            } else {

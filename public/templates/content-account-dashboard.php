@@ -1,10 +1,3 @@
-<?php>
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-?>
-
 <?php if(isset($_SESSION['token'])){
    //  wp_redirect(get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details');
     // $order_single_url = get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details'.'/'.;

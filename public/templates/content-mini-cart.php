@@ -1,10 +1,3 @@
-<?php>
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-?>
-
 <!-- Header Mini Shopping Cart Dropdown -->
 <?php  //d($cart_data); ?>
 <div class="dropdown" id="mini-cart">
@@ -26,7 +19,7 @@
                                     <img class="align-self-start img-fluid mr-2" src="https://via.placeholder.com/45x45">
                                     <?php } ?>
                                     <div class="media-body">
-                                        <a class="text-body font-weight-bold small" href="<?php echo get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->productName; ?>"><?php echo $item->sku->product->productName; ?></a>
+                                        <a class="text-body font-weight-bold small" href="<?php echo get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle; ?>"><?php echo $item->sku->product->productName; ?></a>
                                         <a href="javascript:void(0);" data-orderItemID="<?php echo $item->orderItemID; ?>" class="float-right text-secondary mini-remove-item"><i class="fa fa-times-circle"></i></a>
                                         <br>
                                         <span class="text-muted small">$<?php echo $item->extendedUnitPrice; ?></span>

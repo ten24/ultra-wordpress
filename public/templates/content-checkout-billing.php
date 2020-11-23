@@ -1,10 +1,21 @@
-<?php>
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
+<?php $searchedValue = 'termPayment';
+$neededeligiblePaymentMethodDetails = array_filter(
+    (array)$eligiblePaymentMethodDetails,
+    function ($e) use (&$searchedValue) {
+    
+    if($e->paymentMethod->paymentMethodType == $searchedValue){
+        $paymentMethodID = $e->paymentMethod->paymentMethodID;
+         return $paymentMethodID;
+    }
+       
+    }
+);
+//$first_key = array_key_first($neededeligiblePaymentMethodDetails);
+$first_key = key($neededeligiblePaymentMethodDetails);
+if(isset($neededeligiblePaymentMethodDetails) && !empty($neededeligiblePaymentMethodDetails)){
+$paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMethod->paymentMethodID;
+}
 ?>
-
 <!-- Start Body -->
 				<div class="col-xl-7 col-md-8 billinginfo" style="display: none;">
                     <!-- Start Payment Info  -->
@@ -24,7 +35,7 @@
                     <!-- Select Existing Billing Address option - hide if checkbox above is selected -->
                     <div id="billingAddressBook" class=" collapse show multi-collapse">
                     <div class="row mt-4 billing_account_address" style="display:none;">
-
+                        
                          <?php $count = 1; foreach($account_address as $address){  ?>
                         <div class="col-md-6 mb-4">
                             <!-- Shipping Info -->
@@ -45,7 +56,7 @@
                             <div class="col-md-12 mb-2">
                                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="billingAddressBook billingCreateAddress"><i class="fa fa-plus"></i> Add New Address</button>
                             </div>
-
+                            
                         </div>
                     </div>
                     <?php }  ?>
@@ -81,7 +92,7 @@
                     <div class="invalid-feedback">Name Required</div>
                                         </div>
                                 </div>
-
+                           
                         </div>
                         <div class="row">
                              <div class="col-sm-6">
@@ -98,7 +109,7 @@
                     <div class="invalid-feedback">Street Address Required</div>
                                         </div>
                                 </div>
-
+                                
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
@@ -114,7 +125,7 @@
                     <div class="invalid-feedback">City Required</div>
                                         </div>
                                 </div>
-
+                                
                         </div>
                         <div class="row">
                             <?php if(isset($countries)){ ?>
@@ -143,7 +154,7 @@
                     <div class="invalid-feedback">State Required</div>
                                         </div>
                                 </div>
-
+                                
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
@@ -160,8 +171,8 @@
                         </form>
                     </div>
                                 </div>
-
-
+                    
+                    
                     <!-- Select Payment Method -->
                     <h5 class="text-secondary my-4">Select Payment Method</h5>
 
@@ -244,7 +255,7 @@
                         				</div>
                         			</div>
                         		</div>
-                                 <input type="hidden" name="order_type" value="credit_card">
+                                 <input type="hidden" name="order_type" value="credit_card">                           
                                 <div class="form-group w-50">
                                     <!-- Toggle disabled attribute after form submit validation to continue -->
                                     <button class="btn btn-secondary btn-block" type="submit" value="Continue">Continue</button>
@@ -253,7 +264,7 @@
                             <!-- /End Credit Card Payment Form -->
                     	</div>
 						<!-- /End Credit Card Payment Dropdown -->
-
+                         <?php if(isset($paymentMethodID)){ ?>
                         <!-- Purchase Order Payment Radio Select -->
                 		<div class="custom-control custom-radio">
                 			<input class="custom-control-input" id="checkoutPaymentPurchaseOrder" name="payment" type="radio" data-toggle="collapse" data-action="hide" data-target="#checkoutPaymentPurchaseOrder">
@@ -271,7 +282,7 @@
                                     <input class="form-control required" type="text" id="purchaseOrder" name="newOrderPayment.purchaseOrderNumber">
                                     <div class="invalid-feedback">Purchase Order # Required</div>
                                 </div>
-                                <input type="hidden" name="newOrderPayment.paymentMethod.paymentMethodID" value="2c91808e6f881fe5016fa92a3d9b0880">
+                                <input type="hidden" name="newOrderPayment.paymentMethod.paymentMethodID" value="<?php echo $paymentMethodID; ?>">
                                 <input type="hidden" name="order_type" value="purchase_order">
                                 <div class="form-group w-50">
                                     <!-- Toggle disabled attribute after form submit validation to continue -->
@@ -281,6 +292,7 @@
                             <!-- /End Purchase Order Payment Form -->
                         </div>
 						<!-- /End Purchase Order Payment Dropdown -->
+                         <?php } ?>
                     </div>
                     <!-- /End Payment Information -->
 				</div>

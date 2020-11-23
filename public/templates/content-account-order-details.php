@@ -1,10 +1,3 @@
-<?php>
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-?>
-
 <?php //d($order_details); ?>
 <div class="container my-5">
 <!-- <h1 class="mb-4">Order Details</h1> -->
@@ -89,7 +82,7 @@
                                 </a>
                                     <a class="text-body font-weight-bold" href="<?php echo $product_single_url; ?>"><?php echo $val->sku_product_productName;?></a> <br>
                                     <span class="text-muted"><?php echo $val->sku_calculatedSkuDefinition; ?></span>
-
+                                    
                             </div>
                             <div class="col-2 col-lg-2">
                                 <span class="text-muted">$<?php  echo price_number_format($val->price);?></span>
@@ -137,7 +130,7 @@
                                         <address class="small mb-0">
                                         <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_name;?><br>
                                             <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_streetAddress;?><br>
-                                            <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_city;?> <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_city?', ':' '; ?>
+                                            <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_city;?> <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_city?', ':' '; ?> 
                                             <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_stateCode.' '. $order_details->orderDetails->orderInfo['0']->billingAddress_postalCode;?><br>
                                             <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_countryCode;?>
                                         </address>
@@ -145,10 +138,10 @@
                                                           <address class="small mb-0">
                                         <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_name;?><br>
                                             <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_streetAddress;?><br>
-                                            <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_city;?> <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_city?', ':' '; ?>
+                                            <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_city;?> <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_city?', ':' '; ?> 
                                             <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_stateCode.' '. $order_details->orderDetails->orderPayments['0']->billingAddress_postalCode;?><br>
                                             <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_countryCode;?>
-                                        </address>
+                                        </address>  
                                                         <?php } ?>
                     				</div>
                                     <div class="col-6 col-md-6 mb-4">
