@@ -1,8 +1,4 @@
 <?php
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
 
 /**
  * Provide a public-facing view for the plugin
@@ -36,7 +32,7 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
                     		<div id="collapse1" class="collapse show">
                     			<div class="card-body">
                             <div class="inner">
-                              <input type="text" id="search_value" name="search" class="form-control form-control-sm">
+                                <input type="text" id="search_value" name="search" class="form-control form-control-sm" value="<?php echo isset($search_val)?$search_val:''; ?>">
                               <div class="invalid-feedback">Please enter search value</div>
                               <input type="button" id="search" class="btn btn-sm btn-block btn-secondary mt-3" value="Search">
                          	  </div>
@@ -77,7 +73,7 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
                                 </div>
                                 <div class="col">
                                   <input type="text" id="max" name="max" class="form-control form-control-sm" placeholder="Max" value="">
-
+                               
                                 </div>
                                   <div class="invalid-feedback price-range-error ml-1">Please enter range value</div>
                               </div>
@@ -87,7 +83,13 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
 			                    </div>
                     		</div>
                     	</div>
-                        <?php if($brands->pageRecords){ ?>
+                        <?php 
+                        if(isset($urlTitle_slug) && isset($template_name) && $template_name == 'brand'){  ?>
+                           <div class="form-check">
+                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="brands" type="checkbox" id="<?php echo $brands->pageRecords[$value_key]->urlTitle; ?>" value="<?php echo $brands->pageRecords[$value_key]->brandID; ?>"  checked>
+                            <label class="form-check-label" for="<?php echo $brands->pageRecords[$value_key]->urlTitle; ?>"></label>
+                           </div>
+                                <?php } else  if($brands->pageRecords){ ?>
                     	<div class="card">
                     		<div class="card-header" id="heading3">
                             <h5 class="mb-0">
@@ -117,8 +119,14 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
                     			</div>
                     		</div>
                     	</div>
-                      <?php } ?>
-                      <?php  if($categories->pageRecords){ ?>
+                      <?php }
+                      if(isset($urlTitle_slug) && isset($template_name) && $template_name == 'category'){
+                        $value_key = array_search($urlTitle_slug, array_column($categories->pageRecords, 'urlTitle')); ?>
+                           <div class="form-check">
+                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="categories" type="checkbox" id="<?php echo $categories->pageRecords[$value_key]->urlTitle; ?>" value="<?php echo $categories->pageRecords[$value_key]->categoryID; ?>"  checked>
+                            <label class="form-check-label" for="<?php echo $categories->pageRecords[$value_key]->urlTitle; ?>"></label>
+                           </div>
+                                <?php } else if($categories->pageRecords){ ?>
                         <div class="card">
                     		<div class="card-header" id="heading4">
                             <h5 class="mb-0">
@@ -146,8 +154,12 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
                           </div>
                     		</div>
                     	</div>
-                        <?php } ?>
-                         <?php if($types->pageRecords){ ?>
+                        <?php }  if(isset($urlTitle_slug) && isset($template_name) && $template_name == 'type'){ ?>
+                           <div class="form-check">
+                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="types" type="checkbox" id="<?php echo $types->pageRecords[$value_key]->urlTitle; ?>" value="<?php echo $types->pageRecords[$value_key]->productTypeID; ?>"  checked>
+                            <label class="form-check-label" for="<?php echo $types->pageRecords[$value_key]->urlTitle; ?>"></label>
+                           </div>
+                                <?php } else if($types->pageRecords){ ?>
                         <div class="card">
                     		<div class="card-header" id="heading5">
                             <h5 class="mb-0">
@@ -175,9 +187,13 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
                     			</div>
                     		</div>
                     	</div>
-                         <?php } ?>
-
-                             <?php if($options->pageRecords){ ?>
+                         <?php } 
+                         if(isset($urlTitle_slug) && isset($template_name) && $template_name == 'option'){ ?>
+                           <div class="form-check">
+                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="options" type="checkbox" id="<?php echo $options->pageRecords[$value_key]->optionID; ?>" value="<?php echo $options->pageRecords[$value_key]->optionID; ?>"  checked>
+                            <label class="form-check-label" for="<?php echo $options->pageRecords[$value_key]->optionName; ?>"></label>
+                           </div>
+                                <?php } else if($options->pageRecords){ ?>
                         <div class="card">
                     		<div class="card-header" id="heading6">
                             <h5 class="mb-0">
@@ -206,7 +222,7 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
                     		</div>
                     	</div>
                          <?php } ?>
-
+                            
                     </form>
                     </div>
 				</div>

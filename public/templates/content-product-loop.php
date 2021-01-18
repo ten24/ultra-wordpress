@@ -1,10 +1,3 @@
-<?php>
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-?>
-
 <?php
 $image_url = DOMAIN.$product->images[2];
 $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$product->urlTitle; ?>
@@ -26,16 +19,24 @@ $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$product->urlTi
                     <?php } ?>
             </div>
           <div class="card-footer">
-              <?php if($product->calculatedQATS){ ?>
+              <?php
+              if(isset($product->baseProductTypeSystemCode) &&  $product->baseProductTypeSystemCode == 'productBundle'){
+               ?>  
+              <a class="btn btn-primary btn-block" href="<?php echo $product_single_url; ?>">Go to Product</a>
+              <?php 
+              } else {
+              if($product->calculatedQATS){ ?>
               <form action="" method="post" class="listing-add-to-cart">
                   <input type="hidden" name="sku_id" value="<?php echo  $product->defaultSku_skuID; ?>">
                             <button type="submit" class="btn btn-primary btn-block" <?php echo $product->calculatedQATS>=1?'':'disabled'; ?>>Add to Cart</button>
-
+                            
               </form>
               <?php } else {?>
               <p class="out_of_stock">Out of Stock</p>
-              <?php } ?>
+              <?php } 
+              }
+              ?>
             </div>
-
+       
     </div>
 </div>
