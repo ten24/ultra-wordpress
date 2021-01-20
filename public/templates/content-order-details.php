@@ -1,3 +1,10 @@
+<?php>
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
+
 <?php// d($orders); ?>
 <div class="container my-5">
         <div class="row">

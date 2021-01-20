@@ -1,3 +1,10 @@
+<?php>
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
+
 <!-- Header Mini Shopping Cart Dropdown -->
 <?php  //d($cart_data); ?>
 <div class="dropdown" id="mini-cart">
@@ -12,7 +19,7 @@
                             <!-- Show order items if exist -->
                             <ul class="list-unstyled p-3 col-print-12" style="width: 300px;">
                                   <?php if(isset($bundle_items) && !empty($bundle_items)){ ?>
-                                <?php foreach($bundle_items as $item_key => $item){ 
+                                <?php foreach($bundle_items as $item_key => $item){
                                     if(isset($normal_items->$item_key)){
                                     unset($normal_items->$item_key);
                                 }

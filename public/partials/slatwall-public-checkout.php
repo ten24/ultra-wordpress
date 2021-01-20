@@ -1,3 +1,10 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+ ?>
+
 <?php //d($availale_payment_method);
 //echo $_SESSION['token'];
 $cart_data = json_decode($cart_data);
@@ -16,7 +23,7 @@ foreach($cart_data->orderFulfillments as $orderFulfillments){
       if(isset($orderFulfillments->fulfillmentMethod->fulfillmentMethodType) && $orderFulfillments->fulfillmentMethod->fulfillmentMethodType == 'shipping'){
            $orderFulfillmentID = $orderFulfillments->orderFulfillmentID;
            break;
-        }   
+        }
 }
 $account = json_decode($account);
 $account_address = $account->accountAddresses;
@@ -44,7 +51,7 @@ $account_address = $account->accountAddresses;
 
                /* Order Review */
                $templates->set_template_data( $cart_data, 'cart_data' )->get_template_part( 'content', 'checkout-order-review',true );
-               
+
                /* Order Confirm */
                $templates->set_template_data( $cart_data, 'cart_data' )->get_template_part( 'content', 'checkout-order-confirm',true );
 
@@ -88,4 +95,3 @@ if (typeof token !== 'undefined') {
 /********************** End Hide and show shipping section based on login ********************/
 
 </script>
-

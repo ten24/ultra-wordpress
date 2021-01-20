@@ -139,8 +139,7 @@ class Slatwall {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $slatwall, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $slatwall, 'enqueue_scripts' );
-                $this->loader->add_action( 'admin_menu', $slatwall, 'menu_options' );
-
+		$this->loader->add_action( 'admin_menu', $slatwall, 'menu_options' );
 	}
 
 	/**

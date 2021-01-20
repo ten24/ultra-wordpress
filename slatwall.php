@@ -1,4 +1,8 @@
 <?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
 
 /**
  * The slatwallbootstrap file
@@ -27,8 +31,8 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your slatwalland update it as you release new versions.
  */
-define( 'SLATWALL_VERSION', '1.0.0' );
-define( 'SLATWALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define('SLATWALL_VERSION', '1.0.0' );
+define('SLATWALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define('AUTHORIZATION','');
 define('SLATWALL_PLUGIN_DIR_ULR',plugin_dir_url( __FILE__ ));
 define('PRODUCT_SINGLE_SLUG','product');
