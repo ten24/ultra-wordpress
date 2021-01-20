@@ -1,13 +1,19 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
 <?php $searchedValue = 'termPayment';
 $neededeligiblePaymentMethodDetails = array_filter(
     (array)$eligiblePaymentMethodDetails,
     function ($e) use (&$searchedValue) {
-    
+
     if($e->paymentMethod->paymentMethodType == $searchedValue){
         $paymentMethodID = $e->paymentMethod->paymentMethodID;
          return $paymentMethodID;
     }
-       
+
     }
 );
 //$first_key = array_key_first($neededeligiblePaymentMethodDetails);
@@ -35,7 +41,7 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                     <!-- Select Existing Billing Address option - hide if checkbox above is selected -->
                     <div id="billingAddressBook" class=" collapse show multi-collapse">
                     <div class="row mt-4 billing_account_address" style="display:none;">
-                        
+
                          <?php $count = 1; foreach($account_address as $address){  ?>
                         <div class="col-md-6 mb-4">
                             <!-- Shipping Info -->
@@ -56,7 +62,7 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                             <div class="col-md-12 mb-2">
                                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="billingAddressBook billingCreateAddress"><i class="fa fa-plus"></i> Add New Address</button>
                             </div>
-                            
+
                         </div>
                     </div>
                     <?php }  ?>
@@ -92,7 +98,7 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                     <div class="invalid-feedback">Name Required</div>
                                         </div>
                                 </div>
-                           
+
                         </div>
                         <div class="row">
                              <div class="col-sm-6">
@@ -109,7 +115,7 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                     <div class="invalid-feedback">Street Address Required</div>
                                         </div>
                                 </div>
-                                
+
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
@@ -125,7 +131,7 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                     <div class="invalid-feedback">City Required</div>
                                         </div>
                                 </div>
-                                
+
                         </div>
                         <div class="row">
                             <?php if(isset($countries)){ ?>
@@ -154,7 +160,7 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                     <div class="invalid-feedback">State Required</div>
                                         </div>
                                 </div>
-                                
+
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
@@ -171,8 +177,8 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                         </form>
                     </div>
                                 </div>
-                    
-                    
+
+
                     <!-- Select Payment Method -->
                     <h5 class="text-secondary my-4">Select Payment Method</h5>
 
@@ -256,7 +262,7 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                         				</div>
                         			</div>
                         		</div>
-                                 <input type="hidden" name="order_type" value="credit_card">                           
+                                 <input type="hidden" name="order_type" value="credit_card">
                                 <div class="form-group w-50">
                                     <!-- Toggle disabled attribute after form submit validation to continue -->
                                     <button class="btn btn-secondary btn-block" type="submit" value="Continue">Continue</button>

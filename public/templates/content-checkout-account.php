@@ -1,3 +1,9 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
 <!-- Start Body -->
 <div class="col-xl-7 col-md-8 checkoutforms">
 	<!-- Account Login / Create Account -->
@@ -6,7 +12,7 @@
 	<div class="tab-content" id="pills-tabContent">
 		<!-- Account Login -->
 		<div class="tab-pane fade show active" id="pills-login">
-                    <p>Login with your account to continue, or <a id="pills-create-account-tab" href="#pills-create-account" 
+                    <p>Login with your account to continue, or <a id="pills-create-account-tab" href="#pills-create-account"
                                 onclick="jQuery('#pills-login').hide(); jQuery('#pills-password').hide(); jQuery('#pills-create-account').show()">create a new account</a>.</p>
 			<div class="alert alert-danger small accounterror" style="display: none;">The username or password that you entered is invalid.</div>
 			<form action="user_login" class="checkout_login_register" id="login_form">
@@ -37,7 +43,7 @@
 		<!-- /End Account Login -->
                 <!-- Forget Password -->
                 <div class="tab-pane" id="pills-password">
-                    
+
                              <h4>Forgot Password</h4>
 
                             <!-- Forgot Password error display message -->

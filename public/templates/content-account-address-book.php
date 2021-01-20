@@ -1,3 +1,9 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
  <div class="container">
         <h1 class="mb-4">Account Address Book</h1>
         <div class="row">
@@ -17,7 +23,7 @@
 
                 <div class="row">
 
-				
+
                <?php foreach($accounts->accountAddresses as $address) {
 
                    if($accounts->primaryAddress->accountAddressID==$address->accountAddressID){
@@ -52,7 +58,7 @@
                                 <small class="font-weight-bold"><a href="#" class="btn bg-transparent text-primary p-0 d-inline-block set-primary-address" data-id="<?php echo $address->accountAddressID; ?>">Set Primary Address</a></small>
                             </div>
                             <div class="card-body">
-                                <address> 
+                                <address>
 								<?php echo $address->accountAddressName; ?><br>
                                                                 <?php echo $address->address->name; ?><br>
 								<?php echo $address->address->company; ?><br>
@@ -174,4 +180,3 @@
     	</div>
     </div>
     <div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
-   

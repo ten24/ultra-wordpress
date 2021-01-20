@@ -1,3 +1,9 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
 <?php if(isset($_SESSION['token'])){
      wp_redirect(get_site_url().'/'.MY_ACCOUNT_SLUG.'/dashboard');
 } ?>
@@ -64,13 +70,13 @@ jQuery(document).ready(function(){
         'action' : action,
         'form_data': form_data
     };
-    
+
     jQuery.post(ajax_url, data, function( result ) {
-       
+
     var response = jQuery.parseJSON(result);
     console.log(response);
     if(response.successfulActions.length>0)
-    {  
+    {
          localStorage.setItem("Status",'succes')
     window.location.reload();
     } else if(response.failureActions.length>0)
@@ -78,7 +84,7 @@ jQuery(document).ready(function(){
     window.location.reload();
     }
     } );
-        
+
     }
     jQuery(document).on('submit','#forget_password',function(e){
         e.preventDefault();
@@ -93,11 +99,11 @@ jQuery(document).ready(function(){
 					 jQuery(this).removeClass('is-invalid');
 				 }
 			 });
-       var form_data = jQuery('#forget_password').serializeArray(); 
+       var form_data = jQuery('#forget_password').serializeArray();
        var action = jQuery('#forget_password').attr('action');
 	   if(error_require == 0) {
         forget_password(form_data,action);
-			 }      
+			 }
        return false;
     });
 </script>
