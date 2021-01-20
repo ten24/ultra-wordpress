@@ -29,7 +29,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'SLATWALL_VERSION', '1.0.0' );
 define( 'SLATWALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define('AUTHORIZATION','dGVuMjQ6NDBCbHVlOTY=');
+define('AUTHORIZATION','');
 define('SLATWALL_PLUGIN_DIR_ULR',plugin_dir_url( __FILE__ ));
 define('PRODUCT_SINGLE_SLUG','product');
 define('PRODUCT_SEARCH_SLUG','search-product');
@@ -43,7 +43,7 @@ define('CART','cart');
 define('PRODUCT_LISTING_SLUG','/');
 define('MERCHANDISED_PRODUCT', 'merchandised-product-listing');
 define('DEFAULT_LOCATION', '2c9180856c26ea22016c2f7615460210');
-                      
+
 register_activation_hook( __FILE__, 'install' );
 
 /**
@@ -86,7 +86,7 @@ function run_slatwall() {
 
 	$slatwall = new Slatwall();
 	$slatwall->run();
-       
+
 }
 
 if( ! class_exists( 'Slatwall_Template_Loader' ) ) {
@@ -187,13 +187,13 @@ function add_alexes_rules_type() {
     add_rewrite_rule('^'.$page_slug.'/([^/]*)/?','index.php?pagename='.$page_slug.'&tslug=$matches[1]','top');
 }
 add_action('init', 'do_output_buffer');
-function do_output_buffer() 
+function do_output_buffer()
 {
      ob_start();
 }
 
 function price_number_format($amount){
-    
+
     return number_format((float)$amount, 2, '.', '');
 }
 
