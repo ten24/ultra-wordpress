@@ -6,6 +6,11 @@
 ?>
 
 <?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+
 $image_url = DOMAIN.$product->images[2];
 $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$product->urlTitle; ?>
 <div class="col-lg-4 col-md-6 mb-4">

@@ -1,7 +1,9 @@
+<?php
 /*
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
+ ?>
 <form action="" method="POST">
     <?php $rand=rand(); $_SESSION['rand']=$rand; ?>
     <input type="hidden" value="<?php echo $rand; ?>" name="randcheck" />
