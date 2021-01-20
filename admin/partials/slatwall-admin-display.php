@@ -39,7 +39,7 @@
         <!-- Header Section (Logo) -->
         <div class="row py-2 align-items-center header-section">
           <div class="col-sm-6 left-container logo">
-            <img src="<?php echo content_url(); ?>/plugins/slatwall/admin/images/logo.png" alt="SlatWall Logo" class="img-fluid" />
+            <img src="<?php echo content_url(); ?>/plugins/slatwall/admin/images/slatwall-logo.svg" alt="Slatwall Commerce" class="img-fluid w-25" />
           </div>
           <div class="col-sm-6 text-right right-container email-text">
             <a href="mailto: www.slatwallcommerce.com" class="text-body">www.slatwallcommerce.com</a>
