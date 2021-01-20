@@ -5,7 +5,7 @@
  */
 ?>
 
-!-- Start Body -->
+<!-- Start Body -->
 <?php $cart_data;
 $shipping_address = isset($cart_data->cart->orderFulfillments[0]->shippingAddress)?$cart_data->cart->orderFulfillments[0]->shippingAddress:'';
 $billing_address = isset($cart_data->orderPayments[0]->billingAddress)?$cart_data->orderPayments[0]->billingAddress:'';
