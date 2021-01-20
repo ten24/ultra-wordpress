@@ -4,7 +4,6 @@
  * See License.txt for license details.
  */
 ?>
-
 <!-- Start Body -->
 <?php $cart_data;
 $shipping_address = isset($cart_data->cart->orderFulfillments[0]->shippingAddress)?$cart_data->cart->orderFulfillments[0]->shippingAddress:'';

@@ -4,7 +4,6 @@
  * See License.txt for license details.
  */
 ?>
-
 <div id="pw-footer">
 	<p>This is the footer area.</p>
 </div>

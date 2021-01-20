@@ -4,7 +4,6 @@
  * See License.txt for license details.
  */
 ?>
-
 <!-- Header Mini Shopping Cart Dropdown -->
 <?php  //d($cart_data); ?>
 <div class="dropdown" id="mini-cart">

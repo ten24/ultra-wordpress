@@ -4,7 +4,6 @@
  * See License.txt for license details.
  */
 ?>
-
  <!-- Account Sidebar Navigation -->
  <?php $account_url = get_site_url().'/'.MY_ACCOUNT_SLUG; ?>
  <?php //echo $account_url; ?>

@@ -4,7 +4,6 @@
  * See License.txt for license details.
  */
 ?>
-
 <?php $searchedValue = 'termPayment';
 $neededeligiblePaymentMethodDetails = array_filter(
     (array)$eligiblePaymentMethodDetails,

@@ -3,7 +3,8 @@
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
- 
+?>
+<?php
 function multiple_in_array($cart_data_items,$seach_value){
     foreach($cart_data_items as $cart_data_item){
 

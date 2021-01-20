@@ -1,3 +1,9 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
 <?php if(isset($_SESSION['token'])){
     $orderDeliveries = $orders->ordersOnAccount->orderDeliveries;
    //  wp_redirect(get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details');
@@ -35,7 +41,7 @@
           	    </tr>
             </thead>
           	<tbody>
-              <?php $order_count = 1; foreach($orders->ordersOnAccount->ordersOnAccount as $order) {  
+              <?php $order_count = 1; foreach($orders->ordersOnAccount->ordersOnAccount as $order) {
                   if($order_count < 6){
                   $order_id = $order->orderID;
 $orderDelivery = array_filter($orderDeliveries, function($ar,$ak)  use ($order_id)  {
@@ -47,10 +53,10 @@ $orderDelivery = array_filter($orderDeliveries, function($ar,$ak)  use ($order_i
             if(!empty($orderDelivery)){
                 $tracking_ids = array_column($orderDelivery,'trackingNumber');
             }
-           
+
                   ?>
           			<tr>
-                 
+
                 	<td><?php echo $order->orderNumber?></td>
                   <td><?php echo  DateTime::createFromFormat("F, j Y H:i:s O",$order->createdDateTime)->format('F j, Y');//$order->createdDateTime; //get_date_from_gmt(strtotime($order->createdDateTime),'M d, Y'); ?></td>
                   <td style="text-align: right; vertical-align: middle;"><?php echo $order->calculatedTotalItemQuantity?></td>

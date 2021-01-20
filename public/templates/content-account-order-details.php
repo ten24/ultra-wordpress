@@ -4,7 +4,6 @@
  * See License.txt for license details.
  */
 ?>
-
 <?php $order_fulfillments = $order_details->orderDetails->orderFulfillments;?>
 <div class="container my-5">
 <!-- <h1 class="mb-4">Order Details</h1> -->
