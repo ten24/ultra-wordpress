@@ -1,3 +1,8 @@
+/**
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+
 // (function( $ ) {
 // 	'use strict';
 
@@ -64,7 +69,7 @@ function findGetParameter(parameterName) {
 
 jQuery(document).ready(function() {
    jQuery('.specific-products').parents('.post-inner').css('padding','0');
-    
+
 
 	jQuery(".show-more").click(function(){
 		 jQuery(this).toggleClass("Show");
@@ -83,7 +88,7 @@ function header_append_data(){
 
 
     } );
-    
+
 }
 
 
@@ -108,7 +113,7 @@ function update_cart_items(orderItems,bundleItems = '',normal_items = ''){
              var item_string = '<div class="row border-bottom mb-5 pb-5 cart-row" data-skuid="'+ item.sku.skuID + '" data-orderItemID="'+ item.orderItemID +'"><div class="col-sm-2 col-3"><a href="'+ product_single_url +'"><img class="img-fluid rounded-sm" src="'+image_url+'"></a></div><div class="col-sm-4 col-9"><a href="'+product_single_url+'"><h5 style="color:#000;">'+ item.sku.product.productName +'</h5></a>';
          if(typeof(item.items) != "undefined"){
             var bundle_skus = item.items;
-            bundle_skus.forEach(function(bundle_sku) {   
+            bundle_skus.forEach(function(bundle_sku) {
         item_string += '<p class="text-muted small mb-0">'+ bundle_sku[0].productBundleGroup.productBundleGroupType.typeName+ '</p><p class="font-weight-bold small">'+ bundle_sku[0].sku.product.productName + ' ('+ bundle_sku[0].quantity +')</p>';
         });
             }
@@ -117,11 +122,11 @@ function update_cart_items(orderItems,bundleItems = '',normal_items = ''){
 //        if(typeof(item.items) != "undefined"){
 //            var bundle_skus = item.items;
 //            bundle_skus.forEach(function(bundle_sku) {
-//        jQuery('.card-body.cart-items').append('<p class="text-muted small mb-0">'+ bundle_sku[0].productBundleGroup.productBundleGroupType.typeName+ '</p><p class="font-weight-bold small">'+ bundle_sku[0].sku.product.productName +'</p>');    
+//        jQuery('.card-body.cart-items').append('<p class="text-muted small mb-0">'+ bundle_sku[0].productBundleGroup.productBundleGroupType.typeName+ '</p><p class="font-weight-bold small">'+ bundle_sku[0].sku.product.productName +'</p>');
 //    });
-//            }     
+//            }
 //        jQuery('.card-body.cart-items').append('<small class="text-muted">'+item.sku.skuDefinition+'</small></div><div class="col-sm-12 col-md-6 d-none d-sm-block"><div class="row"><div class="col-sm-4"><h6><span class="text-muted">$</span>'+ item.extendedUnitPrice.toFixed(2) +'</h6></div><div class="col-sm-3 item-quantity"><input type="number" class="form-control form-control-sm text-center" min="1" value="'+ item.quantity +'"><button class="btn btn-secondary btn-sm cart-update"><small>Update</small></button></div><div class="col-sm-4"><h6><span class="text-muted">$</span><strong>'+ item.extendedPrice.toFixed(2) +' </strong></h6></div><div class="col-sm-1 p-0"><span class="btn badge badge-danger item-remove">×</span></div></div></div></div>');
-//                    
+//
             jQuery('.card-body.cart-items').append(item_string);
             }
             for (var key in normal_items) {
@@ -135,9 +140,9 @@ function update_cart_items(orderItems,bundleItems = '',normal_items = ''){
             } else {
                 var image_url = 'http://placehold.it/100x100';
             }
-             
+
             jQuery('.card-body.cart-items').append('<div class="row border-bottom mb-5 pb-5 cart-row" data-skuid="'+ item.sku.skuID + '" data-orderItemID="'+ item.orderItemID +'"><div class="col-sm-2 col-3"><a href="'+ product_single_url +'"><img class="img-fluid rounded-sm" src="'+image_url+'"></a></div><div class="col-sm-4 col-9"><a href="'+product_single_url+'"><h5 style="color:#000;">'+ item.sku.product.productName +'</h5></a><small class="text-muted">'+item.sku.skuDefinition+'</small></div><div class="col-sm-12 col-md-6 d-none d-sm-block"><div class="row"><div class="col-sm-4"><h6><span class="text-muted">$</span>'+ item.extendedUnitPrice.toFixed(2) +'</h6></div><div class="col-sm-3 item-quantity"><input type="number" class="form-control form-control-sm text-center" min="1" value="'+ item.quantity +'"><button class="btn btn-secondary btn-sm cart-update"><small>Update</small></button></div><div class="col-sm-4"><h6><span class="text-muted">$</span><strong>'+ item.extendedPrice.toFixed(2) +' </strong></h6><small class="blank_quantity" style="display:none;font-size: 12px;color: red;">Please enter quantity</small></div><div class="col-sm-1 p-0"><span class="btn badge badge-danger item-remove">×</span></div></div></div></div>');
-                               
+
                                     }
 //        orderItems.forEach(function(item) {
 //            var site_url = site_url;
@@ -149,15 +154,15 @@ function update_cart_items(orderItems,bundleItems = '',normal_items = ''){
 //            } else {
 //                var image_url = 'http://placehold.it/100x100';
 //            }
-//             
+//
 //            jQuery('.card-body.cart-items').append('<div class="row border-bottom mb-5 pb-5 cart-row" data-skuid="'+ item.sku.skuID + '" data-orderItemID="'+ item.orderItemID +'"><div class="col-sm-2 col-3"><a href="'+ product_single_url +'"><img class="img-fluid rounded-sm" src="'+image_url+'"></a></div><div class="col-sm-4 col-9"><a href="'+product_single_url+'"><h5 style="color:#000;">'+ item.sku.product.productName +'</h5></a><small class="text-muted">'+item.sku.skuDefinition+'</small></div><div class="col-sm-12 col-md-6 d-none d-sm-block"><div class="row"><div class="col-sm-4"><h6><span class="text-muted">$</span>'+ item.extendedUnitPrice.toFixed(2) +'</h6></div><div class="col-sm-3 item-quantity"><input type="number" class="form-control form-control-sm text-center" min="1" value="'+ item.quantity +'"><button class="btn btn-secondary btn-sm cart-update"><small>Update</small></button></div><div class="col-sm-4"><h6><span class="text-muted">$</span><strong>'+ item.extendedPrice.toFixed(2) +' </strong></h6></div><div class="col-sm-1 p-0"><span class="btn badge badge-danger item-remove">×</span></div></div></div></div>');
-//                               
+//
 //                                    });
-                                    
+
     }
-    
+
     function update_cart_payment(cart_data){
-       
+
         jQuery('.order-summary').html('<li class="list-group-item m-0">Item Total <span class="float-right"><strong>$'+cart_data.cart.subtotal+'</strong></span></li><li class="list-group-item m-0">Shipping & Delivery <span class="float-right"><strong>$'+cart_data.cart.fulfillmentTotal+'</strong></span></li><li class="list-group-item m-0">Tax <span class="float-right"><strong>$'+cart_data.cart.taxTotal+'</strong></span></li>');
         if(cart_data.cart.orderAndItemDiscountAmountTotal > 0){
          jQuery('.order-summary').append('<li class="list-group-item m-0">Discount <span class="float-right"><span class="badge badge-success">- $'+ cart_data.cart.orderAndItemDiscountAmountTotal+'</span></li>');
@@ -195,7 +200,7 @@ function update_mini_cart(cart_data,bundleItems = '',normal_items = ''){
                         html_data += '<small>Qty: ' + item.quantity + '</small>';
                         if(typeof(item.items) !== "undefined"){
             var bundle_skus = item.items;
-            bundle_skus.forEach(function(bundle_sku) {   
+            bundle_skus.forEach(function(bundle_sku) {
         html_data += '<p class="text-muted medium mb-0">'+ bundle_sku[0].productBundleGroup.productBundleGroupType.typeName+ '</p><p class="font-weight-bold medium">'+ bundle_sku[0].sku.product.productName +'</p>';
         });
             }
@@ -203,7 +208,7 @@ function update_mini_cart(cart_data,bundleItems = '',normal_items = ''){
                         html_data += '</li>';
                                  }
                              }
-    
+
                                    for (var key in normal_items) {
              var item = normal_items[key];
                     html_data += '<li class="media mb-3">';
@@ -257,7 +262,7 @@ function remove_mini_cart_item(id){
        var item_id = jQuery(this).attr('data-orderItemID');
        remove_mini_cart_item(item_id);
     });
-    
+
     function reopen_cart(orderID){
          var data = {
         'action' : 'reopen_cart',
@@ -276,10 +281,10 @@ function remove_mini_cart_item(id){
     } );
 
     }
-    
+
     jQuery(document).on('click','.cart_reopen',function(){
        var orderID = jQuery(this).attr('id');
-      
+
        reopen_cart(orderID);
     });
 
@@ -422,7 +427,7 @@ function add_to_cart(sku_id,qty){
                jQuery('.failed-add-cart').show();
             }
                 } else {
-                    jQuery('.failed-add-cart').show(); 
+                    jQuery('.failed-add-cart').show();
                 }
             }
 
@@ -430,13 +435,13 @@ function add_to_cart(sku_id,qty){
     } );
 
     }
-    
+
     jQuery(document).on('click','.bundle-add-to-cart',function(e){
        console.log(jQuery(this).val());
        jQuery('.bundle-product-form .card').each(function(){
            var sku_value_count = 0;
            if(jQuery(this).find('.selection_limit_area').hasClass('input_selection')){
-           
+
           var data_min_value = jQuery(this).find('.min-max-sku-selection').attr('data-min-value');
           var data_max_value = jQuery(this).find('.min-max-sku-selection').attr('data-max-value');
           jQuery(this).find('.row.mt-3').each(function(){
@@ -454,11 +459,11 @@ function add_to_cart(sku_id,qty){
         return false;
       }
       } else {
-          
+
           if(jQuery(this).find('.select-option').val() != ''){
               sku_value_count++;
           }
-          
+
            if(sku_value_count >= 1){
               console.log(2);
            jQuery(this).find('.select-option').removeClass('red_border');
@@ -468,11 +473,11 @@ function add_to_cart(sku_id,qty){
           e.preventDefault();
         return false;
       }
-      
+
       }
-         
+
        });
-        
+
     });
 
     jQuery(document).on('submit','.listing-add-to-cart',function(e){
@@ -484,20 +489,20 @@ function add_to_cart(sku_id,qty){
     });
     function check_variation_selection(){
         var variation_flag = 0;
-      
+
         jQuery('.select-variation').parents('.col-md-8').each(function(){
-          
+
      if(jQuery(this).find('select').children("option:selected").val() != ''){
         variation_flag = 1;
      } else {
           variation_flag = 0;
           return variation_flag;
-     }  
-     
+     }
+
     });
     return variation_flag;
     }
-    function arraysEqual(_arr1, _arr2) {    
+    function arraysEqual(_arr1, _arr2) {
   if (
       !Array.isArray(_arr1)
       || !Array.isArray(_arr2)
@@ -505,16 +510,16 @@ function add_to_cart(sku_id,qty){
       ) {
         return false;
       }
-    
+
     const arr1 = _arr1.concat().sort();
     const arr2 = _arr2.concat().sort();
-    
+
     for (let i = 0; i < arr1.length; i++) {
         if (arr1[i] !== arr2[i]) {
             return false;
          }
     }
-    
+
     return true;
 }
 
@@ -534,27 +539,27 @@ function add_to_cart(sku_id,qty){
     }
         if(current_selected_option_id != ''){
         jQuery(this).parents('.col-md-8').next().find('select').prop("disabled", false);
-       
+
     } else {
         jQuery(this).parents('.col-md-8').next().find('select').prop("disabled", true);
     }
-   
+
      var variation_flag = 0;
        selected_options = [];
        var option_count = 0;
-        jQuery('.select-variation-area').each(function(){  
-            
+        jQuery('.select-variation-area').each(function(){
+
             var selected_value = jQuery(this).find('select').children("option:selected").val();
      if(selected_value != ''){
-        variation_flag = 1;       
+        variation_flag = 1;
                 selected_options.push(selected_value);
      } else {
           variation_flag = 0;
           return false;
-     }  
+     }
     option_count++; });
     if(variation_flag == 1){
-      
+
       jQuery('.sku-quantity').html('<input type="number" class="form-control" name="quantity" id="quantity" aria-describedby="quantity" value="1" min="0" max="" required>');
         jQuery('.cart_btn').html('<button type="submit" name="add_to_cart" value="submit" class="add-to-cart btn btn-primary btn-lg btn-block">Add to cart</button>');
         } else {
@@ -562,25 +567,25 @@ function add_to_cart(sku_id,qty){
          jQuery('.cart_btn').html('');
     }
         var matching_options = [];
-       
+
        jQuery.each(options_array, function(index, option) {
            //console.log(arraysEqual(option,selected_options));
-          
+
           if(arraysEqual(option,selected_options) === true){
               jQuery('#option').val(index);
               min_max_quantity_json = jQuery.parseJSON(min_max_quantity);
                jQuery.each(min_max_quantity_json, function(index1, min_max_quantity) {
                   if(index1 == index){
-                      
+
                       jQuery('#quantity').attr('min',min_max_quantity.min);
                       jQuery('#quantity').attr('max',min_max_quantity.max);
                    return false;
                   }
                });
                jQuery.each(sku_image_array,function(sku_index, sku_image){
-                   
+
                    if(sku_index == index){
-                    
+
                        if(jQuery('a[data-zoom-image="'+ DOMAIN + '/' + sku_image + '"]').length > 1){
                            jQuery('a[data-zoom-image="'+ DOMAIN + '/' + sku_image + '"]:first-child').click();
                 } else if(jQuery('a[data-zoom-image="'+ DOMAIN + '/' + sku_image + '"]').length == 1){
@@ -588,11 +593,11 @@ function add_to_cart(sku_id,qty){
                 }
                        return false;
                    }
-                   
+
                });
-               
+
           }
-          
+
          var check = selected_options.every((el) => {
 	return option.indexOf(el) !== -1;
         });
@@ -610,15 +615,15 @@ function add_to_cart(sku_id,qty){
        var current_id = jQuery(this).attr('id');
       jQuery('select.select-variation option').not('.select-variation-area:first-child select.select-variation option,#' + current_id +' option').prop("disabled", true);
       jQuery('.select-variation-area:first-child select.select-variation').addClass('first-child');
-      
+
           for (var key in matching_options) {
-     jQuery.each(matching_options[key], function(matching_options_index, matching_options_value) {  
-          
+     jQuery.each(matching_options[key], function(matching_options_index, matching_options_value) {
+
     jQuery('select option[value='+ matching_options_value +']').prop("disabled", false);
     });
 }
-         
-        
+
+
     });
     function check_in_array(arr1,arr2){
         arr2.every((el) => {
@@ -645,7 +650,7 @@ function add_to_cart(sku_id,qty){
                     var id = jQuery(this).val();
                      var text = jQuery(this).parent().find('label').text();
                      applied_filt += '<a href="javacript:void(0);" id="'+ id +'" class="badge badge-secondary d-inline-block mr-2">'+ text +' &times;</a>';
-                applied_filter_count++; 
+                applied_filter_count++;
                     }
                 });
 
@@ -679,9 +684,9 @@ jQuery(document).on("keypress",".number-field", function (evt) {
     }
 });
     jQuery(document).ready(function(){
-        
-        
-        
+
+
+
         jQuery(document).on( 'click','.pagination li a', function(event) {
 
             var sorting = jQuery('.sorting a.active').attr('data-value');
@@ -694,7 +699,7 @@ jQuery(document).on("keypress",".number-field", function (evt) {
          } else {
              filter_ajax(form_data,id,sorting);
          }
-      
+
         return false;
         } );
 
@@ -754,7 +759,7 @@ jQuery(document).on("keypress",".number-field", function (evt) {
          } else {
              filter_ajax(form_data,1,sorting);
          }
-           
+
         } );
 
         jQuery(document).on('click','.applied_filters a',function(e){
@@ -785,10 +790,10 @@ jQuery(document).on("keypress",".number-field", function (evt) {
             } else {
                 var form_data = jQuery("#sidebar_form").serializeArray();
             }
-            
-           
+
+
             // set ajax data
-           
+
          if(typeof specific_products !== 'undefined'){
              jQuery('input:checkbox[value="' + type_id + '"]').attr('checked', true);
              filter_ajax(form_data,1,sorting,specific_products);
@@ -804,7 +809,7 @@ jQuery(document).on("keypress",".number-field", function (evt) {
   }
 });
     });
-    
+
     jQuery(document).on('keyup keypress mouseup','.quantity-gift-cart',function(e){
         if (e.which != 8 && e.which != 0 && e.which < 48 || e.which > 57)
     {
@@ -823,8 +828,8 @@ jQuery(document).on("keypress",".number-field", function (evt) {
         } else if(jQuery(this).val() >= 1 && (jQuery('#option_amount').val() != '' || jQuery('#customGiftCard').val() != '')){
              jQuery('.add-to-cart').prop('disabled', false);
         }
-         
-        
+
+
     });
     jQuery(document).on('change keyup keypress mouseup','.check-amount-fill',function(){
         if(jQuery('#option_amount').val() == '' && jQuery('#customGiftCard').val() == ''){
@@ -833,9 +838,9 @@ jQuery(document).on("keypress",".number-field", function (evt) {
              jQuery('.add-to-cart').prop('disabled', false);
         }
     });
-    
+
     //product detail page
-    
+
     function get_sku_ajax(sku_id){
          var data = {
         'action' : 'get_sku_data',
@@ -846,7 +851,7 @@ jQuery(document).on("keypress",".number-field", function (evt) {
         var response = jQuery.parseJSON(result);
             if(response){
                 if(response.calculatedQATS > 0 ){
-                   
+
                     if(jQuery('a[data-zoom-image="'+ DOMAIN + '/' + response.imagePath + '"]').length > 1){
                            jQuery('a[data-zoom-image="'+ DOMAIN + '/' + response.imagePath + '"]:first-child').click();
                 } else if(jQuery('a[data-zoom-image="'+ DOMAIN + '/' + response.imagePath + '"]').length == 1){
@@ -866,7 +871,7 @@ jQuery(document).on("keypress",".number-field", function (evt) {
 
     }
 
-    
+
 
     jQuery(document).ready(function(){
        jQuery('#option').on('change',function(){
@@ -874,7 +879,7 @@ jQuery(document).on("keypress",".number-field", function (evt) {
         get_sku_ajax(sku_id);
        });
 
-       
+
 //       jQuery(document).on('click','.add-to-cart',function(){
 //           var sku_id = jQuery('#option').val();
 //           var qty = jQuery('#quantity').val();
@@ -885,10 +890,10 @@ jQuery(document).on("keypress",".number-field", function (evt) {
 //        }
 //    });
     });
-    
-    
+
+
     /******************************** Start Checkout Page ******************************* */
-    
+
     /******************************** Start Number validation with hyphen ******************************* */
     function phonenumber(n) {
 var phoneNumberPattern = /^\d+(-\d+)*$/;
@@ -907,7 +912,7 @@ function error_msg(error_obje,append_class){
       }
 }
 
-    
+
 
 /******************************** Checkout sidebar cart data update after ajax complete ******************************* */
     function checkout_sidebar_update(cart_data){
@@ -934,7 +939,7 @@ function error_msg(error_obje,append_class){
                             jQuery('.checkout_summary_area .taxTotal').text('$' + cart_data.taxTotal.toFixed(2));
                             if(cart_data.orderAndItemDiscountAmountTotal > 0){
                             jQuery('.checkout_summary_area .discount_value').text('- $' + cart_data.orderAndItemDiscountAmountTotal.toFixed(2));
-                            } 
+                            }
                             jQuery('.checkout_summary_area .shipping_value').text('$' + cart_data.fulfillmentTotal.toFixed(2));
                             jQuery('.checkout_summary_area .grand_total').text('$' + cart_data.total.toFixed(2));
                             }
@@ -947,7 +952,7 @@ function error_msg(error_obje,append_class){
 
     }
 
-   
+
 
 /******************************** Start Add Order Payment ******************************* */
 function add_order_payment(form_data,same_shipping,account_address_id){
@@ -960,27 +965,27 @@ function add_order_payment(form_data,same_shipping,account_address_id){
 
     jQuery.post(ajax_url, data, function( result ) {
 				var response = jQuery.parseJSON(result);
-        
+
         var response = jQuery.parseJSON(result);
-	
+
              if(response.successfulActions && response.successfulActions.includes("public:cart.addOrderPayment")){
                  console.log(response);
         var cart_data = response.cart;
-        
-        
+
+
         jQuery('.order_review_area').html('');
         if(typeof cart_data.orderFulfillments[0].shippingMethod !== 'undefined'){
         var shippingMethod = cart_data.orderFulfillments[0].shippingMethod;
     } else {
         var shippingMethod = false;
     }
-    
+
     if(typeof cart_data.orderFulfillments[0].shippingAddress !== 'undefined'){
         var shipping_address = cart_data.orderFulfillments[0].shippingAddress;
     } else {
         var shipping_address = false;
     }
-    
+
     if(typeof cart_data.orderPayments[0] !== 'undefined'){
         var billing_address = cart_data.orderPayments[0].billingAddress;
     } else {
@@ -997,14 +1002,14 @@ function add_order_payment(form_data,same_shipping,account_address_id){
     } else {
          var credit_card_last_four = false;
     }
-    
+
       if(shipping_address && shipping_address.streetAddress){
           jQuery('.order_review_area').append('<div class="col-md-6 mb-4 col-print-6"><div class="bg-light p-4 h-100"><a href="javascript:void(0);" data-section="shippinginfo" class="small float-right edit_review">Edit</a><h6 class="card-title text-muted">Shipping Address</h6><address class="small mb-0">' + shipping_address.name + '<br>' + shipping_address.streetAddress + '<br>' + shipping_address.city + ', ' + shipping_address.stateCode + ' ' + shipping_address.postalCode + '<br>' + shipping_address.countrycode + '</address></div></div>');
       }
       if(shippingMethod){
       jQuery('.order_review_area').append('<div class="col-md-6 mb-4 col-print-6"><div class="bg-light p-4 h-100"><a href="javascript:void(0);" data-section="shippinginfo" class="small float-right edit_review">Edit</a><h6 class="card-title text-muted">Shipping Fulfillment</h6><ul class="list-unstyled small m-0"><li class="m-0">'+ shippingMethod.shippingMethodName +'</li></ul></div></div>');
   }
-        
+
        if(billing_address){
            jQuery('.order_review_area').append('<div class="col-md-6 mb-4 col-print-6"><div class="bg-light p-4 h-100"><a href="javascript:void(0);" data-section="billinginfo" class="small float-right edit_review">Edit</a><h6 class="card-title text-muted">Billing Address</h6><address class="small mb-0">' + billing_address.name + '<br>' + billing_address.streetAddress + '<br>' + billing_address.city + ', ' + billing_address.stateCode + ' ' + billing_address.postalCode + '<br>' + billing_address.countrycode + '</address></div></div>');
        }
@@ -1033,7 +1038,7 @@ function add_order_payment(form_data,same_shipping,account_address_id){
         var same_shipping;
         var account_address_id = jQuery('.billing_account_address a.active').attr('id');
 	var same_as_billing = jQuery('#billingAddress').val();
-        
+
         var form_data = jQuery(this).serializeArray();
         var error_require = 0;
         jQuery(this).find('.required').each(function(){
@@ -1046,9 +1051,9 @@ function add_order_payment(form_data,same_shipping,account_address_id){
 				 }
                                  var has_number = jQuery(this).hasClass('number');
                                  if(has_number === true && inputval !== ''){
-                    
+
                  var number_check = phonenumber(inputval);
-                 
+
                  if(number_check === false){
                        error_require = 1;
                         jQuery(this).addClass('is-invalid-phone is-invalid');
@@ -1057,7 +1062,7 @@ function add_order_payment(form_data,same_shipping,account_address_id){
                     } else {
                         jQuery(this).removeClass('is-invalid-phone is-invalid');
                          jQuery(this).parent().find('.invalid-feedback.invalid-feedback-phone').hide();
-                    }                        
+                    }
                 }
 			 });
        if(jQuery('#billingAddress').prop("checked") === true){
@@ -1066,24 +1071,24 @@ function add_order_payment(form_data,same_shipping,account_address_id){
             same_shipping = 0;
        }
          if((jQuery('#billingAddress').prop("checked") === true  || typeof account_address_id !== 'undefined') && error_require === 0){
-           jQuery('.billingnotadded').hide(); 
+           jQuery('.billingnotadded').hide();
            add_order_payment(form_data,same_shipping,account_address_id);
-       } else if((jQuery('#billingAddress').prop("checked") === false  && typeof account_address_id === 'undefined')){ 
-         jQuery('.billingnotadded').show();  
-        } else if((jQuery('#billingAddress').prop("checked") === true  || typeof account_address_id !== 'undefined') && error_require !== 0){ 
-         jQuery('.billingnotadded').hide();  
+       } else if((jQuery('#billingAddress').prop("checked") === false  && typeof account_address_id === 'undefined')){
+         jQuery('.billingnotadded').show();
+        } else if((jQuery('#billingAddress').prop("checked") === true  || typeof account_address_id !== 'undefined') && error_require !== 0){
+         jQuery('.billingnotadded').hide();
         }
 
     });
     /******************************** End Add Order Payment ******************************* */
 
     /******************************** Start Add Shipping Address and method Section on checkout page ******************************* */
-    
+
     function pickup(){
          var data = {
         'action' : 'pickup'
     };
-    
+
     jQuery.post(ajax_url, data, function( result ) {
     var response = jQuery.parseJSON(result);
 		if(response.successfulActions && response.successfulActions.includes("public:cart.addPickupFulfillmentLocation")){
@@ -1097,10 +1102,10 @@ function add_order_payment(form_data,same_shipping,account_address_id){
                 jQuery('.billinginfo').show();
          }, 30);
                 }
-    
+
     } );
     }
-    
+
     function pickup_shipping(sku_ids,fulfillment_ids,add_pickup_location){
          var data = {
         'action' : 'pickup_shipping',
@@ -1108,7 +1113,7 @@ function add_order_payment(form_data,same_shipping,account_address_id){
         'fulfillment_ids' : fulfillment_ids,
         'add_pickup_location' : add_pickup_location
     };
-    
+
     jQuery.post(ajax_url, data, function( result ) {
     var response = jQuery.parseJSON(result);
    console.log(response);
@@ -1148,16 +1153,16 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
                 jQuery('#shipping_step_two').show();
          }, 30);
                 }
-    
+
     } );
     }
-    
+
     jQuery(document).on('click','.shipping_pickup',function(){
        var items=jQuery(".fulfillment_select.active").map(function() {
         return jQuery(this).data("type");
       }).get();
      // console.log(items.every( v => v === 'pickup' ));
-       
+
       var shipping_pickup_type = (items.every( v => v === 'pickup' )==true)?'pickup':'shipping_pickup';
       //alert(shipping_pickup_type);
       //var sku_fulfilment_ids = [];
@@ -1165,39 +1170,39 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
       var sku_id = '';
       var fulfillment_id = '';
       if(shipping_pickup_type === 'pickup'){
-          pickup();         
+          pickup();
       } else if(shipping_pickup_type === 'shipping_pickup'){
-          
+
        //  console.log(jQuery('.shipping_pickup_items li').length);
          var item_count = 1;
           jQuery('.shipping_pickup_items li').each(function(){
 //              var sku_id = jQuery(this).find('a.product-name').attr('data-skuid');
 //              var fulfillment_id = jQuery(this).find('.fulfillment_select.active').attr('id');
-//             sku_fulfilment_ids.push({ sku_id : sku_id,fulfillment_id : fulfillment_id}); 
+//             sku_fulfilment_ids.push({ sku_id : sku_id,fulfillment_id : fulfillment_id});
             fulfillment_type.push(jQuery(this).find('.fulfillment_select.active').attr('data-type'));
             if(jQuery(this).find('button.fulfillment_select').attr('data-type') === 'shipping'){
              sku_id = jQuery(this).find('a.product-name').attr('data-skuid');
-             
+
              fulfillment_id = jQuery(this).find('.fulfillment_select.active').attr('id');
-             
+
          }
          item_count++; });
           //console.log(sku_ids);
          //  console.log(fulfillment_ids);
            if(fulfillment_type.includes("shipping")){
-             
+
                if(fulfillment_type.includes("pickup")){
                    var add_pickup_location = true;
                } else {
-                var add_pickup_location = false;   
+                var add_pickup_location = false;
                }
-             
+
           pickup_shipping(sku_id,fulfillment_id,add_pickup_location);
            } else {
-               pickup(); 
+               pickup();
            }
       }
-       
+
     });
 
 
@@ -1209,7 +1214,7 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
         'shipping_id':shipping_id,
         'order_fulfillment_id': order_fulfillment_id
     };
-    
+
     jQuery.post(ajax_url, data, function( result ) {
     var response = jQuery.parseJSON(result);
     console.log(response);
@@ -1225,14 +1230,14 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
 		} else if (response.errors){
 			error_msg(response.errors,'shipmentnotadded');
 		}
-    
+
     } );
 
     }
-    
+
     jQuery(document).on('click','#shipping_countinue',function(e){
        e.preventDefault();
-       
+
 			 var error_require = 0;
        var form_data = jQuery('#account-shipping').serializeArray();
        var account_address_id = jQuery('.account_address_for_shipping .account-address.active').attr('id');
@@ -1245,13 +1250,13 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
 				 } else{
 					 jQuery(this).removeClass('is-invalid');
 				 }
-                                 
+
                                  var has_number = jQuery(this).hasClass('number');
-              
+
                                 if(has_number === true && inputval !== ''){
-                                   
+
                                   var number_check = phonenumber(inputval);
-                                  
+
                                   if(number_check === false){
                                         error_require = 1;
                                          jQuery(this).addClass('is-invalid-phone is-invalid');
@@ -1260,16 +1265,16 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
                                      } else {
                                          jQuery(this).removeClass('is-invalid-phone is-invalid');
                                           jQuery(this).parent().find('.invalid-feedback.invalid-feedback-phone').hide();
-                                     }                        
+                                     }
                                  }
                              }
 			 });
-			 
-	     
+
+
 	     var shipping_id = jQuery('input[name=shipping_method]:checked').val();
-             
+
              var order_fulfillment_id = jQuery('#order_fulfillment_id').attr('data-fulfillment');
-             
+
 			 if(error_require == 0 || typeof account_address_id !== 'undefined') {
                               jQuery('.account_address_for_shipping').removeClass('address_error');
 				 add_shipping(form_data,account_address_id,shipping_id,order_fulfillment_id);
@@ -1279,8 +1284,8 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
        return false;
 
     });
-    
-    
+
+
     jQuery(document).on('click','.fulfillment_select',function(){
        var fulfillment_type = jQuery(this).attr('id');
         jQuery('.fulfillment_select').siblings().removeClass('disabled').removeClass('active').removeClass('btn-primary').addClass('btn-secondary');
@@ -1289,9 +1294,9 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
         var current_text = jQuery(this).text();
         jQuery('#'+ fulfillment_type +'.fulfillment_select').html('<i class="fa fa-check"></i>' + current_text);
     });
-    
+
     /******************************** End Add Shipping Address and method Section on checkout page ******************************* */
-    
+
 
     jQuery(document).on('click','.account-address',function(){
         jQuery('.account-address').find('i').removeClass('fa-check-circle');
@@ -1310,7 +1315,7 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
     });
 
     /******************************** Start Place Order Section on checkout ******************************* */
-    
+
     function place_order(){
          var data = {
         'action' : 'place_order'
@@ -1318,7 +1323,7 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
     jQuery.post(ajax_url, data, function( result ) {
        var response = jQuery.parseJSON(result);
        if(response.order_placed.successfulActions && response.order_placed.successfulActions.includes("public:cart.placeOrder")){
-         
+
            jQuery('.order-placed,.reviewconfirm').show();
            jQuery('.order-placed').html('<strong>Order #' + response.order_id + '</strong> has been placed');
            jQuery('.revieworder,.reviewconfirm a,#place-order').hide();
@@ -1327,9 +1332,9 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
            jQuery('#mini-cart .list-unstyled').html('');
            jQuery('#mini-cart .alert.alert-info').html('There are no items in your cart.').show();
             } else {
-           
+
              jQuery.each(response.order_placed.errors, function(key, value) {
-                 
+
                  jQuery('.revieworder').prepend('<div class="alert alert-danger small">'+value[0]+'</div>');
     });
              jQuery('#order-placed,.reviewconfirm').hide();
@@ -1344,8 +1349,8 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
 
 
     /******************************** End Place Order Section on checkout ******************************* */
-    
-    
+
+
     /******************************** Start Login and Registration Section on checkout ******************************* */
     function checkout_user_login_register(form_data,action){
          var data = {
@@ -1369,7 +1374,7 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
                 jQuery('.show-address-book').show();
                 jQuery('.account_address_for_shipping').append('<h5 class="text-secondary my-4">Select Shipping Address</h5><div class="row"></div>');
                 account_address.forEach(function(address) {
-                
+
                 jQuery('.account_address_for_shipping .row,.billing_account_address').append('<div class="col-md-6 mb-4 col-print-6"><a href="javascript:void(0);" class="btn btn-block p-0 text-left account-address" id="'+ address.accountAddressID+'"><div class="bg-light p-4 h-100 border"><i class="far float-right"></i><h6 class="card-title text-muted">' + address.address.name + '</h6><address class="small mb-0 text-body"><br>' + address.address.streetAddress + '<br>'+ address.address.city+', '+ address.address.stateCode +' ' + address.address.postalCode  + '<br>' + address.address.countryCode  + '</address></div></a></div>');
             });
             jQuery('.account_address_for_shipping .row,.billing_account_address').append('<div class="col-md-12 mb-2"><button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="shippingAddressBook shippingCreateAddress"><i class="fa fa-plus"></i> Add New Address</button></div>');
@@ -1377,7 +1382,7 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
                  jQuery('.account_address_for_shipping').html('');
                  jQuery('#shippingCreateAddress').addClass('show');
                 jQuery('.show-address-book').hide();
-                 
+
                 }
                  jQuery('.select_shipping_area').html('');
                  if(typeof response.shipping_methods.availableShippingMethods !== 'undefined'){
@@ -1428,11 +1433,11 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
         jQuery('.account_create_errors').html('');
         jQuery('.account_create').show();
          if(response.token){
-           
+
             if(account_address.length > 0){
                 jQuery('.account_address_for_shipping').append('<h5 class="text-secondary my-4">Select Shipping Address</h5><div class="row"></div>');
                 account_address.forEach(function(address) {
-                
+
                 jQuery('.account_address_for_shipping .row,.billing_account_address').append('<div class="col-md-6 mb-4 col-print-6"><a href="javascript:void(0);" class="btn btn-block p-0 text-left account-address" id="'+ address.accountAddressID+'"><div class="bg-light p-4 h-100 border"><i class="far float-right"></i><h6 class="card-title text-muted">' + address.address.name + '</h6><address class="small mb-0 text-body"><br>' + address.address.streetAddress + '<br>'+ address.address.city+', '+ address.address.stateCode +' ' + address.address.postalCode  + '<br>' + address.address.countryCode  + '</address></div></a></div>');
             });
             jQuery('.account_address_for_shipping .row,.billing_account_address').append('<div class="col-md-12 mb-2"><button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="shippingAddressBook shippingCreateAddress"><i class="fa fa-plus"></i> Add New Address</button></div>');
@@ -1507,7 +1512,7 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
     jQuery(document).on('submit','.checkout_login_register',function(e){
        e.preventDefault();
        var form_data = jQuery(this).serializeArray();
-      
+
        var action = jQuery(this).attr('action');
        var error_require = 0;
        jQuery('.checkout_login_register input').removeClass('is-invalid');
@@ -1520,13 +1525,13 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
                 } else{
                         jQuery(this).removeClass('is-invalid');
                 }
-                
+
                var has_number = jQuery(this).hasClass('number');
-              
+
                if(has_number === true && inputval !== ''){
-                    
+
                  var number_check = phonenumber(inputval);
-                 
+
                  if(number_check === false){
                        error_require = 1;
                         jQuery(this).addClass('is-invalid-phone is-invalid');
@@ -1535,19 +1540,19 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
                     } else {
                         jQuery(this).removeClass('is-invalid-phone is-invalid');
                          jQuery(this).parent().find('.invalid-feedback.invalid-feedback-phone').hide();
-                    }                        
+                    }
                 }
             }
 	});
-                     if(error_require === 0){    
+                     if(error_require === 0){
          checkout_user_login_register(form_data,action);
      }
 
        return false;
     });
-    
+
     /******************************** End Login and Registration section on Checkout Page ******************************* */
-    
+
     /******************************** Start Set State list on Checkout Page ******************************* */
 function get_state_code(country_code,state_id)
     {
@@ -1557,13 +1562,13 @@ function get_state_code(country_code,state_id)
     };
     jQuery.post(ajax_url, data, function( result ) {
     var response = jQuery.parseJSON(result);
-   
+
    jQuery('#'+state_id).html('<option value="">Choose State</option>');
-   
-    jQuery.each(response.stateCodeOptions, function(key, value) { 
-         
-       
-     jQuery('#'+state_id).append('<option value="'+value.value+'">'+value.name+'</option>'); 
+
+    jQuery.each(response.stateCodeOptions, function(key, value) {
+
+
+     jQuery('#'+state_id).append('<option value="'+value.value+'">'+value.name+'</option>');
 });
     } );
     }
@@ -1573,16 +1578,16 @@ function get_state_code(country_code,state_id)
         if(country_code !== ""){
         get_state_code(country_code,state_id);
     }
-    });   
+    });
     /******************************** Start Set State list on Checkout Page ******************************* */
-    
+
     jQuery(document).on('click','.edit_review',function(){
        var edit_section = jQuery(this).attr('data-section');
        jQuery('.revieworder').hide();
        jQuery('.' + edit_section).show();
     });
-    
-    
+
+
     jQuery(document).on('submit','#add-account-billing',function(e){
         e.preventDefault();
         var form_data = jQuery(this).serializeArray();
@@ -1596,14 +1601,14 @@ function get_state_code(country_code,state_id)
                 } else{
                         jQuery(this).removeClass('is-invalid');
                 }
-                
+
             }
 	});
         if(error_require === 0){
         add_billing_address(form_data);
     }
     });
-    
+
      function add_billing_address(form_data){
          var data = {
         'action' : 'add_account_address',
@@ -1611,12 +1616,12 @@ function get_state_code(country_code,state_id)
     };
     jQuery.post(ajax_url, data, function( result ) {
        var response = jQuery.parseJSON(result);
-      
+
        if(response.successfulActions.includes("public:account.addNewAccountAddress")){
-         
+
             var account_address = response.account.accountAddresses;
             var newAccountAddressID = response.newAccountAddressID;
-            
+
             if(account_address.length > 0){
                 var shipping_active_id = jQuery('.account_address_for_shipping .account-address.active').attr('id');
                 jQuery('.account_address_for_shipping,.billing_account_address').html('');
@@ -1625,14 +1630,14 @@ function get_state_code(country_code,state_id)
                     var active_class = "";
             var circle_check_class = "";
                     if(address.accountAddressID == newAccountAddressID){
-                      active_class = "active";  
+                      active_class = "active";
                       circle_check_class = "fa-check-circle";
-                      } 
-                     
+                      }
+
                 jQuery('.account_address_for_shipping .row,.billing_account_address').append('<div class="col-md-6 mb-4 col-print-6"><a href="javascript:void(0);" class="btn btn-block p-0 text-left account-address '+ active_class +'" id="'+ address.accountAddressID+'"><div class="bg-light p-4 h-100 border"><i class="far float-right '+ circle_check_class +'"></i><h6 class="card-title text-muted">' + address.address.name + '</h6><address class="small mb-0 text-body"><br>' + address.address.streetAddress + '<br>'+ address.address.city+', '+ address.address.stateCode +' ' + address.address.postalCode  + '<br>' + address.address.countryCode  + '</address></div></a></div>');
             });
             jQuery('.account_address_for_shipping #'+shipping_active_id).addClass('active').find('i').addClass('fa-check-circle');
-                } 
+                }
            jQuery('.account_billing_address_added').show();
            jQuery('.account_billing_address_add_error').hide();
            jQuery('#billingAddressBook').addClass('show');
@@ -1647,7 +1652,7 @@ function get_state_code(country_code,state_id)
     } );
         return false;
     }
-    
+
     jQuery(document).on('change','#billingAddress',function(){
     if(jQuery(this).prop("checked") !== true){
         jQuery(".create_new_billing_address,.billing_account_address").show();
@@ -1658,16 +1663,16 @@ function get_state_code(country_code,state_id)
     jQuery(document).on('click','#billingAddress,.billing_account_address .account-address',function(){
          var account_address_active = jQuery('.billing_account_address .account-address').hasClass('active');
          var same_as_billing_check = jQuery('#billingAddress').prop("checked");
-    
-    if(account_address_active === false && same_as_billing_check === false){       
+
+    if(account_address_active === false && same_as_billing_check === false){
         jQuery('.add-order-payment button[type="submit"]').prop("disabled", true);
     } else {
         jQuery('.add-order-payment button[type="submit"]').prop("disabled", false);
     }
     });
-    
+
     /******************************** End Checkout Page ******************************* */
-    
+
     /******************************** Start Address Book on My Account ******************************* */
     jQuery(document).ready(function(){
     //get it if Status key found
@@ -1688,7 +1693,7 @@ function get_state_code(country_code,state_id)
         localStorage.clear();
     }
 });
-    
+
     /******************************** get  and set state code******************************* */
     jQuery(document).on('change','#countryCode',function(e)
     {
@@ -1704,7 +1709,7 @@ function get_state_code(country_code,state_id)
         'form_data': data
     };
 
-     
+
     jQuery.post(ajax_url, data, function( result ) {
         if(IsJsonString(result)){
     var response = jQuery.parseJSON(result);
@@ -1754,7 +1759,7 @@ function set_state_code(val)
         'form_data': form_data
     };
     jQuery.post(ajax_url, data, function( result ) {
-    
+
      if(IsJsonString(result)){
     var response = jQuery.parseJSON(result);
     if(response.successfulActions.length>0)
@@ -1788,7 +1793,7 @@ function set_state_code(val)
     };
 
     jQuery.post(ajax_url, data, function( result ) {
-   
+
     var response = jQuery.parseJSON(result);
     if(response.successfulActions.length>0)
     {
@@ -1844,7 +1849,7 @@ jQuery(document).ready(function(){
 
 });
 });
-	
+
 /**************************end ******************************** */
 
 
@@ -1900,7 +1905,7 @@ jQuery(document).on('click','.edit-address',function(e){
         'form_data': form_data,
 		'addressID':addressID
     };
-	
+
     jQuery.post(ajax_url, data, function( result ) {
         var response = jQuery.parseJSON(result);
         if(IsJsonString(result)){
@@ -1913,7 +1918,7 @@ jQuery(document).on('click','.edit-address',function(e){
         window.location.reload();
     }
     } else {
-         window.location.reload();  
+         window.location.reload();
     }
     } );
 
@@ -1969,13 +1974,13 @@ jQuery(document).ready(function(){
         jQuery('.primary-email').show().delay(8000).fadeOut();
         localStorage.clear();
     }
-    
+
     if(localStorage.getItem("Status")=='add-email')
     {
         jQuery('.add-email').show().delay(8000).fadeOut();
         localStorage.clear();
     }
-    
+
 });
 
 function isEmail(email) {
@@ -2017,16 +2022,16 @@ function isEmail(email) {
     } );
 
     }
-    
+
     /********************** Add Email Address ********************/
-    
+
     jQuery(document).on('submit','#add_modal_email_address',function(e){
         e.preventDefault();
         var form_data = jQuery(this).serializeArray();
         add_email(form_data);
         return false;
     });
-    
+
     function add_email(form_data){
          var data = {
         'action' : 'add_email_address',
@@ -2049,11 +2054,11 @@ function isEmail(email) {
     } );
 
     }
-    
-    
-    
+
+
+
     /********************** End Email Address ********************/
-    
+
 /************************end delete email******************************** */
 
     /*************************set primary address*********************************** */
@@ -2075,7 +2080,7 @@ function isEmail(email) {
     {
         localStorage.setItem("Status",'set-primary-email')
     window.location.reload();
-    
+
     } else if(response.failureActions || response.errors.length>0)
     {
         jQuery('.account-email-address').addClass('alert-danger');
@@ -2129,13 +2134,13 @@ jQuery(document).ready(function(){
    // console.log(result);
     var response = jQuery.parseJSON(result);
     if(response.successfulActions.length>0)
-    { 
+    {
         // setTimeout(function(){
         //     jQuery('.show-password-msg').show();
         //  }, 3000);
          localStorage.setItem("Status",'succes')
     window.location.reload();
-    
+
        // window.location.reload();
     } else if(response.failureActions.length>0)
     {localStorage.setItem("Status",'error')
@@ -2143,12 +2148,12 @@ jQuery(document).ready(function(){
         // setTimeout(function(){
         //     jQuery('.show-error-msg').show();
         //  }, 3000);
-        
+
         // window.location.reload();
     }
 	//window.location.reload();
     } );
-        
+
     }
     jQuery(document).on('submit','#change_password',function(e){
         e.preventDefault();
@@ -2163,30 +2168,30 @@ jQuery(document).ready(function(){
 					 jQuery(this).removeClass('is-invalid');
 				 }
 			 });
-       var form_data = jQuery('#change_password').serializeArray(); 
+       var form_data = jQuery('#change_password').serializeArray();
        var action = jQuery('#change_password').attr('action');
 	   if(error_require == 0) {
         change_password(form_data,action);
 			 }
-       
+
        return false;
     });
     });
-    
-    
+
+
  /******************************** Start Login and registration on My Account ******************************* */
     jQuery(document).on('keypress','.numfieldvalidate',function(evt){
                var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
-               
+
         if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
             return false;
 
         return true;
     });
- 
-   
-    
-    jQuery(document).ready(function(){        
+
+
+
+    jQuery(document).ready(function(){
         jQuery("#confirm-password").keyup(function(){
              if (jQuery("#reg-password").val() != jQuery("#confirm-password").val()) {
 				jQuery("#msg").html("Password do not match").css("color","red");
@@ -2223,7 +2228,7 @@ jQuery(document).ready(function(){
 				 }
 			 });
 			 if(error_require == 0) {
-                 
+
 				user_login_register(form_data,action);
 			 }
 
@@ -2237,7 +2242,7 @@ jQuery(document).ready(function(){
     };
     jQuery.post(ajax_url, data, function( result ) {
         var response = jQuery.parseJSON(result);
-       
+
 		if(action=='user_login')
 			{
 		if(response.token){
@@ -2303,11 +2308,11 @@ function profile_update(form_data,action){
     if(response.successfulActions.length>0)
     {
     localStorage.setItem("Status",'profile-update')
-    window.location.reload(); 
+    window.location.reload();
     } else if(response.errors.length>0)
     {
 		localStorage.setItem("Status",'profile-error')
-    window.location.reload(); 
+    window.location.reload();
     }
 	//window.location.reload();
     } );
@@ -2334,10 +2339,10 @@ function profile_update(form_data,action){
 
        return false;
     });
-    
+
     /******************************** End Profile Update on My Account ******************************* */
-      
-    
+
+
     /******************************** Start Manage Phone Number on My Account ******************************* */
     jQuery(document).ready(function(){
     //get it if Status key found
@@ -2481,7 +2486,7 @@ jQuery(document).ready(function(){
 /************************ Start Reorder ******************************** */
 
 function reorder(order_id){
-   
+
     var data = {
         'action' : 'reorder',
         'order_id': order_id
@@ -2490,7 +2495,7 @@ function reorder(order_id){
 
     jQuery.post(ajax_url, data, function( result ) {
     var response = jQuery.parseJSON(result);
-  
+
     update_mini_cart(response.cart,response.bundleItems,response.normal_items);
     });
 }
@@ -2512,7 +2517,7 @@ jQuery(document).on('click','.buy-again',function(){
 
 
 function buy_again(sku_id,quantity){
-   
+
     var data = {
         'action' : 'buy_again',
         'sku_id': sku_id,
@@ -2530,7 +2535,7 @@ window.location = result;
 jQuery(document).ready(function(){
 
     jQuery(document).on('click', '.print' , function(e) {
-  
+
     jQuery('.printarea').printThis({
       importStyle: jQuery(this).hasClass('importStyle')
     });

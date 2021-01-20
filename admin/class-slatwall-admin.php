@@ -129,6 +129,7 @@ class Slatwall_Admin {
         }
 
         private function integration(array $data_array){
+            $auth = AUTHORIZATION;
             foreach($data_array as $data_value){
                 if(!isset($data_value['send_option'])){
                 $key_data[$data_value['name']] = $data_value['value'];
