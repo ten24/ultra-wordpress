@@ -1,3 +1,10 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
+
     <?php if($related_product_data->relatedProducts){ ?>
     <!-- Related Projects Row -->
     <h2 class="mt-5 mb-4">Related Products</h3>
@@ -32,7 +39,5 @@
             </div>
         </div>
         <?php } ?>
-
-
       </div>
     <?php } ?>
