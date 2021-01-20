@@ -1,13 +1,40 @@
-<?php>
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-?>
-<?php $shipping_methods = json_decode($availale_shipping_method->scalar);
+<?php $shipping_methods = json_decode($availale_shipping_method->scalar); 
 $shipping_flag = 0;
 $pickup_flag = 0;
+
+function multiple_in_array2($cart_data_items,$seach_value){
+    foreach($cart_data_items as $cart_data_item){
+      
+        if($cart_data_item->orderItemID == $seach_value){
+            return $cart_data_item;
+        } 
+    }
+    return false;
+}
+$bundle_items = array();
+$normal_items = array();
 foreach($orderItems as $item){
+    if(isset($item->parentOrderItemID) && $item->parentOrderItemID !== ''){
+        $value =  multiple_in_array2($cart_data->orderItems, $item->parentOrderItemID);
+        if(isset($value) && !isset($bundle_items[$value->orderItemID])){
+        $bundle_items[$value->orderItemID] = (array)$value;
+        $bundle_items[$value->orderItemID]['items'] = array();
+        }
+        array_push($bundle_items[$value->orderItemID]['items'], array($item));
+      
+    } else {
+        $normal_items[$item->orderItemID] = $item;
+    }
+}
+foreach($bundle_items as $item_key => $item){ 
+                                //d($item_key);
+                                if(isset($normal_items[$item_key])){
+                                    unset($normal_items[$item_key]);
+                                }
+}
+$orderItems = array_merge($bundle_items, $normal_items);
+foreach($orderItems as $item){ 
+    $item = (object)$item;
    foreach($item->skuFulfillmentMethods as $skuFulfillmentMethod){
      if($skuFulfillmentMethod->fulfillmentMethodType === 'shipping'){
          $shipping_flag = 1;
@@ -21,19 +48,19 @@ foreach($orderItems as $item){
 ?>
 <!-- Start Body -->
 <div class="col-xl-7 col-md-8 shippinginfo" style="display:none">
-
+    
     <div id="shipping_step_one" style="display:<?php echo $pickup_flag==1?'block':'none'; ?>">
     <?php if($shipping_flag){ ?>
 	<!-- Shipping Info -->
 	<h3 class="mb-3 pt-3 pb-3 border-bottom">Shipping & Pickup</h3>
-
+        
         <!-- Shipping Info Header -->
                     <div class="row ">
                         <div class="col-md-12 mb-4">
                             <p>Select the items you would like shipped to your address or select store pickup options.</p>
                         </div>
                     </div>
-
+        
          <!-- Select Preferences for Pickup & Shipping -->
 
 
@@ -43,7 +70,8 @@ foreach($orderItems as $item){
                                 <!--- <p class="mb-3">Items on your shipment <span class="badge badge-secondary">2</span></p> --->
 
                                 <ul class="list-unstyled mb-0 shipping_pickup_items">
-                                    <?php foreach($orderItems as $item){
+                                    <?php foreach($orderItems as $item){ 
+                                         $item = (object)$item;
                                         $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle;
                                         ?>
                                     <li class="media mb-4 pb-4 border-bottom">
@@ -55,17 +83,17 @@ foreach($orderItems as $item){
                                                     <br> <small>Qty: <?php echo $item->quantity; ?></small><?php echo $item->sku->skuDefinition?', '.$item->sku->skuDefinition:''; ?></small>
                                                 </div>
                                                 <div class="col-md-6 text-right">
-                                                    <?php $fulfillment_count = 1; foreach ($item->skuFulfillmentMethods as $fulfillment){
+                                                    <?php $fulfillment_count = 1; foreach ($item->skuFulfillmentMethods as $fulfillment){ 
                                                         if($fulfillment->fulfillmentMethodType == 'shipping' || $fulfillment->fulfillmentMethodType == 'pickup'){
                                                         ?>
-                                                    <button data-type="<?php echo $fulfillment->fulfillmentMethodType; ?>" class="btn btn-<?php echo $fulfillment_count==1?'primary':'secondary'; ?> btn-sm fulfillment_select <?php echo $fulfillment_count==1?'active disabled':''; ?>" id="<?php echo $fulfillment->fulfillmentMethodID; ?>"><?php echo $fulfillment_count==1?'<i class="fa fa-check"></i>':''; ?> <?php echo $fulfillment->fulfillmentMethodName; ?></button>
+                                                    <button data-type="<?php echo $fulfillment->fulfillmentMethodType; ?>" class="btn btn-<?php echo $fulfillment_count==1?'primary':'secondary'; ?> m-2 btn-sm fulfillment_select <?php echo $fulfillment_count==1?'active disabled':''; ?>" id="<?php echo $fulfillment->fulfillmentMethodID; ?>"><?php echo $fulfillment_count==1?'<i class="fa fa-check"></i>':''; ?> <?php echo $fulfillment->fulfillmentMethodName; ?></button>
                                                         <?php $fulfillment_count++; } } ?>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
                                     <?php } ?>
-
+                                    
                                 </ul>
                                 <button class="btn btn-primary shipping_pickup" type="button" data-type="shipping_pickup">Continue</button>
                             </div>
@@ -92,7 +120,7 @@ foreach($orderItems as $item){
     <div id="shipping_step_two" style="display:<?php echo $pickup_flag==1?'none':'block'; ?>;">
         <?php //if(isset($shipping_methods->availableShippingMethods) && isset($shipping_methods->availableShippingMethods[0]->value)){ ?>
         <div id="shippingCreateAddress" class="collapse multi-collapse <?php echo count((array)$account_address)==0?'show':''; ?>">
-
+            
             <div class="row mb-4 mt-3">
                             <div class="col-sm-8">
                                 <h5 class="text-secondary">Create Shipping Address</h5>
@@ -104,7 +132,7 @@ foreach($orderItems as $item){
                             </div>
                             <?php } ?>
                         </div>
-
+            
 	<!-- Shipping Address -->
 
 	<!-- Shipping Address Create Error Message -->
@@ -163,7 +191,7 @@ foreach($orderItems as $item){
     							</div>
     						</div>
                                             <?php } ?>
-
+    						
     					</div>
     					<div class="row">
                                             <div class="col-sm-6">
@@ -229,7 +257,13 @@ foreach($orderItems as $item){
                     <h5 class="text-secondary my-4">Select Shipping Fulfillment</h5>
                     <?php $count_shipping = 1;  foreach($shipping_methods->availableShippingMethods as $method){ ?>
                     <div class="form-check mb-3">
-                	    <input class="form-check-input" type="radio" name="shipping_method" id="shipping<?php echo $count_shipping; ?>" value="<?php echo $method->value; ?>" <?php echo $selected_shipping->shippingMethodID==$method->value?'checked':''; ?>>
+                        <?php 
+                        $selected_shipping_method = '';
+                        if(isset($selected_shipping->shippingMethodID)){
+                        $selected_shipping_method = $selected_shipping->shippingMethodID;
+                        } 
+                        ?>
+                	    <input class="form-check-input" type="radio" name="shipping_method" id="shipping<?php echo $count_shipping; ?>" value="<?php echo $method->value; ?>" <?php echo $selected_shipping_method==$method->value?'checked':''; ?>>
                 	    <label class="form-check-label" for="shipping<?php echo $count_shipping; ?>"><?php echo $method->name; ?></label>
                     </div>
                     <?php $count_shipping++; } ?>

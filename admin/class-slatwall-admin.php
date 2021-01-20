@@ -1,8 +1,4 @@
 <?php
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
 
 /**
  * The admin-specific functionality of the slatwall.
@@ -22,6 +18,7 @@
  *
  * @package    Slatwall_Ecommerce
  * @subpackage Slatwall_Ecommerce/admin
+ * @author     Yash <raj.yash@orangemantra.in>
  */
 class Slatwall_Admin {
 
@@ -129,7 +126,6 @@ class Slatwall_Admin {
         }
 
         private function integration(array $data_array){
-            $auth = AUTHORIZATION;
             foreach($data_array as $data_value){
                 if(!isset($data_value['send_option'])){
                 $key_data[$data_value['name']] = $data_value['value'];
@@ -164,7 +160,7 @@ class Slatwall_Admin {
               CURLOPT_HTTPHEADER => array(
                 "Access-Key: $access_key",
                 "Access-Key-Secret: $access_key_secret",
-                "Authorization: Basic $auth"
+                "Authorization: Basic dGVuMjQ6NDBCbHVlOTY="
               ),
             ));
 

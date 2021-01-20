@@ -1,10 +1,4 @@
-<?php>
-/*
- * Copyright © ten24, LLC Inc. All rights reserved.
- * See License.txt for license details.
- */
-?>
-<div class="container">
+ <div class="container">
         <h1 class="mb-4">Account Address Book</h1>
         <div class="row">
             <!-- Account Sidebar Navigation -->
@@ -23,7 +17,7 @@
 
                 <div class="row">
 
-
+				
                <?php foreach($accounts->accountAddresses as $address) {
 
                    if($accounts->primaryAddress->accountAddressID==$address->accountAddressID){
@@ -58,7 +52,7 @@
                                 <small class="font-weight-bold"><a href="#" class="btn bg-transparent text-primary p-0 d-inline-block set-primary-address" data-id="<?php echo $address->accountAddressID; ?>">Set Primary Address</a></small>
                             </div>
                             <div class="card-body">
-                                <address>
+                                <address> 
 								<?php echo $address->accountAddressName; ?><br>
                                                                 <?php echo $address->address->name; ?><br>
 								<?php echo $address->address->company; ?><br>
@@ -72,7 +66,7 @@
                             </div>
                             <div class="card-footer d-flex justify-content-between">
 							<button type="button" class="btn bg-transparent text-primary p-0 d-inline-block delete-address" data-id="<?php echo $address->accountAddressID; ?>">Delete</button>
-							<button type="button" class="btn bg-transparent text-primary p-0 d-inline-block edit-address" data-toggle="modal" data-target="#exampleModal" data-title="Edit Address"  data-value='<?php echo json_encode((array)$address); ?>'  data-id="<?php echo $address->address->addressID; ?>">Edit</button>
+							<button type="button" class="btn bg-transparent text-primary p-0 d-inline-block edit-address" data-toggle="modal" data-target="#exampleModal" data-title="Edit Address"  data-value='<?php echo json_encode((array)$address); ?>'  data-id="<?php echo $address->accountAddressID; ?>">Edit</button>
                             </div>
                         </div>
 					</div>
@@ -180,3 +174,4 @@
     	</div>
     </div>
     <div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+   
