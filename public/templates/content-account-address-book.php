@@ -1,10 +1,11 @@
-<?php
+<?php>
 /*
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
 ?>
- <div class="container">
+
+<div class="container">
         <h1 class="mb-4">Account Address Book</h1>
         <div class="row">
             <!-- Account Sidebar Navigation -->
