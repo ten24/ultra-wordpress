@@ -1,5 +1,9 @@
-<?php 
-       
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+
                switch (true) {
     case (($account == "dashboard" && isset($_SESSION['token']))||($account == "my-account" && isset($_SESSION['token']))):
        $templates->set_template_data( $templates, 'templates' )->set_template_data( $account_details, 'accounts' )->set_template_data( $all_orders, 'orders' )->get_template_part( 'content', 'account-dashboard',true );

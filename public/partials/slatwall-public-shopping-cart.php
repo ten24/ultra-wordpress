@@ -1,10 +1,15 @@
-<?php 
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+ 
 function multiple_in_array($cart_data_items,$seach_value){
     foreach($cart_data_items as $cart_data_item){
-      
+
         if($cart_data_item->orderItemID == $seach_value){
             return $cart_data_item;
-        } 
+        }
     }
     return false;
 }
@@ -16,7 +21,7 @@ foreach($cart_data->orderItems as $item){
         $bundle_items[$value->orderItemID]['items'] = array();
         }
         array_push($bundle_items[$value->orderItemID]['items'], array($item));
-      
+
     } else {
         $normal_items[$item->orderItemID] = $item;
     }
@@ -42,10 +47,10 @@ foreach($cart_data->orderItems as $item){
                         <div class="card-header d-flex justify-content-between">
                             <h4 class="mb-0">Order Items</h4>
                         </div>
-                        
+
                         <div class="card-body cart-items">
                         <?php if(isset($bundle_items) && !empty($bundle_items)){ ?>
-                            <?php foreach($bundle_items as $item_key => $item){ 
+                            <?php foreach($bundle_items as $item_key => $item){
                                 //d($item_key);
                                 if(isset($normal_items[$item_key])){
                                     unset($normal_items[$item_key]);
@@ -100,9 +105,9 @@ foreach($cart_data->orderItems as $item){
                             </div>
                             <?php } ?>
                                 <?php } ?>
-                            
+
                             <?php if(isset($normal_items) && !empty($normal_items)){ ?>
-                            <?php foreach($normal_items as $item_key => $item){ 
+                            <?php foreach($normal_items as $item_key => $item){
                                 //d($item_key);
                                 $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle;
                                 ?>
@@ -150,7 +155,7 @@ foreach($cart_data->orderItems as $item){
                                 <?php } ?>
 
                         </div>
-                        
+
                         <div class="card-footer d-flex justify-content-between">
                             <a href="javascript:void(0);" class="btn btn-link clear-cart">Clear Cart</a>
                             <a href="<?php echo get_site_url().'/'.CHECKOUT; ?>" class="btn btn-primary">Continue to Checkout</a>
@@ -204,7 +209,7 @@ foreach($cart_data->orderItems as $item){
                                         </div>
                                     </form>
                                 </div>
-                               
+
                               <?php if($cart_data->cart->promotionCodeList){?>
                                 <div class="card-footer-area">
                                 <div class="card-footer">
@@ -214,7 +219,7 @@ foreach($cart_data->orderItems as $item){
                                 </div>
                                 </div>
                               <?php } ?>
-                                    
+
                             </div>
                         </div>
                     </div>
@@ -254,7 +259,7 @@ var ajax_url = '<?php echo get_site_url()."/wp-admin/admin-ajax.php"; ?>';
                update_mini_cart(response.cart,response.bundleItems,response.normal_items);
                if(typeof response.cart.orderItems !== 'undefined' && response.cart.orderItems.length > 0){
                jQuery('.cart-update-alert').html('<div class="alert alert-success"><small>Item Removed</small></div>');
-           } else { 
+           } else {
            jQuery('.cart-area').html('<h1>Shopping Cart</h1> <div class="alert alert-info">There are no items in your cart</div>');
            }
                 }
@@ -279,7 +284,7 @@ var ajax_url = '<?php echo get_site_url()."/wp-admin/admin-ajax.php"; ?>';
                update_cart_payment(response);
                update_mini_cart(response.cart,response.bundleItems,response.normal_items);
                jQuery('.cart-update-alert').html('<div class="alert alert-success"><small>Item Removed</small></div>');
-            
+
                 }
             }
 
@@ -326,7 +331,7 @@ console.log(response.bundleItems);
     } );
 
     }
-    
+
 
     jQuery(document).on('click','.cart-update',function(){
       var qty =  jQuery(this).parent().find('input').val();
@@ -406,7 +411,7 @@ var ajax_url = '<?php echo get_site_url()."/wp-admin/admin-ajax.php"; ?>';
        clear_cart();
     });
     jQuery(document).on('change keyup keypress mouseup','.item-quantity input',function(){
-        
+
         if(jQuery(this).val() < 1 && jQuery(this).val() != ''){
             jQuery(this).val('1');
         }

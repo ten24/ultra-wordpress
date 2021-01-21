@@ -1,4 +1,9 @@
 <?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+ 
 /**
  * Template Loader for Plugins.
  *
@@ -71,7 +76,7 @@ class Slatwall_Template_Loader {
 		// Return the part that is found
 		return $this->locate_template( $templates, $load, false );
 	}
-        
+
         /**
 		 * Make custom data available to template.
 		 *
@@ -218,7 +223,7 @@ class Slatwall_Template_Loader {
 			10  => trailingslashit( get_template_directory() ) . $theme_directory,
 			100 => $this->get_templates_dir()
 		);
-                
+
 		// Only add this conditionally, so non-child themes don't redundantly check active theme twice.
 		if ( is_child_theme() ) {
 			$file_paths[1] = trailingslashit( get_stylesheet_directory() ) . $theme_directory;
