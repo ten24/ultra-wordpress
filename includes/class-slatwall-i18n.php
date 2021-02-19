@@ -1,4 +1,8 @@
 <?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
 
 /**
  * Define the internationalization functionality
@@ -21,7 +25,6 @@
  *
  * @package    Slatwall_Ecommerce
  * @subpackage Slatwall_Ecommerce/includes
- * @author     Yash <raj.yash@orangemantra.in>
  */
 class Slatwall_i18n {
 

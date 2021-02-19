@@ -303,15 +303,9 @@ class Slatwall_Public extends Slatwall_Products {
         if($atts['products'] != ''){
             $product_codes = $atts['products'];
              $templates = new SW_Template_Loader;
-$typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:productCode:eq='.$product_codes;
-$products =  $this->productListIntegration($typePara);
-//         if(isset($products->cookies)){
-//               if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){
-//                      
-//         $_SESSION['cfid'] = $products->cookies['cfid'];
-//         $_SESSION['cftoken'] = $products->cookies['cftoken'];
-//             }
-//         }
+        $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:productCode:eq='.$product_codes;
+        $products =  $this->productListIntegration($typePara);
+
          if($products){
                 $totalPages =  $products->totalPages;
                 $paginator = new Paginator(1, $totalPages);
@@ -322,25 +316,15 @@ $products =  $this->productListIntegration($typePara);
                 }
         } else {
              $templates = new SW_Template_Loader;
-             $slatwall_brands = new Slatwall_Brands;
-             $slatwall_category = new Slatwall_Categoy;
-             $slatwall_types = new Slatwall_Type;
-             $slatwall_options = new Slatwall_Options;
            
             $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC';
             
          $products =  $this->productListIntegration($typePara);
-//         if(isset($products->cookies)){
-//               if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){
-//                      
-//         $_SESSION['cfid'] = $products->cookies['cfid'];
-//         $_SESSION['cftoken'] = $products->cookies['cftoken'];
-//             }
-//         }
-         $brands = $slatwall_brands->brandListIntegration();
-         $options = $slatwall_options->optionListIntegration();
-         $categories = $slatwall_category->categoryListIntegration();
-         $types = $slatwall_types->producttypeListIntegration();
+         $product_filter_data =  $this->product_filter_options();
+         $brands = $product_filter_data->data->brand;
+         $options = $product_filter_data->data->option;
+         $categories = $product_filter_data->data->category;
+         $types = $product_filter_data->data->productType;
             if($products){
                 $totalPages =  $products->totalPages;
                 $paginator = new Paginator(1, $totalPages);
@@ -742,12 +726,21 @@ $products =  $this->productListIntegration($typePara);
 
                     }
                }
+               $countries = get_transient('slatwall_default_countries');
+               if (false === $countries) {
                $countries_data = $this->get_countries();
                $countries_data_obj = json_decode($countries_data);
                $countries = $countries_data_obj->countryCodeOptions;
+               set_transient('slatwall_default_countries', $countries, API_CACHE_EXPIRE_TIME);
+               }
+               $default_state_code = get_transient('slatwall_default_states');
+               if (false === $default_state_code) {
                $stateCode = new Slatwall_stateCode($this->slatwall, $this->version);
                $parameter = '?countryCode=US';
                $default_state_code = json_decode($stateCode->stateCode($parameter));
+               set_transient('slatwall_default_states', $default_state_code, API_CACHE_EXPIRE_TIME);
+               } 
+                
                require 'partials/slatwall-public-my-account.php';
                return ob_get_clean();
         }
@@ -1059,21 +1052,38 @@ $products =  $this->productListIntegration($typePara);
 
        public function checkout(){
            ob_start();
-           $templates = new SW_Template_Loader;
+          
          $token = isset($_SESSION['token'])?$_SESSION['token']:'';
+         $cart = new Slatwall_Cart();
+           $result = $cart->get_cart($token);
+          $cart_data = json_decode($result);
+          if(isset($cart_data->orderID) && $cart_data->orderID){
+            $templates = new SW_Template_Loader;
          $this->auth_check();
+         if(!isset($_SESSION['token'])){
            $account_class = new Slatwall_Account($this->slatwall, $this->version);
            $request = array('returnJSONObjects','account');
            $account = $account_class->get_account($token,$request);
-           $countries_data = $this->get_countries();
-           $cart = new Slatwall_Cart();
-           $cart_data = $cart->get_cart($token);
+           $countries = get_transient('slatwall_default_countries');
+               if (false === $countries) {
+               $countries_data = $this->get_countries();
+               $countries_data_obj = json_decode($countries_data);
+               $countries = $countries_data_obj->countryCodeOptions;
+               set_transient('slatwall_default_countries', $countries, API_CACHE_EXPIRE_TIME);
+               }
+           
            $checkout = new Slatwall_Checkout();
            $availale_payment_method = $checkout->get_availale_payment_method($token);
            $availale_shipping_method = $checkout->get_availale_shipping_method($token);
-           $stateCode = new Slatwall_stateCode($this->slatwall, $this->version);
+         }
+          $default_state_code = get_transient('slatwall_default_states');
+               if (false === $default_state_code) {
+               $stateCode = new Slatwall_stateCode($this->slatwall, $this->version);
                $parameter = '?countryCode=US';
                $default_state_code = json_decode($stateCode->stateCode($parameter));
+               set_transient('slatwall_default_states', $default_state_code, API_CACHE_EXPIRE_TIME);
+               }
+          }
             require 'partials/slatwall-public-checkout.php';
 
             return ob_get_clean();

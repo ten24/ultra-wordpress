@@ -1,3 +1,9 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
 <?php $order_fulfillments = $order_details->orderDetails->orderFulfillments;?>
 <div class="container my-5">
 <!-- <h1 class="mb-4">Order Details</h1> -->
@@ -74,12 +80,12 @@
                                     </div>
                             </div>
                         </div>
-                    <?php  foreach($order_details->orderDetails->orderItems as  $val){  
+                    <?php  foreach($order_details->orderDetails->orderItems as  $val){
                         $missing_image_url = 'https://slatwalldevelop.ten24dev.com/assets/images/cache/missingimage_90w_90h.jpg';
                         if(isset($val->images[0])){
                             $image_url = DOMAIN.'/'.$val->images[0];
                         } else {
-                            $image_url = $missing_image_url; 
+                            $image_url = $missing_image_url;
                         }
                        $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$val->sku_product_urlTitle;
                         ?>
@@ -91,7 +97,7 @@
                                 </a>
                                     <a class="text-body font-weight-bold" href="<?php echo $product_single_url; ?>"><?php echo $val->sku_product_productName;?></a> <br>
                                     <span class="text-muted"><?php echo $val->sku_calculatedSkuDefinition; ?></span>
-                                    
+
                             </div>
                             <div class="col-2 col-lg-2">
                                 <span class="text-muted">$<?php  echo price_number_format($val->price);?></span>
@@ -142,7 +148,7 @@
                                         <address class="small mb-0">
                                         <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_name;?><br>
                                             <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_streetAddress;?><br>
-                                            <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_city;?> <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_city?', ':' '; ?> 
+                                            <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_city;?> <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_city?', ':' '; ?>
                                             <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_stateCode.' '. $order_details->orderDetails->orderInfo['0']->billingAddress_postalCode;?><br>
                                             <?php echo $order_details->orderDetails->orderInfo['0']->billingAddress_countryCode;?>
                                         </address>
@@ -150,10 +156,10 @@
                                                           <address class="small mb-0">
                                         <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_name;?><br>
                                             <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_streetAddress;?><br>
-                                            <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_city;?> <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_city?', ':' '; ?> 
+                                            <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_city;?> <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_city?', ':' '; ?>
                                             <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_stateCode.' '. $order_details->orderDetails->orderPayments['0']->billingAddress_postalCode;?><br>
                                             <?php echo $order_details->orderDetails->orderPayments['0']->billingAddress_countryCode;?>
-                                        </address>  
+                                        </address>
                                                         <?php } ?>
                     				</div>
                                     <div class="col-6 col-md-6 mb-4">
@@ -202,7 +208,7 @@
                         <div class="card-body">
                             <!-- Show Total Order Delivery Count -->
                             	<h4 class="mb-4 pb-3 border-bottom">Order Deliveries (<?php echo count($order_fulfillments); ?>)</h4>
-                            <?php foreach($order_fulfillments as $order_fulfillment){  
+                            <?php foreach($order_fulfillments as $order_fulfillment){
                                 $sku_id = $order_fulfillment->sku_skuID;
                                 $order_items = array_filter(
                                 $order_details->orderDetails->orderItems,
@@ -223,12 +229,12 @@
                                 </div>
                             </div>
                             <!-- Order Items -->
-                            <?php foreach($order_items as $order_item){ 
+                            <?php foreach($order_items as $order_item){
                                 $missing_image_url = 'https://slatwalldevelop.ten24dev.com/assets/images/cache/missingimage_90w_90h.jpg';
                         if(isset($order_item->images[0])){
                             $image_url = DOMAIN.'/'.$order_item->images[0];
                         } else {
-                            $image_url = $missing_image_url; 
+                            $image_url = $missing_image_url;
                         }
                                 if(isset($order_item->calculatedQuantityDelivered) && $order_item->calculatedQuantityDelivered == ''){
                                     $deliveredQuntity = 0;
@@ -248,10 +254,10 @@
                                 </div>
                             </div>
                             <?php } ?>
-                            
+
                             <!-- /End Order Items -->
                             <?php } ?>
-                            
+
                         </div>
                     </div>
                 <?php } ?>
