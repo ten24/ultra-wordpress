@@ -74,7 +74,7 @@ class Slatwall_Public extends Slatwall_Products {
 		$this->slatwall = $slatwall;
 		$this->version = $version;
 
-
+ 
 
                 /* product filter ajax funcition define */
                 add_action( 'wp_ajax_nopriv_product_filter_data', array( $this, 'product_filter_data' ) );
