@@ -59,7 +59,7 @@ class Slatwall_Public extends Slatwall_Products {
 	 * @var      string    $version    The current version of this slatwall.
 	 */
 	private $version;
-
+ 
 	/**
 	 * Initialize the class and set its properties.
 	 *
