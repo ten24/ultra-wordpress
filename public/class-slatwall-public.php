@@ -566,7 +566,7 @@ class Slatwall_Public extends Slatwall_Products {
                 $categoryString = implode(',', $categories);
             $typePara .= "&f:categories.categoryID:eq=$categoryString";
            }
-           
+            
            if($options){
                 $optionString = implode(',', $options);
             $typePara .= "&f:defaultSku.options.optionID=$optionString";
