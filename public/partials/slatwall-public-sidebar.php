@@ -86,7 +86,7 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
                         <?php 
                         if(isset($urlTitle_slug) && isset($template_name) && $template_name == 'brand'){  ?>
                            <div class="form-check">
-                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="brands" type="checkbox" id="<?php echo $brands->pageRecords[$value_key]->urlTitle; ?>" value="<?php echo $brands->pageRecords[$value_key]->brandID; ?>"  checked>
+                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="brands" type="checkbox" id="<?php echo $brands[$value_key]->urlTitle; ?>" value="<?php echo $brands[$value_key]->brandID; ?>"  checked>
                             <label class="form-check-label" for="<?php echo $brands[$value_key]->urlTitle; ?>"></label>
                            </div>
                                 <?php } else  if($brands){ ?>
@@ -123,7 +123,7 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
                       if(isset($urlTitle_slug) && isset($template_name) && $template_name == 'category'){
                         $value_key = array_search($urlTitle_slug, array_column($categories, 'urlTitle')); ?>
                            <div class="form-check">
-                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="categories" type="checkbox" id="<?php echo $categories->pageRecords[$value_key]->urlTitle; ?>" value="<?php echo $categories->pageRecords[$value_key]->categoryID; ?>"  checked>
+                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="categories" type="checkbox" id="<?php echo $categories[$value_key]->urlTitle; ?>" value="<?php echo $categories[$value_key]->categoryID; ?>"  checked>
                             <label class="form-check-label" for="<?php echo $categories[$value_key]->urlTitle; ?>"></label>
                            </div>
                                 <?php } else if($categories){ ?>
@@ -156,7 +156,7 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
                     	</div>
                         <?php }  if(isset($urlTitle_slug) && isset($template_name) && $template_name == 'type'){ ?>
                            <div class="form-check">
-                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="types" type="checkbox" id="<?php echo $types->pageRecords[$value_key]->urlTitle; ?>" value="<?php echo $types->pageRecords[$value_key]->productTypeID; ?>"  checked>
+                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="types" type="checkbox" id="<?php echo $types[$value_key]->urlTitle; ?>" value="<?php echo $types[$value_key]->productTypeID; ?>"  checked>
                             <label class="form-check-label" for="<?php echo $types[$value_key]->urlTitle; ?>"></label>
                            </div>
                                 <?php } else if($types){ ?>
@@ -190,7 +190,7 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
                          <?php } 
                          if(isset($urlTitle_slug) && isset($template_name) && $template_name == 'option'){ ?>
                            <div class="form-check">
-                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="options" type="checkbox" id="<?php echo $options->pageRecords[$value_key]->optionID; ?>" value="<?php echo $options->pageRecords[$value_key]->optionID; ?>"  checked>
+                            <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="options" type="checkbox" id="<?php echo $options[$value_key]->optionID; ?>" value="<?php echo $options[$value_key]->optionID; ?>"  checked>
                             <label class="form-check-label" for="<?php echo $options[$value_key]->optionName; ?>"></label>
                            </div>
                                 <?php } else if($options){ ?>

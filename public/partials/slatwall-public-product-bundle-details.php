@@ -11,7 +11,6 @@ $cart_skuIDs = array_column($cart_skus,'skuID');
 $sku_exist  = count(array_filter($sku_definitions)) != 0;
 $sku_option_count = 0;
 
-
 ?>
 <div class="container my-5">
         <!-- Add to Cart Success/Error message -->

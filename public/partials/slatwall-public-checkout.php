@@ -24,7 +24,8 @@ foreach($cart_data->orderFulfillments as $orderFulfillments){
            break;
         }
 }
-if(!isset($_SESSION['token'])){
+$account_address = new stdClass();
+if(isset($_SESSION['token'])){
 $account = json_decode($account);
 $account_address = $account->accountAddresses;
 }

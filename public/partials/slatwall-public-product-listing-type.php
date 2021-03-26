@@ -1,7 +1,7 @@
-<?php $template_name = 'type';  $value_key = array_search($urlTitle_slug, array_column($types->pageRecords, 'urlTitle'));  ?>
+<?php $template_name = 'type';  $value_key = array_search($urlTitle_slug, array_column($types, 'urlTitle'));  ?>
 <div class="jumbotron jumbotron-fluid full-width-section-slatwall">
             <div class="container text-center">
-                <h1 class="display-4"><?php echo $types->pageRecords[$value_key]->productTypeName; ?></h1>
+                <h1 class="display-4"><?php echo $types[$value_key]->productTypeName; ?></h1>
                 <p class="lead">Product listing display for specific product type.</p>
             </div>
         </div>

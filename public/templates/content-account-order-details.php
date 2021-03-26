@@ -223,7 +223,7 @@
                             <div class="bg-light p-2 mb-3 font-weight-bold text-secondary d-none d-lg-block">
                                 <div class="row align-items-center justify-content-between">
                                     <div class="col-lg-8">Shipped via <?php echo $order_fulfillment->orderFulfillment_shippingMethod_shippingMethodName!=''?$order_fulfillment->orderFulfillment_shippingMethod_shippingMethodName:'NA'; ?> on <?php echo $order_fulfillment->orderFulfillment_estimatedDeliveryDateTime!=''?$order_fulfillment->orderFulfillment_estimatedDeliveryDateTime:'NA'; ?></div>
-                                    <div class="col-lg-4">Tracking # <a href="#"><?php echo $order_fulfillment->orderDeliveryItems_orderDelivery_trackingNumber!=''?$order_fulfillment->orderDeliveryItems_orderDelivery_trackingNumber:'NA'; ?></a>
+                                    <div class="col-lg-4">Tracking # <a href="#"><?php echo (isset($order_fulfillment->orderDeliveryItems_orderDelivery_trackingNumber) && $order_fulfillment->orderDeliveryItems_orderDelivery_trackingNumbe!='')?$order_fulfillment->orderDeliveryItems_orderDelivery_trackingNumber:'NA'; ?></a>
 
                                     </div>
                                 </div>
@@ -236,7 +236,7 @@
                         } else {
                             $image_url = $missing_image_url;
                         }
-                                if(isset($order_item->calculatedQuantityDelivered) && $order_item->calculatedQuantityDelivered == ''){
+                                  if(!isset($order_item->calculatedQuantityDelivered) || $order_item->calculatedQuantityDelivered == ''){
                                     $deliveredQuntity = 0;
                                 } else{
                                     $deliveredQuntity = $order_item->calculatedQuantityDelivered;
