@@ -3,7 +3,7 @@
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
- 
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -24,7 +24,6 @@
  * @package    Slatwall_Ecommerce
  * @subpackage Slatwall_Ecommerce/public
  */
-
 
 class Slatwall_Options extends Slatwall_Integration{
 
