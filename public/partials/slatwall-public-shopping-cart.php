@@ -1,4 +1,11 @@
 <?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+ ?>
+ 
+<?php
 function multiple_in_array($cart_data_items,$seach_value){
     foreach($cart_data_items as $cart_data_item){
 
@@ -273,7 +280,6 @@ var ajax_url = '<?php echo get_site_url()."/wp-admin/admin-ajax.php"; ?>';
     jQuery.post(ajax_url, data, function( result ) {
         var response = jQuery.parseJSON(result);
             if(result){
-                console.log(result);
               if(response.successfulActions && response.successfulActions.includes("public:cart.clear")){
                    update_cart_items(response.cart.orderItems,response.bundleItems,response.normal_items);
                update_cart_payment(response);
@@ -369,7 +375,6 @@ var ajax_url = '<?php echo get_site_url()."/wp-admin/admin-ajax.php"; ?>';
 var ajax_url = '<?php echo get_site_url()."/wp-admin/admin-ajax.php"; ?>';
     jQuery.post(ajax_url, data, function( result ) {
         var response = jQuery.parseJSON(result);
-        console.log(response);
             if(result){
               if(response.successfulActions && response.successfulActions.includes("public:cart.addPromotionCode")){
                   var url = window.location.href.split('?')[0];
@@ -378,8 +383,7 @@ var ajax_url = '<?php echo get_site_url()."/wp-admin/admin-ajax.php"; ?>';
             //location.reload(true);
                 } else {
                     var promo_error = response.errors.promotionCode[0];
-                    console.log(promo_error)
-                   jQuery('.invalid-promo').text(promo_error).show();
+                    jQuery('.invalid-promo').text(promo_error).show();
             }
             }
 
