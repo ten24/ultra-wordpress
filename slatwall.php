@@ -33,7 +33,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define('SLATWALL_VERSION', '1.0.0' );
 define('SLATWALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define('AUTHORIZATION','dGVuMjQ6NDBCbHVlOTY=');
+define('AUTHORIZATION','');
 define('SLATWALL_PLUGIN_DIR_ULR',plugin_dir_url( __FILE__ ));
 define('PRODUCT_SINGLE_SLUG','product');
 define('PRODUCT_SEARCH_SLUG','search-product');
