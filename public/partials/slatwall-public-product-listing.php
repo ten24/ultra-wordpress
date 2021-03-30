@@ -1,3 +1,10 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+ ?>
+ 
 <div class="container">
 			<h1 class="mb-4">Product Listing</h4>
       <div class="alert alert-success added-cart" style="display: none;">Item Added to Cart</div>
@@ -45,4 +52,3 @@
 
 		</div>
 <div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
-

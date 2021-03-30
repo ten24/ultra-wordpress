@@ -1,4 +1,9 @@
 /**
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+*/
+
+/**
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
@@ -897,7 +902,7 @@ div#mini-cart a#dropdownMenuLink {
 }
 .add-order-payment select, .print.btn.btn-light {
     font-size: 16px;
-} 
+}
 .card-header small a {
     font-size: 16px;
 }
@@ -937,7 +942,7 @@ font-size: 16px;
     min-width: 266px;
 }
 .prod-content p #defaultSku_price, .form-promotion .btn-secondary.btn-sm {
-   font-size:inherit !important; 
+   font-size:inherit !important;
 }
 .go-to-cart-btn {
     font-size: inherit;
