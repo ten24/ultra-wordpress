@@ -88,7 +88,7 @@ foreach($cart_data->orderItems as $item){
                                         </div>
                                         <div class="col-sm-4 next_amount">
                                             <h6><span class="text-muted">$</span><strong><?php echo price_number_format($item['extendedPrice']); ?> </strong></h6>
-                                                <small class="blank_quantity">Please enter quantity</small>
+                                                <small class="blank_quantity" style="display:none;font-size: 12px;color: red;">Please enter quantity</small>
                                         </div>
                                         <div class="col-sm-1 p-0">
                                             <span class="btn badge badge-danger item-remove">&times;</span>

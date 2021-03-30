@@ -1,4 +1,8 @@
 <?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
 
 /**
  * The file that defines the core slatwallclass
@@ -25,7 +29,6 @@
  * @since      1.0.0
  * @package    SLATWALL
  * @subpackage SLATWALL/includes
- * @author     Yash <raj.yash@orangemantra.in>
  */
 
 
@@ -122,7 +125,6 @@ class Slatwall {
 
 	}
 
-	
 
 	/**
 	 * Register all of the hooks related to the admin area functionality
@@ -137,8 +139,7 @@ class Slatwall {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $slatwall, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $slatwall, 'enqueue_scripts' );
-                $this->loader->add_action( 'admin_menu', $slatwall, 'menu_options' );
-                 
+		$this->loader->add_action( 'admin_menu', $slatwall, 'menu_options' );
 	}
 
 	/**
@@ -171,9 +172,9 @@ class Slatwall {
                 $this->loader->add_shortcode( 'shopping-cart', $slatwall_public, 'shopping_cart' );
                 $this->loader->add_shortcode( 'mini-cart', $slatwall_public, 'mini_cart' );
                 $this->loader->add_shortcode( 'checkout', $slatwall_public, 'checkout' );
-                
+
                 }
-                
+
         }
 
 	/**
@@ -184,7 +185,7 @@ class Slatwall {
 	public function run() {
 		$this->loader->run();
 	}
-        
+
 	/**
 	 * The name of the slatwallused to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
@@ -215,7 +216,7 @@ class Slatwall {
 	public function get_version() {
 		return $this->version;
 	}
-        
+
         private function get_token(){
             global $table_prefix, $wpdb;
            $result = $wpdb->get_row("SELECT domain,token,status FROM ".$table_prefix."slatwall_login WHERE status = '1'");

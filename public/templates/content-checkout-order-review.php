@@ -1,3 +1,9 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
 <!-- Start Body -->
 <?php $cart_data;
 $shipping_address = isset($cart_data->cart->orderFulfillments[0]->shippingAddress)?$cart_data->cart->orderFulfillments[0]->shippingAddress:'';
@@ -9,9 +15,9 @@ $payment_mathod_name = isset($cart_data->orderPayments[0]->paymentMethod->paymen
 ?>
 <div class="col-xl-7 col-md-8 revieworder" style="display: none;">
                     <!-- Review Order -->
-                    
+
                     <h3 class="mb-3 pt-3 pb-3 border-bottom">Review Order</h3>
-                    
+
                     <div class="row order_review_area">
                         <?php if($shipping_address){ ?>
 						<!-- Review Order: Shipping Address -->
@@ -27,7 +33,7 @@ $payment_mathod_name = isset($cart_data->orderPayments[0]->paymentMethod->paymen
                         </div>
 				<?php } ?>
                                                 <!-- Review Order: Shipping Fulfillment -->
-                        
+
                         <?php if($billing_address){ ?>
 						<!-- Review Order: Billing Address -->
                         <div class="col-md-6 mb-4">
@@ -50,7 +56,7 @@ $payment_mathod_name = isset($cart_data->orderPayments[0]->paymentMethod->paymen
                                 <p class="small"><?php echo $payment_mathod_name; ?> ending in <?php echo $credit_card_last_four; ?></p>
                                 <?php } else { ?>
                                 <h6 class="card-title text-muted">Payment Information</h6>
-                                    <p class="small"><?php echo $payment_mathod_name; ?></p>                                
+                                    <p class="small"><?php echo $payment_mathod_name; ?></p>
                                <?php } ?>
                             </div>
                         </div>

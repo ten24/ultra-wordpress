@@ -28,12 +28,14 @@ class Slatwall_Products extends Slatwall_Integration{
         
         private $url = '/api/scope/getProductList/';
         
-      //  private $url = '/api/product/';
+       // private $url = '/api/product/';
         
         private $detail_url = '/api/product/';
         
         private $bundle_product = '/api/scope/getProductBundles';
         
+        private $product_filter_options = '/api/scope/getProductFilterOptions';
+
         private $slatwall;
 
 	private $version;
@@ -80,8 +82,12 @@ class Slatwall_Products extends Slatwall_Integration{
             
         }
         
-        protected function product_loop_data(){
+        protected function product_filter_options(){
             
+            
+            $API_URL = $this->product_filter_options;
+            $result = $this->get_API_Integration($API_URL);
+            return $result;
         }
         
         

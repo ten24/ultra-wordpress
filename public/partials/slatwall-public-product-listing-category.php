@@ -1,7 +1,7 @@
-<?php $template_name = 'category'; $value_key = array_search($urlTitle_slug, array_column($categories->pageRecords, 'urlTitle')); ?>
+<?php $template_name = 'category'; $value_key = array_search($urlTitle_slug, array_column($categories, 'urlTitle')); ?>
 <div class="jumbotron jumbotron-fluid full-width-section-slatwall">
             <div class="container text-center">
-                <h1 class="display-4"> <?php echo $value_key!=''?$categories->pageRecords[$value_key]->categoryName:''; ?></h1>
+                <h1 class="display-4"> <?php echo $value_key!=''?$categories[$value_key]->categoryName:''; ?></h1>
                 <p class="lead">Product listing display for specific category.</p>
             </div>
         </div>

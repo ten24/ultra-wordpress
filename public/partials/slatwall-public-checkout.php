@@ -1,6 +1,13 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+ ?>
+
 <?php //d($availale_payment_method);
 //echo $_SESSION['token'];
-$cart_data = json_decode($cart_data);
+if(isset($cart_data->orderID) && $cart_data->orderID){
 $complete_step_required = array('account','fulfillment','payment');
 if(isset($cart_data->orderRequiredStepsList) && $cart_data->orderRequiredStepsList != ''){
    $complete_step_required = explode(',', $cart_data->orderRequiredStepsList);
@@ -9,17 +16,20 @@ $show_shipping_step = in_array('fulfillment', $complete_step_required);
 $eligiblePaymentMethodDetails = $cart_data->eligiblePaymentMethodDetails;
 $orderFulfillmentID = '';
 $selected_shipping = isset($cart_data->cart->orderFulfillments[0]->shippingMethod)?$cart_data->cart->orderFulfillments[0]->shippingMethod:'';
-$countries_obj = json_decode($countries_data);
-$countries = $countries_obj->countryCodeOptions;
+
 $shipping_address = isset($cart_data->cart->orderFulfillments[0]->shippingAddress)?$cart_data->cart->orderFulfillments[0]->shippingAddress:'';
 foreach($cart_data->orderFulfillments as $orderFulfillments){
       if(isset($orderFulfillments->fulfillmentMethod->fulfillmentMethodType) && $orderFulfillments->fulfillmentMethod->fulfillmentMethodType == 'shipping'){
            $orderFulfillmentID = $orderFulfillments->orderFulfillmentID;
            break;
-        }   
+        }
 }
+$account_address = new stdClass();
+if(isset($_SESSION['token'])){
 $account = json_decode($account);
 $account_address = $account->accountAddresses;
+}
+}
 ?>
 		<!-- Start Container-->
 		<div class="container mb-5 checkoutpage">
@@ -31,7 +41,7 @@ $account_address = $account->accountAddresses;
                         <!-- Start Row -->
                         <div class="row mt-3 printarea">
 
-             <?php  if($cart_data->orderID){  if(!isset($_SESSION['token'])){
+             <?php  if(isset($cart_data->orderID) && $cart_data->orderID){  if(!isset($_SESSION['token'])){
                  /* Login And Registration */
                  $templates->get_template_part( 'content', 'checkout-account',true );
                }
@@ -44,7 +54,7 @@ $account_address = $account->accountAddresses;
 
                /* Order Review */
                $templates->set_template_data( $cart_data, 'cart_data' )->get_template_part( 'content', 'checkout-order-review',true );
-               
+
                /* Order Confirm */
                $templates->set_template_data( $cart_data, 'cart_data' )->get_template_part( 'content', 'checkout-order-confirm',true );
 
@@ -88,4 +98,3 @@ if (typeof token !== 'undefined') {
 /********************** End Hide and show shipping section based on login ********************/
 
 </script>
-

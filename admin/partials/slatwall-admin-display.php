@@ -1,9 +1,13 @@
 <?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
 
 /**
  * Provide a admin area view for the slatwall
  *
- * This file is used to markup the admin-facing aspects of the slatwall.
+ * This file is used to markup the admin-facing aspects of Slatwall.
  *
  * @link       https://www.slatwallcommerce.com/
  * @since      1.0.0
@@ -35,7 +39,7 @@
         <!-- Header Section (Logo) -->
         <div class="row py-2 align-items-center header-section">
           <div class="col-sm-6 left-container logo">
-            <img src="<?php echo content_url(); ?>/plugins/slatwall/admin/images/logo.png" alt="SlatWall Logo" class="img-fluid" />
+            <img src="<?php echo content_url(); ?>/plugins/slatwall/admin/images/slatwall-logo.svg" alt="Slatwall Commerce" class="img-fluid w-25" />
           </div>
           <div class="col-sm-6 text-right right-container email-text">
             <a href="mailto: www.slatwallcommerce.com" class="text-body">www.slatwallcommerce.com</a>
@@ -47,15 +51,13 @@
         <div class="row py-2 into-section">
           <div class="col-12 intro-inner">
             <div class="py-4 mt-3 jumbotron">
-              <h3>API Settings</h3>
-              <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-              <div class="row">
-                <div class="col-lg-2 col-md-3">
-                    <a href="https://www.slatwallcommerce.com/resources/" title="" class="text-body" target="_blank">Documentation</a>
-                </div>
-                <div class="col-lg-2 col-md-3">
-                  <a href="https://www.slatwallcommerce.com/contact-us" title="" class="text-body" target="_blank">Slatwall Support</a>
-                </div>
+                <h3>Slatwall Commerce for WordPress</h3>
+                <p class="mb-1">Power your WordPress storefronts with the complete enterprise eCommerce functionality of Slatwall Commerce. </p>
+                <p>Designed to be a headless commerce solution that easily integrates into WordPress using the Slatwall Commerce API.</p>
+                <p>
+                  <a href="https://publicapi.slatwallcommerce.com/" title="" class="btn btn-outline-secondary mr-3" target="_blank">Slatwall API Documentation</a>
+                  <a href="https://www.slatwallcommerce.com/user-guide/" title="" class="btn btn-outline-secondary" target="_blank">Slatwall User Guide</a>
+                </p>
               </div>
             </div>
           </div>
@@ -65,7 +67,7 @@
         <!-- Setting Form Section -->
         <div class="row form-section">
           <div class="col-12 form-inner">
-            <h2>API Settings</h2>
+            <h3>API Settings</h3>
             <div class="row">
               <div class="col-sm-10 form-box">
                 <div class="col-md-12 border rounded-lg p-4 settingForm">
@@ -113,7 +115,7 @@
     jQuery(document).ready(function(){
         jQuery('#slatwall_integration .integration-form-btn').on( 'click', function(event) {
         event.preventDefault();
-    
+
     var id = jQuery(this).attr('id');
     console.log(id);
     var form_data = jQuery("#slatwall_integration").serializeArray();
@@ -128,17 +130,15 @@
         var response = jQuery.parseJSON(result);
             if(response.token){
                 if(id == 'submit-key'){
-                   console.log('Success'); 
                    jQuery('.response_msg').html('Success');
                 } else {
                     console.log('Test Success');
                       jQuery('.response_msg').html('Test Success');
                 }
-                
+
             } else{
                 if(id == 'submit-key'){
                      jQuery('.response_msg').html('Failed');
-                   console.log('Failed'); 
                 } else {
                      jQuery('.response_msg').html('Test Failed');
                     console.log('Test Failed');
