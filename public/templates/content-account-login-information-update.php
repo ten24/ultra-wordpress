@@ -1,4 +1,9 @@
-
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
  <?php //d($accounts->accountEmailAddresses['0']->emailAddress); ?>
  <div class="container my-5">
         <h1 class="mb-4">Account Login Information</h1>
@@ -56,4 +61,3 @@
 </div>
 </div>
 <div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
-

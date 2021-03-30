@@ -1,10 +1,17 @@
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
+
     <?php if($related_product_data->relatedProducts){ ?>
     <!-- Related Projects Row -->
     <h2 class="mt-5 mb-4">Related Products</h3>
 
     <div class="row">
         <?php foreach($related_product_data->relatedProducts as $related_product){
-            if($related_product->images[2]){
+            if(isset($related_product->images[2])){
              $related_product_image_url = DOMAIN.$related_product->images[2];
             } else {
                  $related_product_image_url = 'http://placehold.it/510x350';
@@ -32,7 +39,5 @@
             </div>
         </div>
         <?php } ?>
-
-
       </div>
     <?php } ?>

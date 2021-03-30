@@ -1,7 +1,10 @@
 <?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
 
 /**
- * Slatwall Account Integration 
  *
  * @link       https://www.slatwallcommerce.com/
  * @since      1.0.0
@@ -13,9 +16,6 @@
 
 class Slatwall_Integration {
 
-	
-
-        
         private function getKeyValue(){
             global $table_prefix, $wpdb;
            $result = $wpdb->get_row("SELECT * FROM ".$table_prefix."slatwall_login WHERE status = '1'");
@@ -25,7 +25,7 @@ class Slatwall_Integration {
                return false;
            }
         }
-        
+
          protected function get_API_Integration(string $API_URL,string $method = 'GET',string $urlParameter = '',array $post_field_data = array()){
             $auth = AUTHORIZATION;
             $key_data = $this->getKeyValue();
@@ -35,11 +35,11 @@ class Slatwall_Integration {
             $access_key = $key_data->access_key;
             $access_key_secret = $key_data->access_key_secret;
             $full_api_url = $domain.$API_URL.$urlParameter;
-           
+
             try {
                 $ch = curl_init();
 
-                // Check if initialization had gone wrong*    
+                // Check if initialization had gone wrong*
                 if ($ch === false) {
                     throw new Exception('failed to initialize');
                 }
@@ -78,8 +78,8 @@ class Slatwall_Integration {
                 // Check the return value of curl_exec(), too
                 if($content === false) {
                     throw new Exception(curl_error($ch), curl_errno($ch));
-                } 
-           
+                }
+
                 /* Process $content here */
 
                 // Close curl handle
@@ -103,9 +103,9 @@ class Slatwall_Integration {
            } else {
                return false;
            }
-            
+
         }
-        
+
         protected function post_API_integration(array $request,string $API_URL,string $method = 'POST'){
             $auth = AUTHORIZATION;
             $key_data = $this->getKeyValue();
@@ -137,7 +137,7 @@ class Slatwall_Integration {
             ));
 
             $response = curl_exec($curl);
-            
+
             curl_close($curl);
            // print_R($response); die("registration");
             return $response;
@@ -146,7 +146,7 @@ class Slatwall_Integration {
             }
 
             }
-            
+
             protected function register_integration(array $request,string $API_URL,string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
             $auth = AUTHORIZATION;
             $key_data = $this->getKeyValue();
@@ -199,15 +199,15 @@ class Slatwall_Integration {
             }
 
             }
-            
+
             protected function login_integration(array $request,string $API_URL,string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
-               
+
                 $auth = AUTHORIZATION;
                 $key_data = $this->getKeyValue();
             if($key_data){
                 $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
-                
+
                 $post_data = $request;
                  $curl = curl_init();
                 curl_setopt_array($curl, array(
@@ -240,7 +240,7 @@ class Slatwall_Integration {
                 $cookies = array_merge($cookies, $cookie);
             }
             $response = substr($response, $header_size);
-            
+
                 curl_close($curl);
                 $response_json = json_decode($response);
                 $response_json->cookies = $cookies;
@@ -249,12 +249,12 @@ class Slatwall_Integration {
                 return false;
             }
             }
-            
-            
+
+
             protected function userAccountPost(string $API_URL,$token = '',array $request = array(),string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
             $auth = AUTHORIZATION;
             $key_data = $this->getKeyValue();
-            
+
             $post_field_data = $request;
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
@@ -294,14 +294,14 @@ class Slatwall_Integration {
                 $response_json = json_decode($response);
                 $response_json->cookies = $cookies;
             return json_encode($response_json);
-            
+
 
             }
-            
+
              protected function userAccountGet(string $API_URL,$token = '',array $request = array(),string $method = 'GET',$cookies = 'Cookie: cftoken=0;'){
             $auth = AUTHORIZATION;
             $key_data = $this->getKeyValue();
-           
+
             $post_field_data = $request;
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
@@ -329,19 +329,19 @@ class Slatwall_Integration {
 
             curl_close($curl);
             return $response;
-            
+
 
             }
- 
+
 
             protected function stateCode_integration(array $request,string $API_URL,string $method = 'GET',$cookies = 'Cookie: cftoken=0;'){
-               
+
               $auth = AUTHORIZATION;
               $key_data = $this->getKeyValue();
           if($key_data){
               $domain = $key_data->domain;
           $full_api_url = $domain.$API_URL;
-             
+
               $post_data = $request;
                $curl = curl_init();
               curl_setopt_array($curl, array(
@@ -374,7 +374,7 @@ class Slatwall_Integration {
               $cookies = array_merge($cookies, $cookie);
           }
           $response = substr($response, $header_size);
-          
+
               curl_close($curl);
               $response_json = json_decode($response);
               $response_json->cookies = $cookies;

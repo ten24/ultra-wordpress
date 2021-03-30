@@ -1,8 +1,8 @@
 <?php $template_name = 'option'; 
-                        $value_key = array_search($urlTitle_slug, array_column($options->pageRecords, 'optionCode')); ?>
+                        $value_key = array_search($urlTitle_slug, array_column($options, 'optionCode')); ?>
 <div class="jumbotron jumbotron-fluid full-width-section-slatwall">
             <div class="container text-center">
-                <h1 class="display-4"><?php echo $options->pageRecords[$value_key]->optionName; ?></h1>
+                <h1 class="display-4"><?php echo $options[$value_key]->optionName; ?></h1>
                 <p class="lead">Product listing display for specific brand.</p>
             </div>
         </div>

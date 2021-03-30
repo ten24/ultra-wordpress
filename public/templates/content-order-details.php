@@ -1,4 +1,9 @@
-<?php// d($orders); ?>
+<?php
+/*
+ * Copyright © ten24, LLC Inc. All rights reserved.
+ * See License.txt for license details.
+ */
+?>
 <div class="container my-5">
         <div class="row">
 			<?php  $templates->get_template_part( 'content', 'account-sidebar',true ); ?>
