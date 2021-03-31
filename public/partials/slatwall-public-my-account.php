@@ -3,6 +3,9 @@
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
+ ?>
+
+<?php
 
                switch (true) {
     case (($account == "dashboard" && isset($_SESSION['token']))||($account == "my-account" && isset($_SESSION['token']))):

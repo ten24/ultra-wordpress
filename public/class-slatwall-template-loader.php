@@ -3,7 +3,9 @@
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
+ ?>
 
+<?php
 /**
  * Template Loader for Plugins.
  *
@@ -22,6 +24,7 @@
  * When using in a plugin, create a new class that extends this one and just overrides the properties.
  *
  * @package Gamajo_Template_Loader
+ * @author  Gary Jones
  */
 class Slatwall_Template_Loader {
 

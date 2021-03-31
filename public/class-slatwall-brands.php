@@ -28,8 +28,7 @@
 
 class Slatwall_Brands extends Slatwall_Integration{
 
-
-        private $url = '/api/brand/';
+    private $url = '/api/brand/';
 
 
 	/**

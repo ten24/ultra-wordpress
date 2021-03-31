@@ -5,7 +5,7 @@
  */
 
 /**
- * Register all actions and filters for the slatwall
+ * Register all actions and filters for the Slatwall Commerce
  *
  * @link       https://www.slatwallcommerce.com/
  * @since      1.0.0
@@ -79,8 +79,5 @@ public function createLinks( $links, $list_class ) {
 }
     return $html;
 }
-
-
-
 
 }

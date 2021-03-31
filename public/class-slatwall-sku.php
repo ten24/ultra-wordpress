@@ -3,7 +3,7 @@
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
-
+ 
 /**
  * The public-facing functionality of the plugin.
  *
@@ -29,7 +29,7 @@
 class Slatwall_Sku extends Slatwall_Integration{
 
 
-        private $url = '/api/sku/';
+        private $url = '/api/scope/getSkuList/';
 
 
 	/**

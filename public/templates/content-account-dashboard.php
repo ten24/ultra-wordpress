@@ -1,11 +1,11 @@
-<?php>
+<?php
 /*
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
 ?>
-
 <?php if(isset($_SESSION['token'])){
+    $orderDeliveries = $orders->ordersOnAccount->orderDeliveries;
    //  wp_redirect(get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details');
     // $order_single_url = get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details'.'/'.;
 } ?>
@@ -41,17 +41,32 @@
           	    </tr>
             </thead>
           	<tbody>
-              <?php foreach($orders->ordersOnAccount->ordersOnAccount as $order) {   ?>
+              <?php $order_count = 1; foreach($orders->ordersOnAccount->ordersOnAccount as $order) {
+                  if($order_count < 6){
+                  $order_id = $order->orderID;
+$orderDelivery = array_filter($orderDeliveries, function($ar,$ak)  use ($order_id)  {
+    if($order_id == $ar->order_orderID && str_replace(' ', '', $ar->trackingNumber) != ''){
+                return $ar->trackingNumber;
+    }
+            },ARRAY_FILTER_USE_BOTH);
+            $tracking_ids = array();
+            if(!empty($orderDelivery)){
+                $tracking_ids = array_column($orderDelivery,'trackingNumber');
+            }
+
+                  ?>
           			<tr>
-                  <?php ?>
+
                 	<td><?php echo $order->orderNumber?></td>
                   <td><?php echo  DateTime::createFromFormat("F, j Y H:i:s O",$order->createdDateTime)->format('F j, Y');//$order->createdDateTime; //get_date_from_gmt(strtotime($order->createdDateTime),'M d, Y'); ?></td>
                   <td style="text-align: right; vertical-align: middle;"><?php echo $order->calculatedTotalItemQuantity?></td>
-                  <td style="text-align: center; vertical-align: middle;"><?php echo $order->orderStatusType_typeName?></td>
+                  <td style="text-align: center; vertical-align: middle;"><?php echo $order->orderStatusType_typeName?> <?php echo !empty($tracking_ids)?'<a href="javascript:void(0);"><small> Tracking #'.$tracking_ids[0].'</small></a>':''; ?></td>
                   <td style="text-align: right; vertical-align: middle;">$<?php echo price_number_format($order->calculatedTotal);?></td>
                   <td style="text-align: center; vertical-align: middle;"><a href="<?php echo get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details'.'/'.$order->orderID; ?>" id="<?php echo $order->orderID; ?>">View</a></td>
           			</tr>
-          		<?php } ?>
+                  <?php } else {
+                      break;
+                  } $order_count++; } ?>
           	</tbody>
           </table>
         </div>

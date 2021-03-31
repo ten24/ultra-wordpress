@@ -119,7 +119,7 @@ class Slatwall_Checkout extends Slatwall_Integration{
            return $result;
        }
 
-        public function place_order($token,$request){
+        public function place_order($token,$request = array()){
 
             $result =  $this->userAccountPost($this->placeOrder,$token,$request,'POST');
            return $result;

@@ -25,7 +25,6 @@
  * @subpackage Slatwall_Ecommerce/public
  */
 
-
 class Slatwall_Options extends Slatwall_Integration{
 
 

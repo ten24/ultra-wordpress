@@ -31,7 +31,7 @@ class Slatwall_Cart extends Slatwall_Integration{
 
         private $url = '/api/scope/addOrderItem/';
 
-        private $get_cart = '/api/scope/getCart/';
+        private $get_cart = '/api/scope/getCartData/';
 
         private $add_promo_url = '/api/scope/addPromotionCode/';
 
@@ -48,6 +48,12 @@ class Slatwall_Cart extends Slatwall_Integration{
         private $clear_cart = '/api/scope/clearOrder/';
 
         private $change_order = '/api/scope/changeOrder/';
+
+        private $create_product_bundle_build = '/api/scope/createProductBundleBuild/';
+
+        private $getProductBundleBuild = '/api/scope/getProductBundleBuild/';
+
+        private $addProductBundleToCart = '/api/scope/addProductBundleToCart/';
 
         private $cfid;
 
@@ -81,6 +87,23 @@ class Slatwall_Cart extends Slatwall_Integration{
         public function add_to_cart($token = '',$request = array()){
 
           $result = $this->userAccountPost($this->url,$token,$request,'POST',$this->cookies);
+            return $result;
+        }
+
+
+        public function create_bundle_group($token = '',$request = array()){
+          $result = $this->userAccountPost($this->create_product_bundle_build,$token,$request,'POST',$this->cookies);
+            return $result;
+        }
+
+        public function get_product_bundle_build($token = '',$request = array()){
+          $result = $this->userAccountPost($this->getProductBundleBuild,$token,$request,'POST',$this->cookies);
+            return $result;
+        }
+
+        public function add_product_bundle_to_cart($token = '',$request = array()){
+
+          $result = $this->userAccountPost($this->addProductBundleToCart,$token,$request,'POST',$this->cookies);
             return $result;
         }
 
