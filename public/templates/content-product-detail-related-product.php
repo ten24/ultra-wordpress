@@ -11,7 +11,7 @@
 
     <div class="row">
         <?php foreach($related_product_data->relatedProducts as $related_product){
-            if($related_product->images[2]){
+            if(isset($related_product->images[2])){
              $related_product_image_url = DOMAIN.$related_product->images[2];
             } else {
                  $related_product_image_url = 'http://placehold.it/510x350';

@@ -28,12 +28,12 @@
                                             <?php } else { ?>
                                                 <div class="selection_limit_area input_selection"><small>Select at least <span class="badge badge-primary min-max-sku-selection" data-min-value="<?php echo $bundle_group->minimumQuantity; ?>" data-max-value="<?php echo $bundle_group->maximumQuantity; ?>"><?php echo $bundle_group->minimumQuantity; ?></span>. Max <span class="badge badge-primary"><?php echo $bundle_group->maximumQuantity; ?></span></small></div>
                                              <?php $sku_list_count = 0; foreach($bundle_group->skuList as $sku){
-                                                 if($sku->activeFlag == 1 && $sku->publishedFlag == 1){
+                                                 if($sku->activeFlag == 1 && $sku->publishedFlag == 1){ 
                                                  ?>
                                             <div class="row mt-3">
                                                 <div class="col-md-8"><?php echo $sku->calculatedSkuDefinition?$sku->calculatedSkuDefinition.' - $'.$sku->price:'NA'.' - $'.$sku->price; ?></div>
                                                 <input type="hidden" name="skuID[<?php echo $group_count; ?>][<?php echo $sku_list_count; ?>]" value="<?php echo $sku->skuID; ?>">
-                                                <div class="col-md-4"><input type="number" name="quantity[<?php echo $group_count; ?>][<?php echo $sku_list_count; ?>]" class="sku_input_value form-control form-control-sm number-field" value=""></div>
+                                                <div class="col-md-4"><input type="number" name="quantity[<?php echo $group_count; ?>][<?php echo $sku_list_count; ?>]" class="sku_input_value form-control form-control-sm number-field" value="" max="<?php echo $sku->calculatedQATS; ?>"></div>
                                             </div>
                                                  <?php $sku_list_count++; } } ?>
                                            <?php } ?>

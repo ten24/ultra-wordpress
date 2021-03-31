@@ -4,7 +4,7 @@
  * See License.txt for license details.
  */
 ?>
-<?php $shipping_methods = json_decode($availale_shipping_method->scalar);
+<?php $shipping_methods = json_decode(isset($availale_shipping_method->scalar)?$availale_shipping_method->scalar:'');
 $shipping_flag = 0;
 $pickup_flag = 0;
 

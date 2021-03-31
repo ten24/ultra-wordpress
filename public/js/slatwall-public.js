@@ -1360,15 +1360,15 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
     jQuery.post(ajax_url, data, function( result ) {
 		var response = jQuery.parseJSON(result);
                 var payment_method_id = response.paymentMethodID;
-                console.log(response.cart_data.orderRequiredStepsList);
-                var required_list = response.cart_data.orderRequiredStepsList;
+//                console.log(response.cart_data.orderRequiredStepsList);
+                
+    if(action === 'user_login'){
+        if(response.token){
+var required_list = response.cart_data.orderRequiredStepsList;
                 var required_list_array = required_list.split(",");
                 console.log(required_list_array);
                 var required_list_array_check_fulfillment = required_list_array.indexOf("fulfillment");
     var account_address = response.account_address;
-    if(action === 'user_login'){
-        if(response.token){
-
             if(account_address.length > 0){
                 jQuery('#shippingCreateAddress').removeClass('show');
                 jQuery('.show-address-book').show();
@@ -1433,7 +1433,11 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
         jQuery('.account_create_errors').html('');
         jQuery('.account_create').show();
          if(response.token){
-
+var required_list = response.cart_data.orderRequiredStepsList;
+                var required_list_array = required_list.split(",");
+                console.log(required_list_array);
+                var required_list_array_check_fulfillment = required_list_array.indexOf("fulfillment");
+    var account_address = response.account_address;
             if(account_address.length > 0){
                 jQuery('.account_address_for_shipping').append('<h5 class="text-secondary my-4">Select Shipping Address</h5><div class="row"></div>');
                 account_address.forEach(function(address) {

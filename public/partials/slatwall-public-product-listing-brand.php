@@ -1,7 +1,7 @@
-<?php $template_name = 'brand';  $value_key = array_search($urlTitle_slug, array_column($brands->pageRecords, 'urlTitle'));  ?>
+<?php $template_name = 'brand';  $value_key = array_search($urlTitle_slug, array_column($brands, 'urlTitle'));  ?>
 <div class="jumbotron jumbotron-fluid full-width-section-slatwall">
             <div class="container text-center">
-                <h1 class="display-4"><?php echo $brands->pageRecords[$value_key]->brandName; ?></h1>
+                <h1 class="display-4"><?php echo $brands[$value_key]->brandName; ?></h1>
                 <p class="lead">Product listing display for specific brand.</p>
             </div>
         </div>
