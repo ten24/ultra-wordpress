@@ -3,7 +3,7 @@
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
- 
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -284,10 +284,10 @@ class Slatwall_Public extends Slatwall_Products {
 	}
 
         public function start_session(){
-             if(!session_id()) {
-        session_start();
-
-    }
+            if(!session_id()) {
+                 ob_start();
+                 // session_start();
+            }
         }
 
         function home_page(){
@@ -370,7 +370,7 @@ class Slatwall_Public extends Slatwall_Products {
          $options = $product_filter_data->data->option;
          $categories = $product_filter_data->data->category;
          $types = $product_filter_data->data->productType;
-         
+
             if($products){
                 $totalPages =  $products->totalPages;
                 $paginator = new Paginator(1, $totalPages);
@@ -405,7 +405,7 @@ class Slatwall_Public extends Slatwall_Products {
 //         $_SESSION['cftoken'] = $products->cookies['cftoken'];
 //             }
 //         }
-         
+
          $product_filter_data =  $this->product_filter_options();
          $brands = $product_filter_data->data->brand;
          $options = $product_filter_data->data->option;
@@ -668,6 +668,7 @@ class Slatwall_Public extends Slatwall_Products {
 
         public function my_account(){
                ob_start();
+               
                $templates = new SW_Template_Loader;
                $account = get_query_var('maslug');
                $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -750,8 +751,8 @@ class Slatwall_Public extends Slatwall_Products {
                $parameter = '?countryCode=US';
                $default_state_code = json_decode($stateCode->stateCode($parameter));
                set_transient('slatwall_default_states', $default_state_code, API_CACHE_EXPIRE_TIME);
-               } 
-                
+               }
+
                require 'partials/slatwall-public-my-account.php';
                return ob_get_clean();
         }
@@ -853,6 +854,7 @@ class Slatwall_Public extends Slatwall_Products {
        }
 
        public function add_to_cart(){
+           session_start();
            $id = isset($_POST['id'])?$_POST['id']:'';
            $qty = isset($_POST['qty'])?$_POST['qty']:1;
            $cart = new Slatwall_Cart();
@@ -911,6 +913,7 @@ class Slatwall_Public extends Slatwall_Products {
 
 
        public function remove_cart_item(){
+           session_start();
            $token = isset($_SESSION['token'])?$_SESSION['token']:'';
            $item_id = $_POST['id'];
            $request = array('orderItemID' => $item_id);
@@ -946,6 +949,7 @@ class Slatwall_Public extends Slatwall_Products {
        }
 
        public function clear_cart(){
+           session_start();
            $token = isset($_SESSION['token'])?$_SESSION['token']:'';
             $cart = new Slatwall_Cart();
             $request['returnJSONObjects'] = 'cart';
@@ -1000,6 +1004,7 @@ class Slatwall_Public extends Slatwall_Products {
                 return false;
             }
        public function update_cart_item(){
+           session_start();
               $token = isset($_SESSION['token'])?$_SESSION['token']:'';
                  $sku_id = $_POST['id'];
                   $qty = $_POST['qty'];
@@ -1037,6 +1042,7 @@ class Slatwall_Public extends Slatwall_Products {
        }
 
        public function add_promo(){
+           session_start();
             $cart = new Slatwall_Cart();
            $token = isset($_SESSION['token'])?$_SESSION['token']:'';
            $form_data = $_POST['form_data'];
@@ -1050,6 +1056,7 @@ class Slatwall_Public extends Slatwall_Products {
        }
 
        public function remove_promo(){
+           session_start();
            $token = isset($_SESSION['token'])?$_SESSION['token']:'';
               $promo_code = $_POST['id'];
               if($promo_code){
@@ -1080,13 +1087,13 @@ class Slatwall_Public extends Slatwall_Products {
                $countries = $countries_data_obj->countryCodeOptions;
                set_transient('slatwall_default_countries', $countries, API_CACHE_EXPIRE_TIME);
                }
-               
+
          if(isset($_SESSION['token'])){
            $account_class = new Slatwall_Account($this->slatwall, $this->version);
            $request = array('returnJSONObjects','account');
            $account = $account_class->get_account($token,$request);
-           
-           
+
+
            $checkout = new Slatwall_Checkout();
            $availale_payment_method = $checkout->get_availale_payment_method($token);
            $availale_shipping_method = $checkout->get_availale_shipping_method($token);
@@ -1106,6 +1113,7 @@ class Slatwall_Public extends Slatwall_Products {
 
 
        public function add_billing_address(){
+           session_start();
          $form_data = $_POST['form_data'];
          if(isset($_SESSION['token'])){
         $request = array_combine(array_column($form_data, 'name'), array_column($form_data, 'value'));
@@ -1119,6 +1127,7 @@ class Slatwall_Public extends Slatwall_Products {
        }
 
        public function add_shipping_address(){
+           session_start();
           $form_data = $_POST['form_data'];
           $request = array();
          $account_address_id = $_POST['account_address_id'];
@@ -1148,6 +1157,7 @@ class Slatwall_Public extends Slatwall_Products {
        }
 
        public function pickup(){
+           session_start();
           $checkout = new Slatwall_Checkout();
           $request = array('value' => DEFAULT_LOCATION,'returnJSONObjects' => 'cart');
 
@@ -1156,6 +1166,7 @@ class Slatwall_Public extends Slatwall_Products {
        }
 
        public function pickup_shipping(){
+           session_start();
            $cart = new Slatwall_Cart();
            $checkout = new Slatwall_Checkout();
            $token = $_SESSION['token'];
@@ -1176,6 +1187,7 @@ class Slatwall_Public extends Slatwall_Products {
        }
 
        public function add_order_payment(){
+           session_start();
          $form_data = $_POST['form_data'];
          $same_shipping = $_POST['same_shipping'];
          $account_address_id = $_POST['account_address_id'];
@@ -1229,7 +1241,7 @@ class Slatwall_Public extends Slatwall_Products {
        }
 
        public function user_register(){
-
+            session_start();
            $registration = new Slatwall_Registration($this->slatwall, $this->version);
            $form_data = $_POST['form_data'];
              $request = array_combine(array_column($form_data, 'name'), array_column($form_data, 'value'));
@@ -1288,12 +1300,14 @@ class Slatwall_Public extends Slatwall_Products {
        }
 
        public function user_login(){
+           session_start();
             $login = new Slatwall_Login($this->slatwall, $this->version);
             $form_data = $_POST['form_data'];
              $request = array_combine(array_column($form_data, 'name'), array_column($form_data, 'value'));
                $request['returnJSONObjects'] = 'cart';
                    $login_status = $login->login($request);
                    $login_array = $login_status;
+                   
                    if($login_array && $login_array->token){
                         $_SESSION['token'] = $login_array->token;
                         unset($_SESSION['cfid']);
@@ -1338,7 +1352,6 @@ class Slatwall_Public extends Slatwall_Products {
                             }
                             $login_status->paymentMethodID = $paymentMethodID;
                    }
-
                    echo json_encode($login_status);
                    die;
        }
@@ -1359,6 +1372,7 @@ class Slatwall_Public extends Slatwall_Products {
        }
 
        public function place_order(){
+            session_start();
            $this->account($_SESSION['token']);
            if(isset($_SESSION['token'])){
                $checkout = new Slatwall_Checkout();
@@ -1380,7 +1394,7 @@ class Slatwall_Public extends Slatwall_Products {
 
 
        public function add_account_address(){
-
+           session_start();
         $form_data = $_POST['form_data'];
          $checkout = new Slatwall_Account($this->slatwall, $this->version);
         if(isset($_SESSION['token'])){
@@ -1396,7 +1410,7 @@ class Slatwall_Public extends Slatwall_Products {
       }
 
       public function edit_account_address(){
-
+          session_start();
         $form_data = $_POST['form_data'];
         $addressID = $_POST['addressID'];
          $checkout = new Slatwall_Account($this->slatwall, $this->version);
@@ -1414,7 +1428,7 @@ class Slatwall_Public extends Slatwall_Products {
 
 
       public function delete_account_address(){
-
+          session_start();
         $form_data = $_POST['form_data'];
 
          $checkout = new Slatwall_Account($this->slatwall, $this->version);
@@ -1430,7 +1444,7 @@ class Slatwall_Public extends Slatwall_Products {
       }
 
       public function set_primary_address(){
-
+          session_start();
         $form_data = $_POST['form_data'];
 
          $checkout = new Slatwall_Account($this->slatwall, $this->version);
@@ -1446,7 +1460,7 @@ class Slatwall_Public extends Slatwall_Products {
 
 
       public function delete_account_email(){
-
+          session_start();
         $form_data = $_POST['form_data'];
 
          $checkout = new Slatwall_Account($this->slatwall, $this->version);
@@ -1462,7 +1476,7 @@ class Slatwall_Public extends Slatwall_Products {
       }
 
       public function set_primary_email(){
-
+          session_start();
         $form_data = $_POST['form_data'];
          $checkout = new Slatwall_Account($this->slatwall, $this->version);
         if(isset($_SESSION['token'])){
@@ -1474,6 +1488,7 @@ class Slatwall_Public extends Slatwall_Products {
       }
 
       public function add_email_address(){
+           session_start();
           $form_data = $_POST['form_data'];
           $request = array_combine(array_column($form_data, 'name'), array_column($form_data, 'value'));
          $checkout = new Slatwall_Account($this->slatwall, $this->version);
@@ -1486,7 +1501,7 @@ class Slatwall_Public extends Slatwall_Products {
       }
 
       public function delete_account_phone(){
-
+          session_start();
         $form_data = $_POST['form_data'];
 
          $checkout = new Slatwall_Account($this->slatwall, $this->version);
@@ -1502,7 +1517,7 @@ class Slatwall_Public extends Slatwall_Products {
       }
 
       public function set_primary_phone(){
-
+          session_start();
         $form_data = $_POST['form_data'];
 
          $checkout = new Slatwall_Account($this->slatwall, $this->version);
@@ -1518,7 +1533,7 @@ class Slatwall_Public extends Slatwall_Products {
       }
 
       public function add_account_phone_number(){
-
+          session_start();
         $phoneNumber = $_POST['phoneNumber'];
 
          $checkout = new Slatwall_Account($this->slatwall, $this->version);
@@ -1531,6 +1546,7 @@ class Slatwall_Public extends Slatwall_Products {
 
 
       public function change_password_account(){
+            session_start();
         $form_data = $_POST['form_data'];
          $checkout = new Slatwall_Account($this->slatwall, $this->version);
         if(isset($_SESSION['token'])){
@@ -1715,6 +1731,7 @@ class Slatwall_Public extends Slatwall_Products {
 
 
         public function wp_head_script(){
+            session_start();
             header("Cache-Control: no cache");
             $_SESSION['added_into_cart'] = 0;
                $_SESSION['added_into_cart_error'] = 0;
