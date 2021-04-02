@@ -129,9 +129,9 @@ foreach($cart_data->orderItems as $item){
 
                     <!-- Place Order: Toggle disabled attribute after form submit validation to continue -->
                     <?php if($cart_data->cart->orderRequirementsList == ''){?>
-                	<button type="button" id="place-order" class="btn btn-block btn-primary sidebar-place-order">Place Order <i class="fas fa-circle-notch fa-spin"></i></button>
+                	<button type="button" id="place-order" class="btn btn-block btn-primary sidebar-place-order">Place Order</button>
                     <?php } else { ?>
-                        <button type="button" id="place-order" class="btn btn-block btn-primary sidebar-place-order" disabled="disabled">Place Order <i class="fas fa-circle-notch fa-spin"></i></button>
+                        <button type="button" id="place-order" class="btn btn-block btn-primary sidebar-place-order" disabled="disabled">Place Order</button>
                     <?php } ?>
   <?php } else { ?>
                         <p>No Items In Your Shopping Cart</p>

@@ -280,7 +280,7 @@ foreach($orderItems as $item){
                                         </div>
                     <div class="form-group w-50 mt-5">
                         <!-- Toggle disabled attribute after form submit validation to continue -->
-                        <button class="btn btn-secondary btn-block" id="shipping_countinue" type="button">Continue <i class="fas fa-circle-notch fa-spin"></i></button>
+                        <button class="btn btn-secondary btn-block" id="shipping_countinue" type="button">Continue</button>
                     </div>
 
 
