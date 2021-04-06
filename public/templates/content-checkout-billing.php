@@ -1,10 +1,27 @@
-<?php>
+<?php
 /*
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
 ?>
+<?php $searchedValue = 'termPayment';
+$neededeligiblePaymentMethodDetails = array_filter(
+    (array)$eligiblePaymentMethodDetails,
+    function ($e) use (&$searchedValue) {
 
+    if($e->paymentMethod->paymentMethodType == $searchedValue){
+        $paymentMethodID = $e->paymentMethod->paymentMethodID;
+         return $paymentMethodID;
+    }
+
+    }
+);
+//$first_key = array_key_first($neededeligiblePaymentMethodDetails);
+$first_key = key($neededeligiblePaymentMethodDetails);
+if(isset($neededeligiblePaymentMethodDetails) && !empty($neededeligiblePaymentMethodDetails)){
+$paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMethod->paymentMethodID;
+}
+?>
 <!-- Start Body -->
 				<div class="col-xl-7 col-md-8 billinginfo" style="display: none;">
                     <!-- Start Payment Info  -->
@@ -155,7 +172,7 @@
                                 </div>
                         </div>
                                 <div class="form-group w-50 mt-3">
-                                        <button class="btn btn-secondary btn-block" type="submit">Save Address <i class="fas fa-circle-notch fa-spin"></i></button>
+                                        <button class="btn btn-secondary btn-block" type="submit">Save Address</button>
                                 </div>
                         </form>
                     </div>
@@ -222,7 +239,6 @@
                         				<div class="form-group mb-md-0">
                         					<label for="checkoutPaymentCardYear">Expiration Year</label>
                                      <select name="newOrderPayment.expirationYear" class="custom-select required" id="checkoutPaymentCardYear" >
-                                                <option value="2020">2020</option>
                                                 <option value="2021">2021</option>
                                                 <option value="2022">2022</option>
                                                 <option value="2023">2023</option>
@@ -231,6 +247,8 @@
                                                 <option value="2026">2026</option>
                                                 <option value="2027">2027</option>
                                                 <option value="2028">2028</option>
+                                                <option value="2028">2029</option>
+                                                <option value="2028">2030</option>
                         					</select>
                                             <div class="invalid-feedback">Expiration Year Required</div>
                         				</div>
@@ -253,7 +271,7 @@
                             <!-- /End Credit Card Payment Form -->
                     	</div>
 						<!-- /End Credit Card Payment Dropdown -->
-
+                         <?php if(isset($paymentMethodID)){ ?>
                         <!-- Purchase Order Payment Radio Select -->
                 		<div class="custom-control custom-radio">
                 			<input class="custom-control-input" id="checkoutPaymentPurchaseOrder" name="payment" type="radio" data-toggle="collapse" data-action="hide" data-target="#checkoutPaymentPurchaseOrder">
@@ -271,7 +289,7 @@
                                     <input class="form-control required" type="text" id="purchaseOrder" name="newOrderPayment.purchaseOrderNumber">
                                     <div class="invalid-feedback">Purchase Order # Required</div>
                                 </div>
-                                <input type="hidden" name="newOrderPayment.paymentMethod.paymentMethodID" value="2c91808e6f881fe5016fa92a3d9b0880">
+                                <input type="hidden" name="newOrderPayment.paymentMethod.paymentMethodID" value="<?php echo $paymentMethodID; ?>">
                                 <input type="hidden" name="order_type" value="purchase_order">
                                 <div class="form-group w-50">
                                     <!-- Toggle disabled attribute after form submit validation to continue -->
@@ -281,6 +299,7 @@
                             <!-- /End Purchase Order Payment Form -->
                         </div>
 						<!-- /End Purchase Order Payment Dropdown -->
+                         <?php } ?>
                     </div>
                     <!-- /End Payment Information -->
 				</div>

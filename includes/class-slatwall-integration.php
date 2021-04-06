@@ -5,7 +5,6 @@
  */
 
 /**
- * Slatwall Account Integration
  *
  * @link       https://www.slatwallcommerce.com/
  * @since      1.0.0
@@ -16,9 +15,6 @@
 
 
 class Slatwall_Integration {
-
-
-
 
         private function getKeyValue(){
             global $table_prefix, $wpdb;

@@ -1,10 +1,10 @@
-<?php>
+<?php
 /*
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
 ?>
-<div class="container">
+ <div class="container">
         <h1 class="mb-4">Account Address Book</h1>
         <div class="row">
             <!-- Account Sidebar Navigation -->
@@ -72,7 +72,7 @@
                             </div>
                             <div class="card-footer d-flex justify-content-between">
 							<button type="button" class="btn bg-transparent text-primary p-0 d-inline-block delete-address" data-id="<?php echo $address->accountAddressID; ?>">Delete</button>
-							<button type="button" class="btn bg-transparent text-primary p-0 d-inline-block edit-address" data-toggle="modal" data-target="#exampleModal" data-title="Edit Address"  data-value='<?php echo json_encode((array)$address); ?>'  data-id="<?php echo $address->address->addressID; ?>">Edit</button>
+							<button type="button" class="btn bg-transparent text-primary p-0 d-inline-block edit-address" data-toggle="modal" data-target="#exampleModal" data-title="Edit Address"  data-value='<?php echo json_encode((array)$address); ?>'  data-id="<?php echo $address->accountAddressID; ?>">Edit</button>
                             </div>
                         </div>
 					</div>

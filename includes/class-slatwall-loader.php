@@ -61,18 +61,15 @@ class Slatwall_Loader {
 
 	}
 
-
 	public function add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->actions = $this->add( $this->actions, $hook, $component, $callback, $priority, $accepted_args );
 	}
-
 
 	public function add_filter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->filters = $this->add( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
 	}
 
-
-        public function add_shortcode( $tag, $component, $callback, $priority = 10, $accepted_args = 2 ) {
+    public function add_shortcode( $tag, $component, $callback, $priority = 10, $accepted_args = 2 ) {
         $this->shortcodes = $this->add( $this->shortcodes, $tag, $component, $callback, $priority, $accepted_args );
     }
 

@@ -126,7 +126,6 @@ class Slatwall {
 	}
 
 
-
 	/**
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
@@ -140,8 +139,7 @@ class Slatwall {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $slatwall, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $slatwall, 'enqueue_scripts' );
-                $this->loader->add_action( 'admin_menu', $slatwall, 'menu_options' );
-
+		$this->loader->add_action( 'admin_menu', $slatwall, 'menu_options' );
 	}
 
 	/**
@@ -159,9 +157,16 @@ class Slatwall {
 		$this->loader->add_action( 'wp_enqueue_scripts', $slatwall_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $slatwall_public, 'enqueue_scripts' );
                 $this->loader->add_action( 'init', $slatwall_public, 'start_session' );
-
+                $this->loader->add_filter( 'pre_get_document_title', $slatwall_public, 'slatwall_wp_title_filter',100);
                 if($token){
+                $this->loader->add_shortcode( 'home-page', $slatwall_public, 'home_page' );
                 $this->loader->add_shortcode( 'product-listing', $slatwall_public, 'product_listing' );
+                $this->loader->add_shortcode( 'product-listing-search', $slatwall_public, 'product_listing_search' );
+                $this->loader->add_shortcode( 'product-search-form', $slatwall_public, 'product_search_form' );
+                $this->loader->add_shortcode( 'product-listing-brand', $slatwall_public, 'product_listing_brand' );
+                $this->loader->add_shortcode( 'product-listing-category', $slatwall_public, 'product_listing_category' );
+                $this->loader->add_shortcode( 'product-listing-option', $slatwall_public, 'product_listing_option' );
+                $this->loader->add_shortcode( 'product-listing-type', $slatwall_public, 'product_listing_type' );
                 $this->loader->add_shortcode( 'product-details', $slatwall_public, 'product_details' );
                 $this->loader->add_shortcode( 'my-account', $slatwall_public, 'my_account' );
                 $this->loader->add_shortcode( 'shopping-cart', $slatwall_public, 'shopping_cart' );

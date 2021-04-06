@@ -11,7 +11,7 @@
  * @since      1.0.0
  *
  * @package    Slatwall_Ecommerce
- * @subpackage Slatwall_Ecommerce/public
+ * @subpackage Slatwall_Ecommerce/includes
  */
 
 /**
@@ -28,7 +28,6 @@
 
 class Slatwall_Account extends Slatwall_Integration{
 
-
         private $url = '/api/scope/getAccount/';
 
         private $update_url = '/api/scope/updateAccount/';
@@ -43,7 +42,9 @@ class Slatwall_Account extends Slatwall_Integration{
 
         private $get_order_details = '/api/scope/getOrderDetails';
 
-        private $editAdressAccount = '/api/scope/updateAddress/';
+        private $duplicateOrder = '/api/scope/duplicateOrder';
+
+        private $editAdressAccount = '/api/scope/updateAccountAddress/';
 
         private $deleteAddressAccount = '/api/scope/deleteAccountAddress/';
 
@@ -64,15 +65,10 @@ class Slatwall_Account extends Slatwall_Integration{
         private $addAccountPhoneNumber = '/api/scope/AddAccountPhoneNumber/';
 
 //        private $cfid;
-//
 //        private $cftoken;
-//
 //        private $JSESSIONID;
-//
 //        private $SLATWALL_NPSID;
-//
 //        private $SLATWALL_PSID;
-//
 //        private $cookies;
 
         private $slatwall;
@@ -129,6 +125,16 @@ class Slatwall_Account extends Slatwall_Integration{
         public function get_order_details($token,$request = array()){
 
             $result = $this->userAccountPost($this->get_order_details,$token,$request,'GET');
+            if($result){
+            return $result;
+            } else {
+                return false;
+            }
+        }
+
+        public function cart_reorder($token,$request = array()){
+
+            $result = $this->userAccountPost($this->duplicateOrder,$token,$request,'POST');
             if($result){
             return $result;
             } else {

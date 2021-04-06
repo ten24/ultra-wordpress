@@ -51,13 +51,14 @@
         <div class="row py-2 into-section">
           <div class="col-12 intro-inner">
             <div class="py-4 mt-3 jumbotron">
-              <h3>Slatwall Commerce for WordPress</h3>
-              <p class="mb-1">Power your WordPress storefronts with the complete enterprise eCommerce functionality of Slatwall Commerce. </p>
-              <p>Designed to be a headless commerce solution that easily integrates into WordPress using the Slatwall Commerce API.</p>
-              <p>
-                <a href="https://publicapi.slatwallcommerce.com/" title="" class="btn btn-outline-secondary mr-3" target="_blank">Slatwall API Documentation</a>
-                <a href="https://www.slatwallcommerce.com/user-guide/" title="" class="btn btn-outline-secondary" target="_blank">Slatwall User Guide</a>
-              </p>
+                <h3>Slatwall Commerce for WordPress</h3>
+                <p class="mb-1">Power your WordPress storefronts with the complete enterprise eCommerce functionality of Slatwall Commerce. </p>
+                <p>Designed to be a headless commerce solution that easily integrates into WordPress using the Slatwall Commerce API.</p>
+                <p>
+                  <a href="https://publicapi.slatwallcommerce.com/" title="" class="btn btn-outline-secondary mr-3" target="_blank">Slatwall API Documentation</a>
+                  <a href="https://www.slatwallcommerce.com/user-guide/" title="" class="btn btn-outline-secondary" target="_blank">Slatwall User Guide</a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -129,7 +130,6 @@
         var response = jQuery.parseJSON(result);
             if(response.token){
                 if(id == 'submit-key'){
-                   console.log('Success');
                    jQuery('.response_msg').html('Success');
                 } else {
                     console.log('Test Success');
@@ -139,7 +139,6 @@
             } else{
                 if(id == 'submit-key'){
                      jQuery('.response_msg').html('Failed');
-                   console.log('Failed');
                 } else {
                      jQuery('.response_msg').html('Test Failed');
                     console.log('Test Failed');

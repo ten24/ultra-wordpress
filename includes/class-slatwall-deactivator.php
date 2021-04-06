@@ -33,7 +33,6 @@ class Slatwall_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
              global $table_prefix, $wpdb;
     $wpdb->query( 'DROP TABLE IF EXISTS '.$table_prefix.'slatwall_login' );
 

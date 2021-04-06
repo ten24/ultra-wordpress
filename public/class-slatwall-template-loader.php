@@ -22,6 +22,7 @@
  * When using in a plugin, create a new class that extends this one and just overrides the properties.
  *
  * @package Gamajo_Template_Loader
+ * @author  Gary Jones
  */
 class Slatwall_Template_Loader {
 

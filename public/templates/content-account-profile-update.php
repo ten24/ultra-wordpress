@@ -1,10 +1,9 @@
-<?php>
+<?php
 /*
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
 ?>
-
 <?php // print_r($profile_update); die("gfghfgh");?>
 <div class="container my-5">
   <h1 class="mb-4">Profile Update</h1>

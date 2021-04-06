@@ -1,7 +1,7 @@
-/*
+/**
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
- */
+*/
 
 /**
  * All of the CSS for your public-facing functionality should be
@@ -21,11 +21,15 @@ body .wp-block-group:not(.has-background):not(.alignwide):not(.alignfull) {margi
     transform: translate(-50%, -50%);
     background-color: rgba(238, 238, 238, 0.34901960784313724);
     text-align: center;
+    max-width: 100%;
 }
 #qloader img{
     position: absolute;
     left: 50%;
     top: 50%;
+}
+footer {
+    margin-top: 6rem;
 }
 body .modal-header .close {
     padding: 0px 7px 7px;
@@ -34,11 +38,16 @@ body .modal-header .close {
     right: 0;
     top: 0;
 }
+.slatwall-body .entry-content > *:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.is-style-wide) {
+    max-width: 100%;
+}
 .loader {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
+   background: rgb(255 255 255 / 0.6);
+   width: 100%;
 }
 .loader i {
   display: flex;
@@ -56,20 +65,15 @@ body .modal-header .close {
 
 /* @media (min-width: 768px) { */
 html, body {background: #fff !important;/* font-size: 16px !important; */font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;letter-spacing: normal !important;}
-/* body a {text-decoration: none; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;} */
-body h1, body h2, body h3, body h4, body h5, body h6 {text-transform: capitalize;font-weight: 500; letter-spacing: normal;}
- .btn:focus {
+.btn:focus {
     outline: 0;
     box-shadow: none;
 }
 body a  {text-decoration: none;}
 body .entry-content h1 {
-  margin: 0 0 0.5rem;
-  font-size: 2.5rem;
+  margin: 0 0 0.9rem;
+  font-size: 40px;
   font-weight: 500;
-}
-body h1, body .heading-size-1 {
-  line-height: 1.2;
 }
 body .entry-content .h6, body .entry-content h6 {
   margin-bottom: .5rem;
@@ -78,6 +82,45 @@ body .entry-content .h6, body .entry-content h6 {
 }
 body .entry-content {
   font-size: 16px;
+  font-family:inherit;
+}
+input#customGiftCard::-webkit-outer-spin-button,
+input#customGiftCard::-webkit-inner-spin-button,
+input.number-field::-webkit-outer-spin-button,
+input.number-field::-webkit-inner-spin-button,
+input#quantity::-webkit-outer-spin-button,
+input#quantity::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number]#customGiftCard,input[type=number]#quantity,input[type=number].number-field {
+  -moz-appearance: textfield;
+}
+@media (min-width: 576px){
+.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
+    max-width: 540px !important;
+    margin: 0 auto !important;
+}
+}
+@media (min-width: 768px){
+.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
+    max-width: 720px !important;
+    margin: 0 auto !important;
+}
+}
+@media (min-width: 992px){
+.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
+    max-width: 960px !important;
+    margin: 0 auto !important;
+}
+}
+@media (min-width: 1200px){
+.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
+    max-width: 1140px !important;
+    margin: 0 auto !important;
+}
 }
 body .alert {
   margin-bottom: 16px;
@@ -175,6 +218,13 @@ body .form-control {
   border-radius: .25rem !important;
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+body .red_border.form-control{
+     border: 1px solid red !important;
+}
+.selection_limit_area .red_border{
+    border: 1px solid red !important;
+    padding:5px;
+}
 body input, body textarea, body button, body .button, body .faux-button, body .faux-button.more-link, body .wp-block-button__link, body .wp-block-file__button {
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif; letter-spacing: normal;}
 body input[type="button"], body button:not(.toggle) {
@@ -200,6 +250,9 @@ body .btn-lg.btn-block {
 body small {
   font-size: 13px;
   font-weight: 400;
+}
+.entry-content .orderitems .small {
+    font-size: 80%!important;
 }
 body input[type="text"] {
   height: calc(1.5em + .5rem + 2px) !important;
@@ -266,11 +319,8 @@ body label {
 }
 body .item-quantity .form-control {
   height: 31px;
-  font-size: .875rem !important;
+  font-size: inherit;
   margin-bottom: 5px;
-}
-body .item-quantity .cart-update {
-  width: 100%;
 }
 body .order-summary li {
   line-height: 1.5;
@@ -697,7 +747,6 @@ margin-bottom: 0 !important;
 
 #mini-cart .dropdown-menu {
     width: 350px;
-    transform: translate3d(-255px, 38px, 0px) !important;
 }
 #mini-cart .dropdown-menu ul {
     width: 100%;
@@ -719,11 +768,7 @@ margin-right: 1.2rem;
   margin-right: 1.5rem;
 }
 
-#mini-cart .badge {font-size: 12px;
-position: absolute;
-top: 50%;
-transform: translateY(-50%);
-}
+#mini-cart .badge {font-size: 12px;position: absolute;top: -5px;transform: translateY(-50%);right: 15px;}
 .zoomTint {background-color: transparent !important;}
 @media print {
   .accountSidebar, .myaccount_user, .header-footer-group, .printbtn, .header-inner {display: none;}
@@ -769,6 +814,44 @@ transform: translateY(-50%);
 .footer-widgets-outer-wrapper {
     padding: 4rem 0 !important;
 }
+ {}
+
+.slatwall-body #site-header .primary-menu > li > a {
+    color: rgba(0,0,0,.5);
+    padding-right: .5rem;
+    padding-left: .5rem;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.slatwall-body .my-2.my-lg-0.slatwall-search .form-control {
+    width: 70%;
+    height: calc(1.5em + .75rem + 2px);
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.slatwall-body .btn.btn-outline-secondary.my-2.my-sm-0 {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    color: #6c757d;
+    background-color: transparent;
+    border-color: #6c757d;
+}
 @media (min-width: 700px){
   #site-footer {
       padding: 0.3rem 0 !important;
@@ -776,7 +859,8 @@ transform: translateY(-50%);
 }
 
 div#mini-cart a#dropdownMenuLink {
-    width: 85px;
+    width: 75px;
+    position: relative;
 }
 
 
@@ -820,7 +904,49 @@ div#mini-cart a#dropdownMenuLink {
 .card-header small {
     font-size: 16px;
 }
+.full-width-section-slatwall {
+    margin: 0;
+    width: 100% !important;
+}
 
-.dropdown-menu  {
-    font-size: 1.5rem;
+.jumbotron.jumbotron-fluid.full-width-section-slatwall h1 {
+    font-size: 54px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+.full-width-section-slatwall .lead {
+    font-size: 20px;
+    line-height: 1.3;
+}
+.slatwall-product-listing {
+    padding: 60px 0;
+}
+.slatwall-product-listing  .dropdown-menu{
+font-size: 16px;
+}
+.slatwall-taxonomy .post-inner.thin {
+    padding: 0;
+}
+.slatwall-search button {
+    color: #fff;
+}
+.slatwall-search {
+    width: 50%;
+    min-width: 266px;
+}
+.prod-content p #defaultSku_price, .form-promotion .btn-secondary.btn-sm {
+   font-size:inherit !important;
+}
+.go-to-cart-btn {
+    font-size: inherit;
+    margin-top: 10px;
+}
+
+body .entry-content .checkoutforms h3,body .entry-content .order_items_checkout h3 {
+    font-size: 28px;
+}
+
+.address_error .account-address {
+    border: 1px solid red;
 }

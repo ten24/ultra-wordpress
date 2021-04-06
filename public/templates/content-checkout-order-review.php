@@ -1,10 +1,9 @@
-<?php>
+<?php
 /*
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
 ?>
-
 <!-- Start Body -->
 <?php $cart_data;
 $shipping_address = isset($cart_data->cart->orderFulfillments[0]->shippingAddress)?$cart_data->cart->orderFulfillments[0]->shippingAddress:'';
@@ -64,7 +63,7 @@ $payment_mathod_name = isset($cart_data->orderPayments[0]->paymentMethod->paymen
                     </div>
 
                     <!-- Place Order: Toggle disabled attribute after form submit validation to continue -->
-                    <button type="button" class="btn btn-block btn-primary mt-5" id="place-order">Place Order <i class="fas fa-circle-notch fa-spin"></i></button>
+                    <button type="button" class="btn btn-block btn-primary mt-5" id="place-order">Place Order</button>
                     <!-- /End Review Order -->
 				</div>
                 <!-- /End Body -->

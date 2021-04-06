@@ -1,26 +1,19 @@
-<?php>
+<?php
 /*
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
 ?>
-
 <!-- Start Body -->
 <div class="col-xl-7 col-md-8 checkoutforms">
 	<!-- Account Login / Create Account -->
 	<h3 class="mb-3 pt-3 pb-3 border-bottom">Account Information</h3>
 
-	<ul class="nav nav-pills nav-fill mb-4 ml-0" id="pills-tab" role="tablist">
-		<li class="nav-item m-0">
-			<a class="nav-link active" id="pills-login-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="false">Login</a>
-		</li>
-		<li class="nav-item m-0">
-			<a class="nav-link" id="pills-create-account-tab" data-toggle="pill" href="#pills-create-account" role="tab" aria-controls="pills-create-account" aria-selected="true">Create Account</a>
-		</li>
-	</ul>
 	<div class="tab-content" id="pills-tabContent">
 		<!-- Account Login -->
-		<div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+		<div class="tab-pane fade show active" id="pills-login">
+                    <p>Login with your account to continue, or <a id="pills-create-account-tab" href="#pills-create-account"
+                                onclick="jQuery('#pills-login').hide(); jQuery('#pills-password').hide(); jQuery('#pills-create-account').show()">create a new account</a>.</p>
 			<div class="alert alert-danger small accounterror" style="display: none;">The username or password that you entered is invalid.</div>
 			<form action="user_login" class="checkout_login_register" id="login_form">
 				<div class="form-group">
@@ -37,10 +30,9 @@
                             <div class="row">
 				<div class="col-md-6">
 					<!-- Toggle disabled attribute & spinner icon after form submit validation & loading -->
-					<button class="btn btn-secondary btn-block" type="submit" id="submit">Continue <i class="fas fa-circle-notch fa-spin"></i></button>
+					<button class="btn btn-secondary btn-block" type="submit" id="submit">Continue</button>
 				</div>
-                            <div class="col-md-6 text-right">	<a id="pills-password-tab" class="btn btn-link" data-toggle="pill" href="#pills-password"
-                                        aria-expanded="false" aria-controls="pills-password">
+                            <div class="col-md-6 text-right">	<a id="pills-password-tab" class="btn btn-link" href="#pills-password" onclick="jQuery('#pills-login').hide(); jQuery('#pills-password').show(); jQuery('#pills-create-account').hide()">
 											Forgot Password
 										</a>
 
@@ -50,8 +42,8 @@
 		</div>
 		<!-- /End Account Login -->
                 <!-- Forget Password -->
-                <div class="tab-pane fade" id="pills-password" role="tabpanel"
-                        aria-labelledby="pills-password-tab">
+                <div class="tab-pane" id="pills-password">
+
                              <h4>Forgot Password</h4>
 
                             <!-- Forgot Password error display message -->
@@ -68,8 +60,7 @@
                                         <button type="submit" class="btn btn-primary btn-block">Recover Password</button>
                                     </div>
                                     <div class="col-md-6 text-right">
-                                        <!-- Back to Login --> <a id="pills-login-tab" class="btn btn-link" data-toggle="pill" href="#pills-login"
-                                        aria-expanded="false" aria-controls="pills-login">
+                                        <!-- Back to Login --> <a id="pills-login-tab" class="btn btn-link" href="#pills-login" onclick="jQuery('#pills-login').show(); jQuery('#pills-password').hide(); jQuery('#pills-create-account').hide()">
 			                                Back to Login
 			                            </a>
 
@@ -79,7 +70,8 @@
                         </div>
                 <!-- /End Forget Password -->
 		<!-- Create Account Tab -->
-		<div class="tab-pane fade" id="pills-create-account" role="tabpanel" aria-labelledby="pills-create-account-tab">
+		<div class="tab-pane" id="pills-create-account" >
+                    <p>Create an account below to continue, or <a id="pills-login-tab" href="#pills-login" onclick="jQuery('#pills-login').show(); jQuery('#pills-password').hide(); jQuery('#pills-create-account').hide()">login to your account</a>.</p>
 			<!-- Create Account Form -->
                         <div class="account_create_errors"></div>
                         <div class="alert alert-success small account_create" style="display: none;">Account Created</div>

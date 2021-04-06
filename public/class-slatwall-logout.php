@@ -3,7 +3,7 @@
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
-
+ 
 /**
  * The public-facing functionality of the plugin.
  *
@@ -14,17 +14,16 @@
  * @subpackage Slatwall_Ecommerce/public
  */
 
-/**
- * The public-facing functionality of the plugin.
- *
- * Defines the slatwallname, version, and two examples hooks for how to
- * enqueue the public-facing stylesheet and JavaScript.
- *
- * @since      1.0.0
- * @package    Slatwall_Ecommerce
- * @subpackage Slatwall_Ecommerce/public
- */
-
+ /**
+  * The public-facing functionality of the plugin.
+  *
+  * Defines the slatwallname, version, and two examples hooks for how to
+  * enqueue the public-facing stylesheet and JavaScript.
+  *
+  * @since      1.0.0
+  * @package    Slatwall_Ecommerce
+  * @subpackage Slatwall_Ecommerce/public
+  */
 
 class Slatwall_Logout extends Slatwall_Integration{
 
