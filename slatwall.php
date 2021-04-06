@@ -15,7 +15,7 @@
  * Plugin Name:       Slatwall Commerce
  * Plugin URI:        https://www.slatwallcommerce.com/
  * Description:       Connect the Slatwall Commerce platform with WordPress.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Slatwall Commerce Team
  * Author URI:        https://www.slatwallcommerce.com/
  * Text Domain:       Slatwall Ecommerce
@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your slatwalland update it as you release new versions.
  */
-define('SLATWALL_VERSION', '1.0.0' );
+define('SLATWALL_VERSION', '1.1.0' );
 define('SLATWALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define('AUTHORIZATION','');
 define('SLATWALL_PLUGIN_DIR_ULR',plugin_dir_url( __FILE__ ));
