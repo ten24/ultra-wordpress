@@ -28,6 +28,7 @@ Product Shopping & Commerce
 - Cart -> `[shopping-cart]`
 - Checkout -> `[checkout]`
 - My Account -> `[my-account]`
+- Note: By default, a mini cart shortcode is available in the template header → `[mini-cart]`
 
 ## Resources
 
