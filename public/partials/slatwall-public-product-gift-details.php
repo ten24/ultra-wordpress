@@ -1,4 +1,4 @@
-<?php $image_url = DOMAIN.$product->images[2];  
+<?php $image_url = DOMAIN.$product->images[2];
 $search_image = '/assets/images/cache/missingimage_90w_90h.jpg';
 $missing_image = array_filter($product->altImages, function($ar)  use ($search_image)  {
                 return (in_array($search_image, $ar->RESIZEDIMAGEPATHS));
@@ -11,7 +11,7 @@ $cart_skuIDs = array_column($cart_skus,'skuID');
 $sku_exist  = count(array_filter($sku_definitions)) != 0;
 $sku_option_count = 0;
 
-foreach($product_sku->pageRecords as $sku_data){  
+foreach($product_sku->pageRecords as $sku_data){
     $sku_options[$sku_data->skuID] = $sku_data->options;
     $sku_options[$sku_data->skuID]['calculatedQATS'] = $sku_data->calculatedQATS;
     if($sku_data->calculatedQATS > 0){
@@ -23,20 +23,20 @@ $sku_option_count++;}
 
 
 ?>
-<div class="container my-5">
+<div class="container mt-5">
         <!-- Add to Cart Success/Error message -->
         <?php if($_SESSION['added_into_cart'] == 1 && $_POST['randcheck']==$_SESSION['rand']){ ?>
         <div class="alert alert-success added-cart" >Item Added to Cart</div>
         <?php } ?>
-       <?php if($_SESSION['added_into_cart_error'] === 1 && $_POST['randcheck']==$_SESSION['rand']){ 
+       <?php if($_SESSION['added_into_cart_error'] === 1 && $_POST['randcheck']==$_SESSION['rand']){
             if(isset($_SESSION['added_into_cart_error_value'])){
             foreach($_SESSION['added_into_cart_error_value'] as $error_value){
                 if(isset($error_value[0])){
                     echo '<div class="alert alert-danger failed-add-cart" >'.$error_value[0].'</div>';
                 }
             }
-        }  } 
-        $_SESSION['added_into_cart'] = 0; 
+        }  }
+        $_SESSION['added_into_cart'] = 0;
         $_SESSION['added_into_cart_error'] = 0;
         ?>
       <!-- Portfolio Item Row -->
@@ -44,25 +44,25 @@ $sku_option_count++;}
 
         <!-- Product Image Gallery -->
         <div class="col-md-4 product-gallery">
-        <?php  $templates->set_template_data( $product, 'product' )->set_template_data( $missing_image_keys, 'missing_image_keys' )->set_template_data( $missing_image, 'missing_image' )->get_template_part( 'content', 'product-detail-gallery',true ); ?>           
+        <?php  $templates->set_template_data( $product, 'product' )->set_template_data( $missing_image_keys, 'missing_image_keys' )->set_template_data( $missing_image, 'missing_image' )->get_template_part( 'content', 'product-detail-gallery',true ); ?>
         </div>
             <!-- Product Description -->
         <div class="col-md-8 prod-content">
             <h1><?php echo $product->productName; ?></h1>
             <?php echo $product->productDescription; ?>
-            
+
                 <div class="card mt-5">
                     <div class="card-body">
                 <!-- Add to cart form -->
                 <?php if($product->calculatedQATS >= 1){ ?>
-                <?php $templates->set_template_data( $product, 'product' )->get_template_part( 'content', 'product-detail-gift-form',true ); ?>      
+                <?php $templates->set_template_data( $product, 'product' )->get_template_part( 'content', 'product-detail-gift-form',true ); ?>
                 <?php } else {
                     echo '<p class="m-0">No Stock Available</p>';
                 } ?>
                 <div class="cart_msg"></div>
                     </div>
                 </div>
-                  <!-- category / brand / type details  -->  
+                  <!-- category / brand / type details  -->
             <?php $templates->set_template_data( $product, 'product' )->get_template_part( 'content', 'product-detail-categories',true ); ?>
 
         </div>
@@ -80,5 +80,5 @@ $sku_option_count++;}
         jQuery(document).on('submit','form',function(){
             jQuery('#qloader').show();
         });
-        
+
         </script>

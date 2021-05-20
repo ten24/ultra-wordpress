@@ -98,30 +98,6 @@ input#quantity::-webkit-inner-spin-button {
 input[type=number]#customGiftCard,input[type=number]#quantity,input[type=number].number-field {
   -moz-appearance: textfield;
 }
-@media (min-width: 576px){
-.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
-    max-width: 540px !important;
-    margin: 0 auto !important;
-}
-}
-@media (min-width: 768px){
-.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
-    max-width: 720px !important;
-    margin: 0 auto !important;
-}
-}
-@media (min-width: 992px){
-.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
-    max-width: 960px !important;
-    margin: 0 auto !important;
-}
-}
-@media (min-width: 1200px){
-.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
-    max-width: 1140px !important;
-    margin: 0 auto !important;
-}
-}
 body .alert {
   margin-bottom: 16px;
   padding: 12px 20px;
