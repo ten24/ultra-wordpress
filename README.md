@@ -14,11 +14,21 @@ The Slatwall Wordpress plugin includes page templates conveniently displayed by 
 
 Create the following pages and add an associated shortcode to render the content for each page:
 
+Product Listing & Merchandising
 - Product Listing -> `[product-listing]`
+- Product Search Form -> `[product-search-form]`
+- Product Search Results -> `[product-listing-search]`
+- Brand Listing -> `[product-listing-brand]`
+- Category Listing -> `[product-listing-category]`
+- Type Listing -> `[product-listing-type]`
+- Custom Listing -> `[product-listing products=""]`
+
+Product Shopping & Commerce
 - Product -> `[product-details]`
 - Cart -> `[shopping-cart]`
 - Checkout -> `[checkout]`
 - My Account -> `[my-account]`
+- Note: By default, a mini cart shortcode is available in the template header → `[mini-cart]`
 
 ## Resources
 

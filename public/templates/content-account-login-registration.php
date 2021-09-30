@@ -43,7 +43,7 @@
 										<div class="invalid-feedback">Password Required</div>
                                     </div>
 
-                                    <button class="btn btn-primary btn-block" name="account" type="submit" value="login">Sign In<i class="fas fa-circle-notch fa-spin"></i></button>
+                                    <button class="btn btn-primary btn-block" name="account" type="submit" value="login">Sign In</button>
                                 </form>
                                 <a href="forget-password" class="btn btn-link btn-block text-center">Forgot your password?</a>
                             </div>

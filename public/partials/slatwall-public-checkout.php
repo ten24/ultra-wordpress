@@ -31,7 +31,7 @@ $account_address = $account->accountAddresses;
 }
 ?>
 		<!-- Start Container-->
-		<div class="container mb-5 checkoutpage">
+		<div class="container my-5 checkoutpage">
 			<!-- Page Title -->
             <div class="mt-4 d-flex justify-content-between align-items-center checkout_heading_section">
                 <h1>Checkout</h1>

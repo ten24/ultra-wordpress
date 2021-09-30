@@ -176,7 +176,7 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                                 </div>
                         </div>
                                 <div class="form-group w-50 mt-3">
-                                        <button class="btn btn-secondary btn-block" type="submit">Save Address <i class="fas fa-circle-notch fa-spin"></i></button>
+                                        <button class="btn btn-secondary btn-block" type="submit">Save Address</button>
                                 </div>
                         </form>
                     </div>

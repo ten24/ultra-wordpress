@@ -3,7 +3,7 @@
  * Copyright © ten24, LLC Inc. All rights reserved.
  * See License.txt for license details.
  */
- 
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -90,11 +90,11 @@ class Slatwall_Public extends Slatwall_Products {
                 /* add to cart ajax funcition define */
                 add_action( 'wp_ajax_nopriv_add_to_cart', array( $this, 'add_to_cart' ) );
                 add_action( 'wp_ajax_add_to_cart', array( $this, 'add_to_cart' ) );
-
+                
                 /* add to cart ajax funcition define */
                 add_action( 'wp_ajax_nopriv_header_append_data', array( $this, 'header_append_data' ) );
                 add_action( 'wp_ajax_header_append_data', array( $this, 'header_append_data' ) );
-
+                
                 /* remove to cart ajax funcition define */
                 add_action( 'wp_ajax_nopriv_remove_cart_item', array( $this, 'remove_cart_item' ) );
                 add_action( 'wp_ajax_remove_cart_item', array( $this, 'remove_cart_item' ) );
@@ -120,11 +120,11 @@ class Slatwall_Public extends Slatwall_Products {
                 /* add shipping checkout ajax funcition define */
                 add_action( 'wp_ajax_nopriv_add_shipping_address', array( $this, 'add_shipping_address' ) );
                 add_action( 'wp_ajax_add_shipping_address', array( $this, 'add_shipping_address' ) );
-
+                
                 /* add pickup checkout ajax funcition define */
                 add_action( 'wp_ajax_nopriv_pickup', array( $this, 'pickup' ) );
                 add_action( 'wp_ajax_pickup', array( $this, 'pickup' ) );
-
+                
                 /* add pickup shipping checkout ajax funcition define */
                 add_action( 'wp_ajax_nopriv_pickup_shipping', array( $this, 'pickup_shipping' ) );
                 add_action( 'wp_ajax_pickup_shipping', array( $this, 'pickup_shipping' ) );
@@ -140,7 +140,7 @@ class Slatwall_Public extends Slatwall_Products {
                   /* Clear Cart ajax funcition define */
                 add_action( 'wp_ajax_nopriv_clear_cart', array( $this, 'clear_cart' ) );
                 add_action( 'wp_ajax_clear_cart', array( $this, 'clear_cart' ) );
-
+                
                   /* Reopen Cart ajax funcition define */
                 add_action( 'wp_ajax_nopriv_reopen_cart', array( $this, 'reopen_cart' ) );
                 add_action( 'wp_ajax_reopen_cart', array( $this, 'reopen_cart' ) );
@@ -214,11 +214,11 @@ class Slatwall_Public extends Slatwall_Products {
                  /* update profile ajax funcition define */
                  add_action( 'wp_ajax_nopriv_profile_update_account', array( $this, 'profile_update_account' ) );
                  add_action( 'wp_ajax_profile_update_account', array( $this, 'profile_update_account' ) );
-
+                 
                  /* re-order ajax funcition define */
                  add_action( 'wp_ajax_nopriv_reorder', array( $this, 'reorder' ) );
                  add_action( 'wp_ajax_reorder', array( $this, 'reorder' ) );
-
+                 
                  /* Buy-again ajax funcition define */
                  add_action( 'wp_ajax_nopriv_buy_again', array( $this, 'buy_again' ) );
                  add_action( 'wp_ajax_buy_again', array( $this, 'buy_again' ) );
@@ -226,6 +226,7 @@ class Slatwall_Public extends Slatwall_Products {
                   /* get cart data ajax funcition define */
                  add_action( 'wp_ajax_nopriv_get_cart_data', array( $this, 'get_cart_data' ) );
                  add_action( 'wp_ajax_get_cart_data', array( $this, 'get_cart_data' ) );
+                 
                //  add_filter( 'wp_title', array( $this, 'slatwall_wp_title_filter' ) );
 
 	}
@@ -278,7 +279,7 @@ class Slatwall_Public extends Slatwall_Products {
             wp_enqueue_script( $this->slatwall.'_popper_min_js', plugin_dir_url( __FILE__ ) . 'js/popper.min.js', array( 'jquery' ), $this->version, false );
             wp_enqueue_script( $this->slatwall.'_bootstrap_min_js', plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array( 'jquery' ), $this->version, false );
             wp_enqueue_script( $this->slatwall.'_jquery', plugin_dir_url( __FILE__ ) . 'js/slatwall-public.js', array( 'jquery' ), $this->version, false );
-
+            
             wp_enqueue_script( $this->slatwall.'_product_zoom_jquery', plugin_dir_url( __FILE__ ) . 'js/jquery.elevatezoom.js', array( 'jquery' ), $this->version, false );
             wp_enqueue_script( $this->slatwall.'_jquery_fancybox', plugin_dir_url( __FILE__ ) . 'js/jquery.fancybox.js', array( 'jquery' ), $this->version, false );
             wp_enqueue_script( $this->slatwall.'_jquery_ui', plugin_dir_url( __FILE__ ) . 'js/jquery-ui.min.js', array( 'jquery' ), $this->version, false );
@@ -294,11 +295,11 @@ class Slatwall_Public extends Slatwall_Products {
 
         function home_page(){
              ob_start();
-         require 'partials/slatwall-public-home-page.php';
+         require 'partials/slatwall-public-home-page.php';   
          return ob_get_clean();
         }
-
-
+        
+        
         public function product_listing($atts,$content = null){
          //   $currentPage = ( isset( $_GET['currentpage'] ) ) ? $_GET['currentpage'] : 1;
             $atts = shortcode_atts( array(
@@ -343,7 +344,7 @@ class Slatwall_Public extends Slatwall_Products {
             }
            return ob_get_clean();
         }
-
+        
         public function product_listing_search(){
          //   $currentPage = ( isset( $_GET['currentpage'] ) ) ? $_GET['currentpage'] : 1;
 
@@ -354,7 +355,7 @@ class Slatwall_Public extends Slatwall_Products {
              $slatwall_options = new Slatwall_Options;
             ob_start();
             $search_val = isset($_GET['search'])?$_GET['search']:'';
-
+            
             $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC';
             if($search_val){
               $search_val_encoded = urlencode($search_val);
@@ -363,7 +364,7 @@ class Slatwall_Public extends Slatwall_Products {
          $products_result =  $this->productListIntegration($typePara);
 //         if(isset($products->cookies)){
 //               if(!isset($_SESSION['cfid']) && !isset($_SESSION['token'])){
-//
+//                      
 //         $_SESSION['cfid'] = $products->cookies['cfid'];
 //         $_SESSION['cftoken'] = $products->cookies['cftoken'];
 //             }
@@ -380,16 +381,16 @@ class Slatwall_Public extends Slatwall_Products {
                 $paginator = new Paginator(1, $totalPages);
                 $links = 3;
                 $pagination = $paginator->createLinks($links, 'pagination justify-content-center');
-
+               
            require 'partials/slatwall-public-product-listing-search.php';
             }
-
+            
             } else {
                 echo '<div class="container"><p>Search Value not found</p></div>';
             }
            return ob_get_clean();
         }
-
+        
          public function product_listing_brand(){
          ob_start();
                $urlTitle_slug = get_query_var('bslug');

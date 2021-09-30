@@ -28,6 +28,9 @@ body .wp-block-group:not(.has-background):not(.alignwide):not(.alignfull) {margi
     left: 50%;
     top: 50%;
 }
+footer {
+    margin-top: 6rem;
+}
 body .modal-header .close {
     padding: 0px 7px 7px;
     margin: 0;
@@ -67,9 +70,7 @@ body #staticBackdrop .modal-header .close {
 .fa-check-circle{font-size: 20px;}
 /* @media (min-width: 768px) { */
 html, body {background: #fff !important;/* font-size: 16px !important; */font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;letter-spacing: normal !important;}
-/* body a {text-decoration: none; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;} */
-body h1, body h2, body h3, body h4, body h5, body h6 {text-transform: capitalize;font-weight: 500; letter-spacing: normal;}
- .btn:focus {
+.btn:focus {
     outline: 0;
     box-shadow: none;
 }
@@ -78,9 +79,6 @@ body .entry-content h1 {
   margin: 0 0 0.9rem;
   font-size: 40px;
   font-weight: 500;
-}
-body h1, body .heading-size-1 {
-  line-height: 1.2;
 }
 body .entry-content .h6, body .entry-content h6 {
   margin-bottom: .5rem;
@@ -108,30 +106,6 @@ input#quantity::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number]#customGiftCard,input[type=number]#quantity,input[type=number].number-field {
   -moz-appearance: textfield;
-}
-@media (min-width: 576px){
-.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
-    max-width: 540px !important;
-    margin: 0 auto !important;
-}
-}
-@media (min-width: 768px){
-.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
-    max-width: 720px !important;
-    margin: 0 auto !important;
-}
-}
-@media (min-width: 992px){
-.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
-    max-width: 960px !important;
-    margin: 0 auto !important;
-}
-}
-@media (min-width: 1200px){
-.slatwall-body .wp-block-group ,.entry-content .container, .entry-content .container-lg, .entry-content .container-md, .container-sm, .container-xl {
-    max-width: 1140px !important;
-    margin: 0 auto !important;
-}
 }
 body .alert {
   margin-bottom: 16px;
@@ -332,9 +306,6 @@ body .item-quantity .form-control {
   height: 31px;
   font-size: inherit;
   margin-bottom: 5px;
-}
-body .item-quantity .cart-update {
-  width: 100%;
 }
 body .order-summary li {
   line-height: 1.5;
@@ -765,7 +736,6 @@ margin-bottom: 0 !important;
 
 #mini-cart .dropdown-menu {
     width: 350px;
-    transform: translate3d(-255px, 38px, 0px) !important;
 }
 #mini-cart .dropdown-menu ul {
     width: 100%;

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ="crossorigin="anonymous"/> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ="crossorigin="anonymous"/>
 <main role="main">
             <section class="jumbotron bg-white">
                 <div class="container">
@@ -6,7 +6,7 @@
 
                     <div class="row align-items-center justify-content-between">
                         <div class="col-md-5">
-                            <p class="lead text-muted">Build headless commerce storefronts with WordPress powered by Slatwall
+                            <p class="text-muted">Build headless commerce storefronts with WordPress powered by Slatwall
                                 Commerce. Launch quickly with an enterprise toolset that will scale as
                                 you grow.</p>
                             <p> <a href="<?php echo get_site_url().'/'.SLATWALL_PRODUCT_LISTING_SLUG;?>" class="btn btn-primary btn-lg rounded-pill shadow mr-2 mt-3">
