@@ -156,7 +156,7 @@ class Slatwall {
                 $this->loader->add_action( 'wp_head', $slatwall_public, 'wp_head_script',1 );
 		$this->loader->add_action( 'wp_enqueue_scripts', $slatwall_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $slatwall_public, 'enqueue_scripts' );
-                $this->loader->add_action( 'init', $slatwall_public, 'start_session' );
+                $this->loader->add_action( 'init', $slatwall_public, 'start_session',1 );
                 $this->loader->add_filter( 'pre_get_document_title', $slatwall_public, 'slatwall_wp_title_filter',100);
                 if($token){
                 $this->loader->add_shortcode( 'home-page', $slatwall_public, 'home_page' );

@@ -31,7 +31,7 @@ $sku_option_count = 0;
         <div class="col-md-8 prod-content">
             <h1><?php echo $product->productName; ?></h1>
             <?php echo $product->productDescription; ?>
-            <p>Price : $<span id="defaultSku_price"><?php echo price_number_format($product->calculatedSalePrice); ?></span></p>
+            <p>Price : $<span id="defaultSku_price"><?php echo price_number_format($product->salePrice); ?></span></p>
             
                 <div class="card mt-5">
                     <div class="card-body">
@@ -53,7 +53,7 @@ $sku_option_count = 0;
         <?php $templates->set_template_data( $related_product_data, 'related_product_data' )->get_template_part( 'content', 'product-detail-related-product',true ); ?>
 
             </div>
-        <div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+        <div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>
         <script>
         jQuery(document).on('click','.add-to-cart',function(){
             jQuery('#qloader').show();

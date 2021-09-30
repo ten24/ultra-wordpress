@@ -21,7 +21,7 @@
 //     } else {
 //         $related_product_image_url = 'http://placehold.it/510x350';
 //     }
-            $related_product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$related_product->relatedProduct_urlTitle;
+            $related_product_single_url = get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$related_product->relatedProduct_urlTitle;
             ?>
         <div class="col-md-3 col-sm-6 mb-4">
             <div class="card h-100">

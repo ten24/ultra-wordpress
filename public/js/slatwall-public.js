@@ -51,9 +51,9 @@ function getCookie(cname) {
   return "";
 }
 var site_url = localStorage.getItem("SITEURL");
-var PRODUCT_SINGLE_SLUG = localStorage.getItem("PRODUCT_SINGLE_SLUG");
+var SLATWALL_PRODUCT_SINGLE_SLUG = localStorage.getItem("SLATWALL_PRODUCT_SINGLE_SLUG");
 var DOMAIN = localStorage.getItem("DOMAIN");
-var CART = localStorage.getItem("CART");
+var SLATWALL_CART = localStorage.getItem("SLATWALL_CART");
 var ajax_url = site_url + '/wp-admin/admin-ajax.php';
 
 function findGetParameter(parameterName) {
@@ -102,9 +102,9 @@ function update_cart_items(orderItems,bundleItems = '',normal_items = ''){
              delete normal_items[key];
          }
             var site_url = site_url;
-            var product_single_slug = PRODUCT_SINGLE_SLUG;
+            var SLATWALL_PRODUCT_SINGLE_SLUG = SLATWALL_PRODUCT_SINGLE_SLUG;
             var domain = DOMAIN;
-             var product_single_url = site_url + '/'.product_single_slug + '/' + item.sku.product.urlTitle;
+             var product_single_url = site_url + '/'.SLATWALL_PRODUCT_SINGLE_SLUG + '/' + item.sku.product.urlTitle;
              if(typeof(item.sku.imagePath) != "undefined" && item.sku.imagePath !== null ){
                  var image_url = domain + '/' +item.sku.imagePath;
             } else {
@@ -114,7 +114,7 @@ function update_cart_items(orderItems,bundleItems = '',normal_items = ''){
          if(typeof(item.items) != "undefined"){
             var bundle_skus = item.items;
             bundle_skus.forEach(function(bundle_sku) {
-        item_string += '<p class="text-muted small mb-0">'+ bundle_sku[0].productBundleGroup.productBundleGroupType.typeName+ '</p><p class="font-weight-bold small">'+ bundle_sku[0].sku.product.productName + ' ('+ bundle_sku[0].quantity +')</p>';
+        item_string += '<!--p class="text-muted small mb-0">'+ bundle_sku[0].productBundleGroup.productBundleGroupType.typeName+ '</p--><p class="font-weight-bold small">'+ bundle_sku[0].sku.product.productName + ' ('+ bundle_sku[0].quantity +')</p>';
         });
             }
             item_string += '<small class="text-muted">'+item.sku.skuDefinition+'</small></div><div class="col-sm-12 col-md-6 d-none d-sm-block"><div class="row"><div class="col-sm-4"><h6><span class="text-muted">$</span>'+ item.extendedUnitPrice.toFixed(2) +'</h6></div><div class="col-sm-3 item-quantity"><input type="number" class="form-control form-control-sm text-center" min="1" value="'+ item.quantity +'"><button class="btn btn-secondary btn-sm cart-update"><small>Update</small></button></div><div class="col-sm-4"><h6><span class="text-muted">$</span><strong>'+ item.extendedPrice.toFixed(2) +' </strong></h6></div><small class="blank_quantity" style="display:none;font-size: 12px;color: red;">Please enter quantity</small><div class="col-sm-1 p-0"><span class="btn badge badge-danger item-remove">×</span></div></div></div></div>';
@@ -132,9 +132,9 @@ function update_cart_items(orderItems,bundleItems = '',normal_items = ''){
             for (var key in normal_items) {
              var item = normal_items[key];
             var site_url = site_url;
-            var product_single_slug = PRODUCT_SINGLE_SLUG;
+            var SLATWALL_PRODUCT_SINGLE_SLUG = SLATWALL_PRODUCT_SINGLE_SLUG;
             var domain = DOMAIN;
-             var product_single_url = site_url + '/'.product_single_slug + '/' + item.sku.product.urlTitle;
+             var product_single_url = site_url + '/'.SLATWALL_PRODUCT_SINGLE_SLUG + '/' + item.sku.product.urlTitle;
              if(typeof(item.sku.imagePath) != "undefined" && item.sku.imagePath !== null ){
                  var image_url = domain + '/' +item.sku.imagePath;
             } else {
@@ -146,9 +146,9 @@ function update_cart_items(orderItems,bundleItems = '',normal_items = ''){
                                     }
 //        orderItems.forEach(function(item) {
 //            var site_url = site_url;
-//            var product_single_slug = PRODUCT_SINGLE_SLUG;
+//            var SLATWALL_PRODUCT_SINGLE_SLUG = SLATWALL_PRODUCT_SINGLE_SLUG;
 //            var domain = DOMAIN;
-//             var product_single_url = site_url + '/'.product_single_slug + '/' + item.sku.product.urlTitle;
+//             var product_single_url = site_url + '/'.SLATWALL_PRODUCT_SINGLE_SLUG + '/' + item.sku.product.urlTitle;
 //             if(typeof(item.sku.imagePath) != "undefined" && item.sku.imagePath !== null ){
 //                 var image_url = domain + '/' +item.sku.imagePath;
 //            } else {
@@ -163,11 +163,11 @@ function update_cart_items(orderItems,bundleItems = '',normal_items = ''){
 
     function update_cart_payment(cart_data){
 
-        jQuery('.order-summary').html('<li class="list-group-item m-0">Item Total <span class="float-right"><strong>$'+cart_data.cart.subtotal+'</strong></span></li><li class="list-group-item m-0">Shipping & Delivery <span class="float-right"><strong>$'+cart_data.cart.fulfillmentTotal+'</strong></span></li><li class="list-group-item m-0">Tax <span class="float-right"><strong>$'+cart_data.cart.taxTotal+'</strong></span></li>');
-        if(cart_data.cart.orderAndItemDiscountAmountTotal > 0){
-         jQuery('.order-summary').append('<li class="list-group-item m-0">Discount <span class="float-right"><span class="badge badge-success">- $'+ cart_data.cart.orderAndItemDiscountAmountTotal+'</span></li>');
+        jQuery('.order-summary').html('<li class="list-group-item m-0">Item Total <span class="float-right"><strong>$'+cart_data.subtotal+'</strong></span></li><li class="list-group-item m-0">Shipping & Delivery <span class="float-right"><strong>$'+cart_data.fulfillmentTotal+'</strong></span></li><li class="list-group-item m-0">Tax <span class="float-right"><strong>$'+cart_data.taxTotal+'</strong></span></li>');
+        if(cart_data.orderAndItemDiscountAmountTotal > 0){
+         jQuery('.order-summary').append('<li class="list-group-item m-0">Discount <span class="float-right"><span class="badge badge-success">- $'+ cart_data.orderAndItemDiscountAmountTotal+'</span></li>');
         }
-        jQuery('.order-summary').append('<li class="list-group-item m-0">Total <span class="float-right"><strong>$'+ cart_data.cart.total +'</strong></span></li>');
+        jQuery('.order-summary').append('<li class="list-group-item m-0">Total <span class="float-right"><strong>$'+ cart_data.total +'</strong></span></li>');
     }
 function update_mini_cart_count(){
     jQuery('.mini-cart-count').html(jQuery('#mini-cart ul li').length);
@@ -193,7 +193,7 @@ function update_mini_cart(cart_data,bundleItems = '',normal_items = ''){
                         html_data += '<img class="align-self-start img-fluid mr-2" src="https://via.placeholder.com/45x45">';
                                      }
                         html_data += '<div class="media-body">';
-                        html_data += '<a class="text-body font-weight-bold small" href="' + PRODUCT_SINGLE_SLUG + '/' + item.sku.product.urlTitle + '">' + item.sku.product.productName + '</a>';
+                        html_data += '<a class="text-body font-weight-bold small" href="' + SLATWALL_PRODUCT_SINGLE_SLUG + '/' + item.sku.product.urlTitle + '">' + item.sku.product.productName + '</a>';
                         html_data += '<a href="javascript:void(0);" data-orderItemID="'+item.orderItemID+'" class="float-right text-secondary mini-remove-item"><i class="fa fa-times-circle"></i></a>';
                         html_data += '<br>';
                         html_data += '<span class="text-muted small">$'+item.extendedUnitPrice+'</span>';
@@ -201,7 +201,7 @@ function update_mini_cart(cart_data,bundleItems = '',normal_items = ''){
                         if(typeof(item.items) !== "undefined"){
             var bundle_skus = item.items;
             bundle_skus.forEach(function(bundle_sku) {
-        html_data += '<p class="text-muted medium mb-0">'+ bundle_sku[0].productBundleGroup.productBundleGroupType.typeName+ '</p><p class="font-weight-bold medium">'+ bundle_sku[0].sku.product.productName +'</p>';
+        html_data += '<!--p class="text-muted medium mb-0">'+ bundle_sku[0].productBundleGroup.productBundleGroupType.typeName+ '</p--><p class="font-weight-bold medium">'+ bundle_sku[0].sku.product.productName +'</p>';
         });
             }
                         html_data += '</div>';
@@ -218,7 +218,7 @@ function update_mini_cart(cart_data,bundleItems = '',normal_items = ''){
                         html_data += '<img class="align-self-start img-fluid mr-2" src="https://via.placeholder.com/45x45">';
                                      }
                         html_data += '<div class="media-body">';
-                        html_data += '<a class="text-body font-weight-bold small" href="' + PRODUCT_SINGLE_SLUG + '/' + item.sku.product.urlTitle + '">' + item.sku.product.productName + '</a>';
+                        html_data += '<a class="text-body font-weight-bold small" href="' + SLATWALL_PRODUCT_SINGLE_SLUG + '/' + item.sku.product.urlTitle + '">' + item.sku.product.productName + '</a>';
                         html_data += '<a href="javascript:void(0);" data-orderItemID="'+item.orderItemID+'" class="float-right text-secondary mini-remove-item"><i class="fa fa-times-circle"></i></a>';
                         html_data += '<br>';
                         html_data += '<span class="text-muted small">$'+item.extendedUnitPrice+'</span>';
@@ -232,7 +232,7 @@ function update_mini_cart(cart_data,bundleItems = '',normal_items = ''){
                              }
 
                         html_data += '<div class="alert alert-info m-2 small cart-item-removed" style="display:none;">Item removed from your cart.</div>';
-                        html_data += '<a href="'+ site_url + '/' + CART + '" class="btn btn-link btn-block text-center mini-cart-view"><small>View Shopping Cart</small></a>';
+                        html_data += '<a href="'+ site_url + '/' + SLATWALL_CART + '" class="btn btn-link btn-block text-center mini-cart-view"><small>View Shopping Cart</small></a>';
                         html_data += '</div>';
                         jQuery('#mini-cart').html(html_data);
                         update_mini_cart_count();
@@ -248,7 +248,7 @@ function remove_mini_cart_item(id){
             if(result){
               if(response.successfulActions && response.successfulActions.includes("public:cart.removeOrderItem")){
            update_mini_cart(response.cart,response.bundleItems,response.normal_items);
-            update_cart_items(response.cart.orderItems,response.bundleItems,response.normal_items);
+            update_cart_items(response.orderItems,response.bundleItems,response.normal_items);
                update_cart_payment(response);
            jQuery('.cart-item-removed').show();
                 }
@@ -273,7 +273,7 @@ function remove_mini_cart_item(id){
         var response = jQuery.parseJSON(result);
             if(result){
               if(response.successfulActions && response.successfulActions.includes("public:cart.change")){
-           window.location = site_url + '/' + CART;
+           window.location = site_url + '/' + SLATWALL_CART;
                 }
             }
 
@@ -409,7 +409,18 @@ function remove_mini_cart_item(id){
 }).ajaxStop(function() {
   jQuery("#qloader").hide('slow');
 });
-function add_to_cart(sku_id,qty){
+
+
+function subscription_checkout_popup_update(cart_data){
+//console.log(cart_data);
+jQuery('.sub-product-price').html('$' + cart_data.total + ' / month');
+jQuery('.sub-product-name').html(cart_data.orderItems[0].sku.skuDefinition);
+jQuery('.checkoutforms').removeClass('col-md-8').removeClass('col-xl-7');
+jQuery('.alert').hide();
+jQuery('#staticBackdrop').modal('show');
+}
+
+function add_to_cart(sku_id,qty,popup = false){
          var data = {
         'action' : 'add_to_cart',
         'id': sku_id,
@@ -421,6 +432,10 @@ function add_to_cart(sku_id,qty){
                 if(IsJsonString(result)){
             var result_json = JSON.parse(result);
             if(result_json.successfulActions && result_json.successfulActions[0] === 'public:cart.addOrderItem'){
+                if(popup == true){
+                    subscription_checkout_popup_update(result_json.cart);
+                    
+                }
                   jQuery('.added-cart').show();
                   update_mini_cart(result_json.cart,result_json.bundleItems,result_json.normal_items);
             }  else {
@@ -433,7 +448,45 @@ function add_to_cart(sku_id,qty){
 
 
     } );
+    }
+    
+    function get_cart_data(sku_id = false,popup = false){
+         var data = {
+        'action' : 'get_cart_data'
+    };
+    jQuery.post(ajax_url, data, function( result ) {
+      var sku_add = 0;
+            if(result){
+                if(IsJsonString(result)){
+            var cart_details = JSON.parse(result);
+            console.log(cart_details);
+            var cart_data = cart_details.cart;
+                if(popup === true && sku_id !== false){
+                    var sku_ids = [];
+if(cart_data.orderItems){
+    jQuery.each(cart_data.orderItems, function(key, value) {
+    sku_ids.push(value.sku.skuID);
+});
+if(sku_ids.length == 1 && sku_ids.includes(sku_id) === true){
+     jQuery('.alert-info,.subscription_checkout_area').show();
+    jQuery('.alert-success,.shopping-cart-btn').hide();
+    jQuery('#staticBackdrop').modal('show');
+} else if((sku_ids.length == 1 && sku_ids.includes(sku_id) === false) || sku_ids.length > 1 ){
+       jQuery('.alert-info,.subscription_checkout_area').hide();
+    jQuery('.alert-success,.shopping-cart-btn').show();
+    jQuery('#staticBackdrop').modal('show');
+}  else {
+     add_to_cart(sku_id,1,true);
+}
 
+}
+                }
+            
+                } 
+            }
+
+
+    } );
     }
 
     jQuery(document).on('click','.bundle-add-to-cart',function(e){
@@ -446,9 +499,10 @@ function add_to_cart(sku_id,qty){
           var data_max_value = jQuery(this).find('.min-max-sku-selection').attr('data-max-value');
           jQuery(this).find('.row.mt-3').each(function(){
              if(jQuery(this).find('.sku_input_value').val() != '' && jQuery(this).find('.sku_input_value').val() != 0){
-                 sku_value_count++;
+                 sku_value_count = sku_value_count+parseInt(jQuery(this).find('.sku_input_value').val());
              }
           });
+          console.log(sku_value_count);
            if(sku_value_count >= data_min_value && sku_value_count <= data_max_value){
               console.log(2);
            jQuery(this).find('.row.mt-3 .sku_input_value,.row .selection_limit_area small').removeClass('red_border');
@@ -485,6 +539,25 @@ function add_to_cart(sku_id,qty){
     var form_data = jQuery(this).serializeArray();
     sku_id = form_data[0].value;
     add_to_cart(sku_id,1);
+    return false;
+    });
+    
+    jQuery(document).on('click','.subscription-add-to-cart',function(e){
+    e.preventDefault();
+    var sku_id = jQuery(this).parents('.card').find('input[name=skuID]').val();
+    //var sku_add = jQuery(this).parents('.card').find('input[name=sku_add]').val();
+    get_cart_data(sku_id,true);
+//    if(sku_add == 0){
+//    add_to_cart(sku_id,1,true);
+//} else if(sku_add == 1){
+//    jQuery('.alert-info').show();
+//    jQuery('.alert-success').hide();
+//    jQuery('#staticBackdrop').modal('show');
+//}  else if(sku_add == 2){
+//    jQuery('.alert-info,.subscription_checkout_area').hide();
+//    jQuery('.alert-success,.shopping-cart-btn').show();
+//    jQuery('#staticBackdrop').modal('show');
+//}
     return false;
     });
     function check_variation_selection(){
@@ -684,8 +757,9 @@ jQuery(document).on("keypress",".number-field", function (evt) {
     }
 });
     jQuery(document).ready(function(){
-
-
+    if(jQuery('div').hasClass('product-subscription-main-area')){
+        jQuery('body').addClass('slatwall-taxonomy');
+    }
 
         jQuery(document).on( 'click','.pagination li a', function(event) {
 
@@ -778,29 +852,29 @@ jQuery(document).on("keypress",".number-field", function (evt) {
          }
 
         });
-        jQuery(document).on('click','.product_type_on_list',function(){
-          var type_id = jQuery(this).attr('id');
-          var type_text = jQuery(this).text();
-          var specific_products = jQuery('#specific_products').attr('data-products');
-          jQuery('input:checkbox[value="' + type_id + '"]').attr('checked', true);
-           var sorting = jQuery('.sorting a.active').attr('data-value');
-            if(typeof specific_products !== 'undefined'){
-             jQuery('#product_type').html('<form id="sidebar_form" action="index.php"><input type="checkbox" value="' + type_id + '" checked><label class="form-check-label" for="books">'+ type_text +'</label></form>');
-             var form_data = [{name:"types", value:type_id}];
-            } else {
-                var form_data = jQuery("#sidebar_form").serializeArray();
-            }
-
-
-            // set ajax data
-
-         if(typeof specific_products !== 'undefined'){
-             jQuery('input:checkbox[value="' + type_id + '"]').attr('checked', true);
-             filter_ajax(form_data,1,sorting,specific_products);
-         } else {
-             filter_ajax(form_data,1,sorting);
-         }
-        });
+//        jQuery(document).on('click','.product_type_on_list',function(){
+//          var type_id = jQuery(this).attr('id');
+//          var type_text = jQuery(this).text();
+//          var specific_products = jQuery('#specific_products').attr('data-products');
+//          jQuery('input:checkbox[value="' + type_id + '"]').attr('checked', true);
+//           var sorting = jQuery('.sorting a.active').attr('data-value');
+//            if(typeof specific_products !== 'undefined'){
+//             jQuery('#product_type').html('<form id="sidebar_form" action="index.php"><input type="checkbox" value="' + type_id + '" checked><label class="form-check-label" for="books">'+ type_text +'</label></form>');
+//             var form_data = [{name:"types", value:type_id}];
+//            } else {
+//                var form_data = jQuery("#sidebar_form").serializeArray();
+//            }
+//
+//
+//            // set ajax data
+//
+//         if(typeof specific_products !== 'undefined'){
+//             jQuery('input:checkbox[value="' + type_id + '"]').attr('checked', true);
+//             filter_ajax(form_data,1,sorting,specific_products);
+//         } else {
+//             filter_ajax(form_data,1,sorting);
+//         }
+//        });
          jQuery('#sidebar_form').on('keyup keypress', function(e) {
   var keyCode = e.keyCode || e.which;
   if (keyCode === 13) {
@@ -920,7 +994,7 @@ function error_msg(error_obje,append_class){
 //            jQuery('.order_items_checkout').html('');
 //                jQuery('.order_items_checkout').append('<h3 class="mb-3 pt-3 pb-3 border-bottom">Order Items</h3><ul class="list-unstyled ml-0 mb-5"></ul>');
 //                       cart_data.orderItems.forEach(function(item) {
-//                           var product_page_single_url = site_url + '/' + PRODUCT_SINGLE_SLUG + '/' + item.sku.product.urlTitle;
+//                           var product_page_single_url = site_url + '/' + SLATWALL_PRODUCT_SINGLE_SLUG + '/' + item.sku.product.urlTitle;
 //                           jQuery('.order_items_checkout ul').append('<li class="media mb-4 pb-4 ml-0 border-bottom" id="' + item.orderItemID +'">');
 //                            if(item.sku.imagePath !== ''){
 //                             jQuery('.order_items_checkout ul li#' + item.orderItemID).append('<a href="' + product_page_single_url +'"><img src="' + DOMAIN + '/' + item.sku.imagePath + '" alt="' + item.sku.product.productName + '" class="img-fluid mr-3"></a>');
@@ -955,7 +1029,7 @@ function error_msg(error_obje,append_class){
 
 
 /******************************** Start Add Order Payment ******************************* */
-function add_order_payment(form_data,same_shipping,account_address_id){
+function add_order_payment(form_data,same_shipping,account_address_id,place_order_flag = false){
          var data = {
         'action' : 'add_order_payment',
         'form_data': form_data,
@@ -967,11 +1041,13 @@ function add_order_payment(form_data,same_shipping,account_address_id){
 				var response = jQuery.parseJSON(result);
 
         var response = jQuery.parseJSON(result);
-
+jQuery('.account_billing_address_added,.account_billing_address_add_error').hide();
              if(response.successfulActions && response.successfulActions.includes("public:cart.addOrderPayment")){
                  console.log(response);
         var cart_data = response.cart;
-
+if(place_order_flag == true){
+    place_order();
+}
 
         jQuery('.order_review_area').html('');
         if(typeof cart_data.orderFulfillments[0].shippingMethod !== 'undefined'){
@@ -1033,13 +1109,38 @@ function add_order_payment(form_data,same_shipping,account_address_id){
 
     jQuery(document).on('submit','.add-order-payment',function(e){
         e.preventDefault();
-        // var form_data = jQuery(this).serializeArray();
-        // add_order_payment(form_data);
+        var place_order = false;
         var same_shipping;
         var account_address_id = jQuery('.billing_account_address a.active').attr('id');
+        if(typeof account_address_id == 'undefined'){
+           account_address_id = jQuery('.subscription_billing_account_address').val();
+        }
+        console.log(jQuery('.subscription_billing_account_address').val());
+        console.log(account_address_id);
 	var same_as_billing = jQuery('#billingAddress').val();
+        var subscription_placeorder_value =  jQuery('#subscription_placeorder').val();
+        if(typeof subscription_placeorder_value !== 'undefined' && subscription_placeorder_value == 1){
+            place_order = true;
+        }
+         var form_data = jQuery(this).serializeArray();
+        var billing_error_require = 0;
+        if(jQuery('#nav-addNewAddress').hasClass('show')){
+            var form_data = jQuery('.add-order-payment, #add-account-billing').serializeArray();
+        
+       jQuery('#add-account-billing').find('.required').each(function(){
+                var inputval = jQuery(this).val();
+               console.log(inputval);
+                if(inputval === '') {
+                        billing_error_require = 1;
+                        jQuery(this).addClass('is-invalid');
+                } else{
+                        jQuery(this).removeClass('is-invalid');
+                }
 
-        var form_data = jQuery(this).serializeArray();
+            
+	});
+    } 
+       
         var error_require = 0;
         jQuery(this).find('.required').each(function(){
 				 var inputval = jQuery(this).val();
@@ -1070,12 +1171,14 @@ function add_order_payment(form_data,same_shipping,account_address_id){
        } else{
             same_shipping = 0;
        }
-         if((jQuery('#billingAddress').prop("checked") === true  || typeof account_address_id !== 'undefined') && error_require === 0){
+       console.log((jQuery('#billingAddress').prop("checked") === true  || typeof account_address_id !== 'undefined') && (error_require === 0 && billing_error_require === 0));
+         if((jQuery('#billingAddress').prop("checked") === true  || typeof account_address_id !== 'undefined') && (error_require === 0 && billing_error_require === 0)){
            jQuery('.billingnotadded').hide();
-           add_order_payment(form_data,same_shipping,account_address_id);
+           console.log(form_data,same_shipping,account_address_id,place_order);
+           add_order_payment(form_data,same_shipping,account_address_id,place_order);
        } else if((jQuery('#billingAddress').prop("checked") === false  && typeof account_address_id === 'undefined')){
          jQuery('.billingnotadded').show();
-        } else if((jQuery('#billingAddress').prop("checked") === true  || typeof account_address_id !== 'undefined') && error_require !== 0){
+        } else if((jQuery('#billingAddress').prop("checked") === true  || typeof account_address_id !== 'undefined') && (error_require !== 0 && billing_error_require !== 0)){
          jQuery('.billingnotadded').hide();
         }
 
@@ -1126,7 +1229,7 @@ function add_order_payment(form_data,same_shipping,account_address_id){
                 jQuery('.select_shipping_area').append('<h5 class="text-secondary my-4">Select Shipping Fulfillment</h5>');
            shipping_methods.forEach(function(shipping_method) {
                var checked = '';
-               if(typeof response.cart_data.cart.orderFulfillments[0].shippingMethodOptions.VALUE !== 'undefined' && response.cart_data.cart.orderFulfillments[0].shippingMethodOptions.VALUE == shipping_method.value){
+               if(typeof response.cart_data.orderFulfillments[0].shippingMethodOptions.VALUE !== 'undefined' && response.cart_data.orderFulfillments[0].shippingMethodOptions.VALUE == shipping_method.value){
                    var checked = 'checked';
                }
                 jQuery('.select_shipping_area').append('<div class="form-check mb-3"><input class="form-check-input" type="radio" name="shipping_method" id="' + shipping_method.shippingMethodCode + '" value="' + shipping_method.value +'" '+ checked +'><label class="ml-2 form-check-label" for="' + shipping_method.shippingMethodCode + '">' + shipping_method.name +'</label></div>');
@@ -1140,7 +1243,7 @@ function add_order_payment(form_data,same_shipping,account_address_id){
                  checkout_sidebar_update(response.cart_data.cart);
                 if(typeof response.cart_data.cart.orderFulfillments[0] !== 'undefined'){
                     var orderFulfillmentID = '';
-                    response.cart_data.cart.orderFulfillments.forEach(function(orderFulfillments) {
+                    response.cart_data.orderFulfillments.forEach(function(orderFulfillments) {
 if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefined' && orderFulfillments.fulfillmentMethod.fulfillmentMethodType == 'shipping'){
            orderFulfillmentID = orderFulfillments.orderFulfillmentID;
         }
@@ -1299,18 +1402,18 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
 
 
     jQuery(document).on('click','.account-address',function(){
-        jQuery('.account-address').find('i').removeClass('fa-check-circle');
-        jQuery(this).find('i').addClass('fa-check-circle');
+        jQuery('.account-address').find('i').removeClass('fas fa-check-circle');
+        jQuery(this).find('i').addClass('fas fa-check-circle');
 
 				if(jQuery(this).hasClass('active')) {
 					jQuery(this).removeClass('active');
-					jQuery('.account-address').find('i').removeClass('fa-check-circle');
-                                        jQuery('#shipping_countinue').prop("disabled", true);
+					jQuery('.account-address').find('i').removeClass('fas fa-check-circle');
+                                       // jQuery('#shipping_countinue').prop("disabled", true);
 				} else{
 					jQuery('.account-address').removeClass('active');
 					jQuery(this).addClass('active');
-					jQuery(this).find('i').addClass('fa-check-circle');
-                                        jQuery('#shipping_countinue').prop("disabled", false);
+					jQuery(this).find('i').addClass('fas fa-check-circle');
+                                      //  jQuery('#shipping_countinue').prop("disabled", false);
 				}
     });
 
@@ -1322,10 +1425,14 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
     };
     jQuery.post(ajax_url, data, function( result ) {
        var response = jQuery.parseJSON(result);
+       console.log(response);
        if(response.order_placed.successfulActions && response.order_placed.successfulActions.includes("public:cart.placeOrder")){
 
            jQuery('.order-placed,.reviewconfirm').show();
            jQuery('.order-placed').html('<strong>Order #' + response.order_id + '</strong> has been placed');
+           jQuery('.billig-payment-area').hide();
+           jQuery('.order-placed-area').show();
+           jQuery('.order-placed-area h5').html('Order #'+response.order_id);
            jQuery('.revieworder,.reviewconfirm a,#place-order').hide();
            jQuery('.checkout_heading_section').html('<h1>Order Confirmation</h1><a href="javascript:void(0);"  class="print btn btn-light text-secondary"><i class="fa fa-print"></i> Print Order</a>');
            jQuery('#mini-cart .badge.badge-pill').text('0');
@@ -1367,23 +1474,32 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
 var required_list = response.cart_data.orderRequiredStepsList;
                 var required_list_array = required_list.split(",");
                 console.log(required_list_array);
-                var required_list_array_check_fulfillment = required_list_array.indexOf("fulfillment");
+                var required_list_array_check_fulfillment = required_list_array.includes("fulfillment");
+                console.log(response);
     var account_address = response.account_address;
-            if(account_address.length > 0){
+            if(typeof account_address !== 'undefined' && account_address != null){
                 jQuery('#shippingCreateAddress').removeClass('show');
                 jQuery('.show-address-book').show();
                 jQuery('.account_address_for_shipping').append('<h5 class="text-secondary my-4">Select Shipping Address</h5><div class="row"></div>');
-                account_address.forEach(function(address) {
+                jQuery('.subscription_billing_account_address').removeClass('d-none').html('');
+                    account_address.forEach(function(address) {
 
                 jQuery('.account_address_for_shipping .row,.billing_account_address').append('<div class="col-md-6 mb-4 col-print-6"><a href="javascript:void(0);" class="btn btn-block p-0 text-left account-address" id="'+ address.accountAddressID+'"><div class="bg-light p-4 h-100 border"><i class="far float-right"></i><h6 class="card-title text-muted">' + address.address.name + '</h6><address class="small mb-0 text-body"><br>' + address.address.streetAddress + '<br>'+ address.address.city+', '+ address.address.stateCode +' ' + address.address.postalCode  + '<br>' + address.address.countryCode  + '</address></div></a></div>');
-            });
-            jQuery('.account_address_for_shipping .row,.billing_account_address').append('<div class="col-md-12 mb-2"><button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="shippingAddressBook shippingCreateAddress"><i class="fa fa-plus"></i> Add New Address</button></div>');
+                
+                jQuery('.subscription_billing_account_address').append('<option value="'+ address.accountAddressID+'">' + address.accountAddressName + ' - ' + address.address.streetAddress + ', '+ address.address.city+' '+ address.address.stateCode +' ' + address.address.postalCode  + '</option>');
+                jQuery('#nav-selectAddress,#nav-selectAddress-tab').addClass('show active').removeClass('d-none');
+                jQuery('#nav-addNewAddress,#nav-addNewAddress-tab').removeClass('show active');
+                    });
+            jQuery('.account_address_for_shipping .row').append('<div class="col-md-12 mb-2"><button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="shippingAddressBook shippingCreateAddress"><i class="fa fa-plus"></i> Add New Address</button></div>');
                 } else {
                  jQuery('.account_address_for_shipping').html('');
+                 jQuery('.subscription_billing_account_address').addClass('d-none').html('<option>No Address Added</option>');
                  jQuery('#shippingCreateAddress').addClass('show');
                 jQuery('.show-address-book').hide();
-
+                jQuery('#nav-selectAddress,#nav-selectAddress-tab').removeClass('show active').addClass('d-none');
+                jQuery('#nav-addNewAddress,#nav-addNewAddress-tab').addClass('show active');
                 }
+                jQuery('.step-two').show();
                  jQuery('.select_shipping_area').html('');
                  if(typeof response.shipping_methods.availableShippingMethods !== 'undefined'){
                 if(typeof response.shipping_methods.availableShippingMethods[0].value !== 'undefined' && response.shipping_methods.availableShippingMethods.length > 0){
@@ -1391,7 +1507,7 @@ var required_list = response.cart_data.orderRequiredStepsList;
                 jQuery('.select_shipping_area').append('<h5 class="text-secondary my-4">Select Shipping Fulfillment</h5>');
            shipping_methods.forEach(function(shipping_method) {
                var checked = '';
-               if(typeof response.cart_data.cart.orderFulfillments[0].shippingMethod !== 'undefined' && response.cart_data.cart.orderFulfillments[0].shippingMethod.shippingMethodID == shipping_method.value){
+               if(typeof response.cart_data.orderFulfillments[0].shippingMethod !== 'undefined' && response.cart_data.orderFulfillments[0].shippingMethod.shippingMethodID == shipping_method.value){
                    var checked = 'checked';
                }
                 jQuery('.select_shipping_area').append('<div class="form-check mb-3"><input class="form-check-input" type="radio" name="shipping_method" id="' + shipping_method.shippingMethodCode + '" value="' + shipping_method.value +'" '+ checked +'><label class="ml-2 form-check-label" for="' + shipping_method.shippingMethodCode + '">' + shipping_method.name +'</label></div>');
@@ -1403,9 +1519,9 @@ var required_list = response.cart_data.orderRequiredStepsList;
                 jQuery('.select_shipping_area').html('<p>No Shipping Method Added in the Product, Please choose another Product to checkout</p>');
                 }
                 checkout_sidebar_update(response.cart_data);
-                 if(typeof response.cart_data.cart.orderFulfillments[0] !== 'undefined'){
+                 if(typeof response.cart_data.orderFulfillments[0] !== 'undefined'){
                     var orderFulfillmentID = '';
-                    response.cart_data.cart.orderFulfillments.forEach(function(orderFulfillments) {
+                    response.cart_data.orderFulfillments.forEach(function(orderFulfillments) {
 if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefined' && orderFulfillments.fulfillmentMethod.fulfillmentMethodType == 'shipping'){
            orderFulfillmentID = orderFulfillments.orderFulfillmentID;
         }
@@ -1414,7 +1530,7 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
                 jQuery('#order_fulfillment_id').attr('data-fulfillment',orderFulfillmentID);
             }
                 jQuery('.checkoutforms,.alert').hide();
-                if(required_list_array_check_fulfillment == 1){
+                if(required_list_array_check_fulfillment == true){
                 jQuery('.shippinginfo').show();
             } else {
                 jQuery('.billinginfo').show();
@@ -1436,18 +1552,21 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
 var required_list = response.cart_data.orderRequiredStepsList;
                 var required_list_array = required_list.split(",");
                 console.log(required_list_array);
-                var required_list_array_check_fulfillment = required_list_array.indexOf("fulfillment");
+                var required_list_array_check_fulfillment = required_list_array.includes("fulfillment");
     var account_address = response.account_address;
-            if(account_address.length > 0){
+  //  console.log(account_address.length);
+            if(typeof account_address !== 'undefined' && account_address != null && account_address.length > 0){
                 jQuery('.account_address_for_shipping').append('<h5 class="text-secondary my-4">Select Shipping Address</h5><div class="row"></div>');
-                account_address.forEach(function(address) {
-
+                jQuery('.subscription_billing_account_address').html('');
+                        account_address.forEach(function(address) {
+                            jQuery('.subscription_billing_account_address').append('<option value="'+ address.accountAddressID+'">' + address.accountAddressName + ' - ' + address.address.streetAddress + ', '+ address.address.city+' '+ address.address.stateCode +' ' + address.address.postalCode  + '</option>');
                 jQuery('.account_address_for_shipping .row,.billing_account_address').append('<div class="col-md-6 mb-4 col-print-6"><a href="javascript:void(0);" class="btn btn-block p-0 text-left account-address" id="'+ address.accountAddressID+'"><div class="bg-light p-4 h-100 border"><i class="far float-right"></i><h6 class="card-title text-muted">' + address.address.name + '</h6><address class="small mb-0 text-body"><br>' + address.address.streetAddress + '<br>'+ address.address.city+', '+ address.address.stateCode +' ' + address.address.postalCode  + '<br>' + address.address.countryCode  + '</address></div></a></div>');
             });
             jQuery('.account_address_for_shipping .row,.billing_account_address').append('<div class="col-md-12 mb-2"><button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="shippingAddressBook shippingCreateAddress"><i class="fa fa-plus"></i> Add New Address</button></div>');
                 } else {
                  jQuery('.account_address_for_shipping').html('');
                 }
+                jQuery('.step-two').show();
                  jQuery('.select_shipping_area').html('');
                  if(typeof response.shipping_methods.availableShippingMethods !== 'undefined'){
                 if(typeof response.shipping_methods.availableShippingMethods[0].value !== 'undefined' && response.shipping_methods.availableShippingMethods.length > 0){
@@ -1455,11 +1574,12 @@ var required_list = response.cart_data.orderRequiredStepsList;
                 jQuery('.select_shipping_area').append('<h5 class="text-secondary my-4">Select Shipping Fulfillment</h5>');
            shipping_methods.forEach(function(shipping_method) {
                var checked = '';
-               if(typeof response.cart_data.cart.orderFulfillments[0].shippingMethod.shippingMethodID !== 'undefined' && response.cart_data.cart.orderFulfillments[0].shippingMethod.shippingMethodID == shipping_method.value){
+               console.log(response.cart_data);
+               if(typeof response.cart_data.orderFulfillments[0].shippingMethod !== 'undefined' && response.cart_data.orderFulfillments[0].shippingMethod.shippingMethodID == shipping_method.value){
                    var checked = 'checked';
                }
-                jQuery('.select_shipping_area').append('<div class="form-check mb-3"><input class="form-check-input" type="radio" name="shipping_method" id="' + shipping_method.shippingMethodCode + '" value="' + shipping_method.value +'" '+ checked +'><label class="ml-2 form-check-label" for="' + shipping_method.shippingMethodCode + '">' + shipping_method.name +'</label></div>');
-            });
+                  jQuery('.select_shipping_area').append('<div class="form-check mb-3"><input class="form-check-input" type="radio" name="shipping_method" id="' + shipping_method.shippingMethodCode + '" value="' + shipping_method.value +'" '+ checked +'><label class="ml-2 form-check-label" for="' + shipping_method.shippingMethodCode + '">' + shipping_method.name +'</label></div>');
+             });
                 } else {
                  jQuery('.select_shipping_area').html('<p>No Shipping Method Added in the Product, Please choose another Product to checkout</p>');
 
@@ -1467,9 +1587,9 @@ var required_list = response.cart_data.orderRequiredStepsList;
                 jQuery('.select_shipping_area').html('<p>No Shipping Method Added in the Product, Please choose another Product to checkout</p>');
                 }
                 checkout_sidebar_update(response.cart_data);
-                if(typeof response.cart_data.cart.orderFulfillments[0] !== 'undefined'){
+                if(typeof response.cart_data.orderFulfillments[0] !== 'undefined'){
                     var orderFulfillmentID = '';
-                    response.cart_data.cart.orderFulfillments.forEach(function(orderFulfillments) {
+                    response.cart_data.orderFulfillments.forEach(function(orderFulfillments) {
 if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefined' && orderFulfillments.fulfillmentMethod.fulfillmentMethodType == 'shipping'){
            orderFulfillmentID = orderFulfillments.orderFulfillmentID;
         }
@@ -1478,7 +1598,7 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
                 jQuery('#order_fulfillment_id').attr('data-fulfillment',orderFulfillmentID);
             }
                 jQuery('.checkoutforms,.alert').hide();
-                if(required_list_array_check_fulfillment == 1){
+                if(required_list_array_check_fulfillment == true){
                 jQuery('.shippinginfo').show();
             } else {
                 jQuery('.billinginfo').show();
@@ -1505,9 +1625,9 @@ if(typeof orderFulfillments.fulfillmentMethod.fulfillmentMethodType !== 'undefin
         }
         }
         if(jQuery('.account_address_for_shipping .account-address').hasClass('active') == false){
-             jQuery('#shipping_countinue').prop("disabled", true);
+           //  jQuery('#shipping_countinue').prop("disabled", true);
         } else{
-             jQuery('#shipping_countinue').prop("disabled", false);
+            // jQuery('#shipping_countinue').prop("disabled", false);
         }
     } );
 
@@ -1620,33 +1740,43 @@ function get_state_code(country_code,state_id)
     };
     jQuery.post(ajax_url, data, function( result ) {
        var response = jQuery.parseJSON(result);
-
+console.log(response);
        if(response.successfulActions.includes("public:account.addNewAccountAddress")){
 
             var account_address = response.account.accountAddresses;
             var newAccountAddressID = response.newAccountAddressID;
-
+            //jQuery('.billing_account_address a.active').attr('id',newAccountAddressID);
             if(account_address.length > 0){
+                jQuery('.billing_address_added').show();
                 var shipping_active_id = jQuery('.account_address_for_shipping .account-address.active').attr('id');
                 jQuery('.account_address_for_shipping,.billing_account_address').html('');
                 jQuery('.account_address_for_shipping').append('<h5 class="text-secondary my-4">Select Shipping Address</h5><div class="row"></div>');
+                jQuery('.subscription_billing_account_address').removeClass('d-none').html('');
                 account_address.forEach(function(address) {
                     var active_class = "";
+                    var selected = "";
             var circle_check_class = "";
                     if(address.accountAddressID == newAccountAddressID){
                       active_class = "active";
-                      circle_check_class = "fa-check-circle";
+                      circle_check_class = "fas fa-check-circle";
+                      selected = "selected";
                       }
 
                 jQuery('.account_address_for_shipping .row,.billing_account_address').append('<div class="col-md-6 mb-4 col-print-6"><a href="javascript:void(0);" class="btn btn-block p-0 text-left account-address '+ active_class +'" id="'+ address.accountAddressID+'"><div class="bg-light p-4 h-100 border"><i class="far float-right '+ circle_check_class +'"></i><h6 class="card-title text-muted">' + address.address.name + '</h6><address class="small mb-0 text-body"><br>' + address.address.streetAddress + '<br>'+ address.address.city+', '+ address.address.stateCode +' ' + address.address.postalCode  + '<br>' + address.address.countryCode  + '</address></div></a></div>');
-            });
-            jQuery('.account_address_for_shipping #'+shipping_active_id).addClass('active').find('i').addClass('fa-check-circle');
+           
+                jQuery('.subscription_billing_account_address').append('<option value="'+ address.accountAddressID+'" '+ selected +'>' + address.accountAddressName + ' - ' + address.address.streetAddress + ', '+ address.address.city+' '+ address.address.stateCode +' ' + address.address.postalCode  + '</option>');
+                jQuery('#nav-selectAddress,#nav-selectAddress-tab').addClass('show active').removeClass('d-none');
+                jQuery('#nav-addNewAddress,#nav-addNewAddress-tab').removeClass('show active');
+                });
+            jQuery('.account_address_for_shipping #'+shipping_active_id).addClass('active').find('i').addClass('fas fa-check-circle');
                 }
            jQuery('.account_billing_address_added').show();
            jQuery('.account_billing_address_add_error').hide();
            jQuery('#billingAddressBook').addClass('show');
            jQuery('#billingCreateAddress').removeClass('show');
             } else {
+                jQuery('#nav-selectAddress,#nav-selectAddress-tab').removeClass('show active');
+                jQuery('#nav-addNewAddress,#nav-addNewAddress-tab').addClass('show active');
       jQuery('.account_billing_address_added').hide();
       jQuery('.account_billing_address_add_error').html('');
       error_msg(response.errors,'account_billing_address_add_error');
@@ -2249,6 +2379,7 @@ jQuery(document).ready(function(){
 
 		if(action=='user_login')
 			{
+                            console.log(response.token);
 		if(response.token){
 					window.location.reload();
 		} else {
@@ -2268,7 +2399,9 @@ jQuery(document).ready(function(){
 
 			}
 		 else {
+                     if(typeof(response.errors.emailAddress[0]) != "undefined"){
 				jQuery('.accountregerror').text(response.errors.emailAddress[0]).show();
+                            }
 			}
 		}
     } );

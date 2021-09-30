@@ -27,7 +27,7 @@ class Slatwall_Integration {
         }
 
          protected function get_API_Integration(string $API_URL,string $method = 'GET',string $urlParameter = '',array $post_field_data = array()){
-            $auth = AUTHORIZATION;
+            $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
             if($key_data){
             $token = $key_data->token;
@@ -35,71 +35,48 @@ class Slatwall_Integration {
             $access_key = $key_data->access_key;
             $access_key_secret = $key_data->access_key_secret;
             $full_api_url = $domain.$API_URL.$urlParameter;
-
-            try {
-                $ch = curl_init();
-
-                // Check if initialization had gone wrong*
-                if ($ch === false) {
-                    throw new Exception('failed to initialize');
+               $post_field_arg = array('returntransfer'=>true,
+                    'encoding'=>'',
+                    'maxredirs'=>10,
+                    'verbose'=>1,
+                    'followlocation'=>true,
+                 'timeout' => 10,
+                'header'=>1,
+                    'headers' => array(
+                "Authorization" => "Basic ".$auth
+              )
+                    
+                    );
+               //d($auth);
+                $content_data = wp_remote_get($full_api_url, $post_field_arg);
+                if( !is_wp_error( $content_data ) ) {
+                    
+                
+                $content = $content_data['body'];
+                //d($content1);
+                $headerResult = wp_remote_retrieve_headers($content_data);
+            $set_cookies =$headerResult->getAll()['set-cookie'];
+            $cookies1 = array();
+            foreach($set_cookies as $cookie){
+                $cookie_array = explode('=',$cookie);
+                $cookie_array_value_split = explode(';',$cookie_array[1]);
+                if($cookie_array_value_split[0] != ""){
+                $cookie_key = (string)$cookie_array[0];
+                if($cookie_key != 'SLATWALL-NPSID' && $cookie_key != 'SLATWALL-PSID'){
+                    $cookie_value = str_replace('; Path', '', $cookie_array[1]);
+                    $cookie_value = str_replace(';Path', '', $cookie_value);
+                $cookies1[$cookie_key] = $cookie_value;
                 }
-
-                curl_setopt_array($ch, array(
-                CURLOPT_URL => $full_api_url,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_HEADER => 1,
-                CURLOPT_VERBOSE => 1,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => $method,
-                CURLOPT_SSL_VERIFYHOST => FALSE,
-                CURLOPT_SSL_VERIFYPEER => FALSE,
-                CURLOPT_POSTFIELDS => $post_field_data,
-                CURLOPT_HTTPHEADER => array(
-                  "Access-Key: $access_key",
-                  "Access-Key-Secret: $access_key_secret",
-                  "Authorization: Basic $auth"
-                ),
-              ));
-
-                $content = curl_exec($ch);
-                $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-            $header = substr($content, 0, $header_size);
-            preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $header, $matches);
-            $cookies = array();
-            foreach($matches[1] as $item) {
-                parse_str($item, $cookie);
-                $cookies = array_merge($cookies, $cookie);
-            }
-            $content = substr($content, $header_size);
-                // Check the return value of curl_exec(), too
-                if($content === false) {
-                    throw new Exception(curl_error($ch), curl_errno($ch));
                 }
-
-                /* Process $content here */
-
-                // Close curl handle
-                curl_close($ch);
-            } catch(Exception $e) {
-
-            if($e->getCode() !== 6){
-              $content = trigger_error(sprintf(
-                    'Curl failed with error #%d: %s',
-                    $e->getCode(), $e->getMessage()),
-                    E_USER_ERROR);
-                    } else {
-                      $error_msg = $e->getMessage();
-                            $content = '{"errors" : "'.$error_msg.'"}';
-                    }
-
             }
             $content_obj = json_decode($content);
+            $cookies = (object) $cookies1;
             $content_obj->cookies = $cookies;
+           // d($content_obj);
              return $content_obj;
+                } else {
+                    return false;
+                }
            } else {
                return false;
            }
@@ -107,7 +84,7 @@ class Slatwall_Integration {
         }
 
         protected function post_API_integration(array $request,string $API_URL,string $method = 'POST'){
-            $auth = AUTHORIZATION;
+            $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
             if($key_data){
             $token = $key_data->token;
@@ -115,32 +92,31 @@ class Slatwall_Integration {
             $post_field_data = $request;
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
-            //print_r($post_field_data);
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-              CURLOPT_URL => $full_api_url,
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => "",
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 0,
-              CURLOPT_FOLLOWLOCATION => true,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => $method,
-              CURLOPT_SSL_VERIFYHOST => FALSE,
-              CURLOPT_SSL_VERIFYPEER => FALSE,
-              CURLOPT_POSTFIELDS => $post_field_data,
-              CURLOPT_HTTPHEADER => array(
-                "Auth-Token: Bearer $token",
-                "Authorization: Basic $auth"
-              ),
-            ));
-
-            $response = curl_exec($curl);
-
-            curl_close($curl);
-           // print_R($response); die("registration");
+            $http_header = array();
+            if($token != ""){
+              $http_header["Auth-Token"] = "Bearer ".$token;
+            } 
+            if($auth){
+                $http_header["Authorization"] = "Basic ".$auth;
+            }
+            $post_field_arg = array('returntransfer'=>true,
+                    'encoding'=>'',
+                    'maxredirs'=>10,
+                    'verbose'=>1,
+                   'body'=>$post_field_data,
+                    'followlocation'=>true,
+                 'timeout' => 10,
+                'header'=>1,
+                    'headers' => $http_header
+                    
+                    );
+                $content_data = wp_remote_post($full_api_url, $post_field_arg);
+                if( !is_wp_error( $content_data ) ) {
+            $response= $content_data['body'];
             return $response;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
@@ -148,7 +124,7 @@ class Slatwall_Integration {
             }
 
             protected function register_integration(array $request,string $API_URL,string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
-            $auth = AUTHORIZATION;
+            $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
             if($key_data){
             $token = $key_data->token;
@@ -156,44 +132,45 @@ class Slatwall_Integration {
             $post_field_data = $request;
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
-            //print_r($post_field_data);
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-              CURLOPT_URL => $full_api_url,
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => "",
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 0,
-                CURLOPT_HEADER => 1,
-                  CURLOPT_VERBOSE => 1,
-              CURLOPT_FOLLOWLOCATION => true,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => $method,
-              CURLOPT_SSL_VERIFYHOST => FALSE,
-              CURLOPT_SSL_VERIFYPEER => FALSE,
-              CURLOPT_POSTFIELDS => $post_field_data,
-              CURLOPT_HTTPHEADER => array(
-                "Auth-Token: Bearer $token",
-                "Authorization: Basic $auth",
-                  $cookies
-              ),
-            ));
-
-            $response = curl_exec($curl);
-                $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-            $header = substr($response, 0, $header_size);
-            preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $header, $matches);
+            
+            $post_field_arg = array('returntransfer'=>true,
+                    'encoding'=>'',
+                    'maxredirs'=>10,
+                    'verbose'=>1,
+                   'body'=>$post_field_data,
+                    'followlocation'=>true,
+                 'timeout' => 10,
+                'header'=>1,
+                    'headers' => array(
+                "Authorization" => "Basic ".$auth,
+                        "Cookie" => $cookies
+              )
+                    
+                    );
+                $content_data = wp_remote_post($full_api_url, $post_field_arg);
+                 if( !is_wp_error( $content_data ) ) {
+                $response = $content_data['body'];
+                $headerResult = wp_remote_retrieve_headers($content_data);
+            $set_cookies =$headerResult->getAll()['set-cookie'];
             $cookies = array();
-            foreach($matches[1] as $item) {
-                parse_str($item, $cookie);
-                $cookies = array_merge($cookies, $cookie);
+            foreach($set_cookies as $cookie){
+                $cookie_array = explode('=',$cookie);
+                $cookie_array_value_split = explode(';',$cookie_array[1]);
+                if($cookie_array_value_split[0] != ""){
+                $cookie_key = (string)$cookie_array[0];
+                if($cookie_key != 'SLATWALL-NPSID' && $cookie_key != 'SLATWALL-PSID'){
+                    $cookie_value = str_replace('; Path', '', $cookie_array[1]);
+                    $cookie_value = str_replace(';Path', '', $cookie_value);
+                $cookies[$cookie_key] = $cookie_value;
+                }
+                }
             }
-            $response = substr($response, $header_size);
-            curl_close($curl);
-           $response_json = json_decode($response);
-                $response_json->cookies = $cookies;
-                return $response_json;
+            $content_obj = json_decode($response);
+            $content_obj->cookies = $cookies;
+                return $content_obj;
+                 } else {
+                     return false;
+                 }
             } else {
                 return false;
             }
@@ -201,50 +178,59 @@ class Slatwall_Integration {
             }
 
             protected function login_integration(array $request,string $API_URL,string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
-
-                $auth = AUTHORIZATION;
+               // d($cookies);
+                $auth = SLATWALL_AUTHORIZATION;
                 $key_data = $this->getKeyValue();
             if($key_data){
                 $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
 
                 $post_data = $request;
-                 $curl = curl_init();
-                curl_setopt_array($curl, array(
-                  CURLOPT_URL => $full_api_url,
-                  CURLOPT_RETURNTRANSFER => true,
-                  CURLOPT_ENCODING => "",
-                  CURLOPT_MAXREDIRS => 10,
-                  CURLOPT_TIMEOUT => 0,
-                  CURLOPT_HEADER => 1,
-                  CURLOPT_VERBOSE => 1,
-                  CURLOPT_FOLLOWLOCATION => true,
-                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                  CURLOPT_SSL_VERIFYHOST => FALSE,
-                  CURLOPT_SSL_VERIFYPEER => FALSE,
-                  CURLOPT_CUSTOMREQUEST => $method,
-                  CURLOPT_POSTFIELDS => $post_data,
-                  CURLOPT_HTTPHEADER => array(
-                    "Authorization: Basic $auth",
-                      $cookies
-                  ),
-                ));
-
-                $response = curl_exec($curl);
-                $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-            $header = substr($response, 0, $header_size);
-            preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $header, $matches);
-            $cookies = array();
-            foreach($matches[1] as $item) {
-                parse_str($item, $cookie);
-                $cookies = array_merge($cookies, $cookie);
+                 $post_field_arg = array('returntransfer'=>true,
+                    'encoding'=>'',
+                    'maxredirs'=>10,
+                    'verbose'=>1,
+                   'body'=>$post_data,
+                    'followlocation'=>true,
+                 'timeout' => 10,
+                'header'=>1,
+                    'headers' => array(
+                "Authorization" => "Basic ".$auth,
+                        "Cookie" => $cookies
+              )
+                    
+                    );
+                   
+                $content_data = wp_remote_post($full_api_url, $post_field_arg);
+                
+                 if( !is_wp_error( $content_data ) ) {
+                $response = $content_data['body'];
+                $headerResult = wp_remote_retrieve_headers($content_data);
+            $set_cookies =$headerResult->getAll()['set-cookie'];
+            $cookies1 = array();
+          //  d($set_cookies);
+            foreach($set_cookies as $cookie){
+                $cookie_array = explode('=',$cookie);
+                $cookie_array_value_split = explode(';',$cookie_array[1]);
+                if($cookie_array_value_split[0] != ""){
+                $cookie_key = (string)$cookie_array[0];
+               // if($cookie_key != 'SLATWALL-NPSID' && $cookie_key != 'SLATWALL-PSID'){
+                    $cookie_value = str_replace('; Path', '', $cookie_array[1]);
+                    $cookie_value = str_replace(';Path', '', $cookie_value);
+                $cookies1[$cookie_key] = $cookie_value;
+                //}
+                }
             }
-            $response = substr($response, $header_size);
-
-                curl_close($curl);
-                $response_json = json_decode($response);
-                $response_json->cookies = $cookies;
-                return $response_json;
+            $content_obj = json_decode($response);
+            $cookies = $cookies1;
+           // d($cookies1);
+            $content_obj->cookies = $cookies;
+            //d($content_obj);
+                return $content_obj;
+                 } else {
+                   
+                     return false;
+                 }
             } else {
                 return false;
             }
@@ -252,134 +238,139 @@ class Slatwall_Integration {
 
 
             protected function userAccountPost(string $API_URL,$token = '',array $request = array(),string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
-            $auth = AUTHORIZATION;
+            $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
-
+            $http_header = array();
+            if($token != ""){
+              $http_header["Auth-Token"] = "Bearer ".$token;
+            } else {
+                $http_header["Cookie"] = $cookies;
+            }
+            if($auth){
+                $http_header["Authorization"] = "Basic ".$auth;
+            }
+            
             $post_field_data = $request;
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
-            $curl = curl_init();
-             curl_setopt_array($curl, array(
-              CURLOPT_URL => $full_api_url,
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => "",
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 0,
-                 CURLOPT_HEADER => 1,
-                  CURLOPT_VERBOSE => 1,
-              CURLOPT_FOLLOWLOCATION => true,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => $method,
-              CURLOPT_SSL_VERIFYHOST => FALSE,
-              CURLOPT_SSL_VERIFYPEER => FALSE,
-              CURLOPT_POSTFIELDS => $post_field_data,
-              CURLOPT_HTTPHEADER => array(
-                "Auth-Token: Bearer $token",
-                "Authorization: Basic $auth",
-                  $cookies
-              ),
-            ));
-
-            $response = curl_exec($curl);
-            $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-            $header = substr($response, 0, $header_size);
-            preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $header, $matches);
-            $cookies = array();
-            foreach($matches[1] as $item) {
-                parse_str($item, $cookie);
-                $cookies = array_merge($cookies, $cookie);
+            $post_field_arg = array('returntransfer'=>true,
+                    'encoding'=>'',
+                    'maxredirs'=>10,
+                    'verbose'=>1,
+                   'body'=>$post_field_data,
+                    'followlocation'=>true,
+                 'timeout' => 10,
+                'header'=>1,
+                    'headers' => $http_header
+                    
+                    );
+                $content_data = wp_remote_post($full_api_url, $post_field_arg);
+                if( !is_wp_error( $content_data ) ) {
+                    
+                
+                $content = $content_data['body'];
+                //d($content1);
+                $headerResult = wp_remote_retrieve_headers($content_data);
+            $set_cookies =$headerResult->getAll()['set-cookie'];
+            $cookies1 = array();
+            foreach($set_cookies as $cookie){
+                $cookie_array = explode('=',$cookie);
+                $cookie_array_value_split = explode(';',$cookie_array[1]);
+                if($cookie_array_value_split[0] != ""){
+                $cookie_key = (string)$cookie_array[0];
+                if($cookie_key != 'SLATWALL-NPSID' && $cookie_key != 'SLATWALL-PSID'){
+                    $cookie_value = str_replace('; Path', '', $cookie_array[1]);
+                    $cookie_value = str_replace(';Path', '', $cookie_value);
+                $cookies1[$cookie_key] = $cookie_value;
+                }
+                }
             }
-            $response = substr($response, $header_size);
-                curl_close($curl);
-                $response_json = json_decode($response);
-                $response_json->cookies = $cookies;
-            return json_encode($response_json);
+            $content_obj = json_decode($content);
+            $cookies = (object) $cookies1;
+            $content_obj->cookies = $cookies;
+           // d($content_obj);
+             return json_encode($content_obj);
+                } else {
+                    return false;
+                }
+            
 
 
             }
 
              protected function userAccountGet(string $API_URL,$token = '',array $request = array(),string $method = 'GET',$cookies = 'Cookie: cftoken=0;'){
-            $auth = AUTHORIZATION;
+            $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
-
+            $http_header = array();
+            if($token != ""){
+              $http_header["Auth-Token"] = "Bearer ".$token;
+            } else {
+                $http_header["Cookie"] = $cookies;
+            }
+            if($auth){
+                $http_header["Authorization"] = "Basic ".$auth;
+            }
+            
             $post_field_data = $request;
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-              CURLOPT_URL => $full_api_url,
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => "",
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 0,
-              CURLOPT_FOLLOWLOCATION => true,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => $method,
-              CURLOPT_SSL_VERIFYHOST => FALSE,
-              CURLOPT_SSL_VERIFYPEER => FALSE,
-              CURLOPT_POSTFIELDS => $post_field_data,
-              CURLOPT_HTTPHEADER => array(
-                "Auth-Token: Bearer $token",
-                "Authorization: Basic $auth",
-                  $cookies
-              ),
-            ));
-
-            $response = curl_exec($curl);
-
-            curl_close($curl);
+            $post_field_arg = array('returntransfer'=>true,
+                    'encoding'=>'',
+                    'maxredirs'=>10,
+                    'verbose'=>1,
+                   'body'=>$post_field_data,
+                    'followlocation'=>true,
+                 'timeout' => 10,
+                'header'=>1,
+                    'headers' => $http_header
+                    
+                    );
+                $content_data = wp_remote_get($full_api_url, $post_field_arg);
+                if( !is_wp_error( $content_data ) ) {
+                    
+                
+                $response = $content_data['body'];
             return $response;
-
+                } else {
+                    return false;
+                }
 
             }
 
 
             protected function stateCode_integration(array $request,string $API_URL,string $method = 'GET',$cookies = 'Cookie: cftoken=0;'){
 
-              $auth = AUTHORIZATION;
+              $auth = SLATWALL_AUTHORIZATION;
               $key_data = $this->getKeyValue();
           if($key_data){
               $domain = $key_data->domain;
           $full_api_url = $domain.$API_URL;
-
+            $http_header = array();
+            $http_header["Cookie"] = $cookies;
+            if($auth){
+                $http_header["Authorization"] = "Basic ".$auth;
+            }
               $post_data = $request;
-               $curl = curl_init();
-              curl_setopt_array($curl, array(
-                CURLOPT_URL => $full_api_url,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_HEADER => 1,
-                CURLOPT_VERBOSE => 1,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_SSL_VERIFYHOST => FALSE,
-                CURLOPT_SSL_VERIFYPEER => FALSE,
-                CURLOPT_CUSTOMREQUEST => $method,
-                CURLOPT_POSTFIELDS => $post_data,
-                CURLOPT_HTTPHEADER => array(
-                  "Authorization: Basic $auth",
-                    $cookies
-                ),
-              ));
-
-              $response = curl_exec($curl);
-              $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-          $header = substr($response, 0, $header_size);
-          preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $header, $matches);
-          $cookies = array();
-          foreach($matches[1] as $item) {
-              parse_str($item, $cookie);
-              $cookies = array_merge($cookies, $cookie);
-          }
-          $response = substr($response, $header_size);
-
-              curl_close($curl);
-              $response_json = json_decode($response);
-              $response_json->cookies = $cookies;
-             // print_r($response_json); die("result");
-              return $response_json;
+              
+              $post_field_arg = array('returntransfer'=>true,
+                    'encoding'=>'',
+                    'maxredirs'=>10,
+                    'verbose'=>1,
+                   'body'=>$post_field_data,
+                    'followlocation'=>true,
+                 'timeout' => 10,
+                'header'=>1,
+                    'headers' => $http_header
+                    
+                    );
+                $content_data = wp_remote_get($full_api_url, $post_field_arg);
+                if( !is_wp_error( $content_data ) ) {
+                $content = $content_data['body'];
+            $content_obj = json_decode($content);
+              return $content_obj;
+                } else {
+                    return false;
+                }
           } else {
               return false;
           }

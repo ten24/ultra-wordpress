@@ -16,30 +16,14 @@
  * @subpackage Slatwall_Ecommerce/admin/partials
  */
 ?>
-
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<!--form method="POST" action="" id="slatwall_integration"-->
-    <!--table>
-        <tr><td>Domain</td><td><input type="text" name="domain" value="<?php echo isset($result->domain)?$result->domain:''; ?>" placeholder="https://demo.ten24dev.com"></td></tr>
-        <tr><td>Access Key</td><td><input type="text" name="access_key" value="<?php echo isset($result->access_key)?$result->access_key:''; ?>"></td></tr>
-        <tr><td>Access Key</td><td><input type="text" name="access_key_secret" value="<?php echo isset($result->access_key_secret)?$result->access_key_secret:''; ?>"></td></tr>
-        <tr><td><input class="integration-form-btn" id="test-key" value="Test Setting" type="button"></td></tr>
-        <tr><td><input class="integration-form-btn" id="submit-key" type="button" value="Save"></td></tr>
-    </table-->
+<div>
 <form method="POST" action="slatwall_integration" id="slatwall_integration">
-    <!-- <table>
-        tr><td>account url</td><td><input type="text" name="account_url"></td></tr
-        <tr><td>Domain</td><td><input type="text" name="domain" value="<?php //echo isset($result->domain)?$result->domain:''; ?>" placeholder="https://demo.ten24dev.com"></td></tr>
-        <tr><td>Access Key</td><td><input type="text" name="access_key" value="<?php //echo isset($result->access_key)?$result->access_key:''; ?>"></td></tr>
-        <tr><td>Access Key</td><td><input type="text" name="access_key_secret" value="<?php //echo isset($result->access_key_secret)?$result->access_key_secret:''; ?>"></td></tr>
-        <tr><td><input class="submit-key" type="submit"></td></tr>
-    </table> -->
 
       <div class="col-12 py-4 pr-4 wrap-inner">
         <!-- Header Section (Logo) -->
         <div class="row py-2 align-items-center header-section">
           <div class="col-sm-6 left-container logo">
-            <img src="<?php echo content_url(); ?>/plugins/slatwall/admin/images/slatwall-logo.svg" alt="Slatwall Commerce" class="img-fluid w-25" />
+            <img src="<?php echo SLATWALL_PLUGIN_DIR_ULR; ?>/admin/images/logo.png" alt="Slatwall Commerce" class="img-fluid w-25" />
           </div>
           <div class="col-sm-6 text-right right-container email-text">
             <a href="mailto: www.slatwallcommerce.com" class="text-body">www.slatwallcommerce.com</a>

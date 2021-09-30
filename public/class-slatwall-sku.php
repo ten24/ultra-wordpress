@@ -26,7 +26,7 @@
 class Slatwall_Sku extends Slatwall_Integration{
 
         
-        private $url = '/api/scope/getSkuList/';
+        private $url = '/api/public/sku/';
         
 
 	/**

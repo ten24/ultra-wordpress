@@ -5,7 +5,7 @@
  */
 ?>
 <?php if(isset($_SESSION['token'])){
-     wp_redirect(get_site_url().'/'.MY_ACCOUNT_SLUG.'/dashboard');
+     wp_redirect(get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/dashboard');
 } ?>
 <div class="container my-5">
 
@@ -41,7 +41,7 @@
         </div>
 
     </div>
-    <div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+    <div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>
     <script>
 jQuery(document).ajaxStart(function() {
   jQuery("#qloader").show();

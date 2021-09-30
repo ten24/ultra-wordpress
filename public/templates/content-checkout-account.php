@@ -30,7 +30,7 @@
                             <div class="row">
 				<div class="col-md-6">
 					<!-- Toggle disabled attribute & spinner icon after form submit validation & loading -->
-					<button class="btn btn-secondary btn-block" type="submit" id="submit">Continue <i class="fas fa-circle-notch fa-spin"></i></button>
+					<button class="btn btn-secondary btn-block" type="submit" id="submit">Continue</button>
 				</div>
                             <div class="col-md-6 text-right">	<a id="pills-password-tab" class="btn btn-link" href="#pills-password" onclick="jQuery('#pills-login').hide(); jQuery('#pills-password').show(); jQuery('#pills-create-account').hide()">
 											Forgot Password
@@ -154,7 +154,7 @@
 				</div>
 				<div class="form-group w-50">
 					<!-- Toggle disabled attribute & spinner icon after form submit validation & loading -->
-					<button class="btn btn-secondary btn-block" type="submit">Continue <i class="fas fa-circle-notch fa-spin"></i></button>
+					<button class="btn btn-secondary btn-block" type="submit">Continue </button>
 				</div>
 			</form>
 			<!-- /End Create Account Form  -->

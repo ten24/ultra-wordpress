@@ -78,7 +78,7 @@
                             </div>
                             <!-- Order Items -->
                             <?php foreach($order_details->orderDetails->orderItems as  $val){
-                                $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$val->sku_product_urlTitle;
+                                $product_single_url = get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$val->sku_product_urlTitle;
                             ?>
                         <!-- Order Items -->
                         <div class="row align-items-center mb-5">
@@ -206,4 +206,4 @@
                 <!-- /End Order Detail Body -->
             </div>
         </div>
-<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>

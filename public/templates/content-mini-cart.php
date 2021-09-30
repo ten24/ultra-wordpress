@@ -30,7 +30,7 @@
                                     <img class="align-self-start img-fluid mr-2" src="https://via.placeholder.com/45x45">
                                     <?php } ?>
                                     <div class="media-body">
-                                        <a class="text-body font-weight-bold small" href="<?php echo get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item['sku']->product->urlTitle; ?>"><?php echo $item['sku']->product->productName; ?></a>
+                                        <a class="text-body font-weight-bold small" href="<?php echo get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$item['sku']->product->urlTitle; ?>"><?php echo $item['sku']->product->productName; ?></a>
                                         <a href="javascript:void(0);" data-orderItemID="<?php echo $item['orderItemID']; ?>" class="float-right text-secondary mini-remove-item"><i class="fa fa-times-circle"></i></a>
                                         <br>
                                         <span class="text-muted small">$<?php echo $item['extendedUnitPrice']; ?></span>
@@ -38,7 +38,7 @@
                                         <?php if(count($item['items']) > 0){ foreach($item['items'] as $bundle_sku){ ?>
                                      <!-- Product
                                     Bundle Options -->
-                                    <p class="text-muted medium mb-0"><?php echo $bundle_sku[0]->productBundleGroup->productBundleGroupType->typeName; ?></p>
+                                    <!--p class="text-muted medium mb-0"><?php echo $bundle_sku[0]->productBundleGroup->productBundleGroupType->typeName; ?></p-->
                                     <p class="font-weight-bold medium"><?php echo $bundle_sku[0]->sku->product->productName; ?></p>
                                     <?php } } ?>
                                     </div>
@@ -53,7 +53,7 @@
                                     <img class="align-self-start img-fluid mr-2" src="https://via.placeholder.com/45x45">
                                     <?php } ?>
                                     <div class="media-body">
-                                        <a class="text-body font-weight-bold small" href="<?php echo get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle; ?>"><?php echo $item->sku->product->productName; ?></a>
+                                        <a class="text-body font-weight-bold small" href="<?php echo get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle; ?>"><?php echo $item->sku->product->productName; ?></a>
                                         <a href="javascript:void(0);" data-orderItemID="<?php echo $item->orderItemID; ?>" class="float-right text-secondary mini-remove-item"><i class="fa fa-times-circle"></i></a>
                                         <br>
                                         <span class="text-muted small">$<?php echo $item->extendedUnitPrice; ?></span>
@@ -70,7 +70,7 @@
                             <div class="alert alert-info m-2 small" style="display:none;">Item removed from your cart.</div>
 
 							<!-- View Shopping Cart Link -->
-                            <a href="<?php echo get_site_url().'/'.CART; ?>" class="btn btn-link btn-block text-center mini-cart-view"><small>View Shopping Cart</small></a>
+                            <a href="<?php echo get_site_url().'/'.SLATWALL_CART; ?>" class="btn btn-link btn-block text-center mini-cart-view"><small>View Shopping Cart</small></a>
                         </div>
                     </div>
 					<!-- /End Mini Cart Dropdown -->

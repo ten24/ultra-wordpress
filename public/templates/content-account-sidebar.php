@@ -5,10 +5,10 @@
  */
 ?>
  <!-- Account Sidebar Navigation -->
- <?php $account_url = get_site_url().'/'.MY_ACCOUNT_SLUG; ?>
+ <?php $account_url = get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG; ?>
  <?php //echo $account_url; ?>
  <?php //echo get_site_url(); ?>
- <?php //echo MY_ACCOUNT_SLUG; ?>
+ <?php //echo SLATWALL_MY_ACCOUNT_SLUG; ?>
 
 
  <?php

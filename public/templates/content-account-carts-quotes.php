@@ -29,7 +29,7 @@
 														<td><?php echo $order->orderStatusType_typeName?></td>
                                                                                                                 <td style="text-align:right"><?php echo $order->calculatedTotalItemQuantity?></td>
 													<td style="text-align:right">$<?php echo price_number_format($order->calculatedTotal); ?></td>
-                                                                                                        <td style="text-align: center; vertical-align: middle;"><a href="<?php echo get_site_url().'/'.MY_ACCOUNT_SLUG.'/cart-details'.'/'.$order->orderID; ?>" id="<?php echo $order->orderID; ?>">View</a></td>
+                                                                                                        <td style="text-align: center; vertical-align: middle;"><a href="<?php echo get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/cart-details'.'/'.$order->orderID; ?>" id="<?php echo $order->orderID; ?>">View</a></td>
 						</tr>
 						<?php } ?>
 								</tbody>

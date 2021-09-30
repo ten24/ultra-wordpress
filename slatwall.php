@@ -33,21 +33,21 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define('SLATWALL_VERSION', '1.0.0' );
 define('SLATWALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define('AUTHORIZATION','dGVuMjQ6NDBCbHVlOTY=');
+define('SLATWALL_AUTHORIZATION','dGVuMjQ6NDBCbHVlOTY=');
 define('SLATWALL_PLUGIN_DIR_ULR',plugin_dir_url( __FILE__ ));
-define('PRODUCT_SINGLE_SLUG','product');
-define('PRODUCT_SEARCH_SLUG','search-product');
-define('MY_ACCOUNT_SLUG','my-account');
-define('BRAND_SLUG','brand');
-define('CATEGORY_SLUG','category');
-define('OPTION_SLUG','option');
-define('TYPE_SLUG','type');
-define('CHECKOUT','checkout');
-define('CART','cart');
-define('PRODUCT_LISTING_SLUG','/');
-define('MERCHANDISED_PRODUCT', 'merchandised-product-listing');
-define('DEFAULT_LOCATION', '2c9180856c26ea22016c2f7615460210');
-define('API_CACHE_EXPIRE_TIME',604800);
+define('SLATWALL_PRODUCT_SINGLE_SLUG','product');
+define('SLATWALL_PRODUCT_SEARCH_SLUG','search-product');
+define('SLATWALL_MY_ACCOUNT_SLUG','my-account');
+define('SLATWALL_BRAND_SLUG','brand');
+define('SLATWALL_CATEGORY_SLUG','category');
+define('SLATWALL_OPTION_SLUG','option');
+define('SLATWALL_TYPE_SLUG','type');
+define('SLATWALL_CHECKOUT','checkout');
+define('SLATWALL_CART','cart');
+define('SLATWALL_PRODUCT_LISTING_SLUG','/');
+define('SLATWALL_MERCHANDISED_PRODUCT', 'merchandised-product-listing');
+define('SLATWALL_DEFAULT_LOCATION', '2c9180856c26ea22016c2f7615460210');
+define('SLATWALL_API_CACHE_EXPIRE_TIME',604800);
 register_activation_hook( __FILE__, 'install' );
 
 /**
@@ -158,36 +158,36 @@ function add_type_var($vars){
 }
 add_action( 'init', 'add_alexes_rules', 10, 0 );
 function add_alexes_rules() {
-    $page_slug = PRODUCT_SINGLE_SLUG;
+    $page_slug = SLATWALL_PRODUCT_SINGLE_SLUG;
     add_rewrite_rule('^'.$page_slug.'/([^/]*)/?','index.php?pagename='.$page_slug.'&pslug=$matches[1]','top');
 }
 add_action( 'init', 'add_alexes_rules_my_account', 10, 0 );
 function add_alexes_rules_my_account() {
-    $page_slug = MY_ACCOUNT_SLUG;
+    $page_slug = SLATWALL_MY_ACCOUNT_SLUG;
     add_rewrite_rule('^'.$page_slug.'/([^/]*)/?','index.php?pagename='.$page_slug.'&maslug=$matches[1]','top');
 }
 
 add_action( 'init', 'add_alexes_rules_brand', 10, 0 );
 function add_alexes_rules_brand() {
-    $page_slug = BRAND_SLUG;
+    $page_slug = SLATWALL_BRAND_SLUG;
     add_rewrite_rule('^'.$page_slug.'/([^/]*)/?','index.php?pagename='.$page_slug.'&bslug=$matches[1]','top');
 }
 
 add_action( 'init', 'add_alexes_rules_category', 10, 0 );
 function add_alexes_rules_category() {
-    $page_slug = CATEGORY_SLUG;
+    $page_slug = SLATWALL_CATEGORY_SLUG;
     add_rewrite_rule('^'.$page_slug.'/([^/]*)/?','index.php?pagename='.$page_slug.'&cslug=$matches[1]','top');
 }
 
 add_action( 'init', 'add_alexes_rules_option', 10, 0 );
 function add_alexes_rules_option() {
-    $page_slug = OPTION_SLUG;
+    $page_slug = SLATWALL_OPTION_SLUG;
     add_rewrite_rule('^'.$page_slug.'/([^/]*)/?','index.php?pagename='.$page_slug.'&oslug=$matches[1]','top');
 }
 
 add_action( 'init', 'add_alexes_rules_type', 10, 0 );
 function add_alexes_rules_type() {
-    $page_slug = TYPE_SLUG;
+    $page_slug = SLATWALL_TYPE_SLUG;
     add_rewrite_rule('^'.$page_slug.'/([^/]*)/?','index.php?pagename='.$page_slug.'&tslug=$matches[1]','top');
 }
 add_action('init', 'do_output_buffer');

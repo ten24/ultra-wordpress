@@ -21,6 +21,10 @@ $first_key = key($neededeligiblePaymentMethodDetails);
 if(isset($neededeligiblePaymentMethodDetails) && !empty($neededeligiblePaymentMethodDetails)){
 $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMethod->paymentMethodID;
 }
+ $current_month = (int)date('m');
+ $month_diff = $current_month-12;
+ $months = array(1 => 'January', 2 => 'Febraury',3 => 'March', 4 => 'april', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September',10 => 'Octuber',11 => 'November',12 => 'December');
+ $current_year = (int)date('Y');
 ?>
 <!-- Start Body -->
 				<div class="col-xl-7 col-md-8 billinginfo" style="display: none;">
@@ -47,7 +51,7 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                             <!-- Shipping Info -->
                             <a href="javascript:void(0);" class="btn btn-block p-0 text-left account-address <?php echo $count==1?'active':''; ?>" id="<?php echo $address->accountAddressID; ?>">
                                 <div class="bg-light p-4 h-100 border">
-                                    <i class="far  <?php echo $count==1?'fa-check-circle':''; ?> float-right"></i>
+                                    <i class="fas  <?php echo $count==1?'fa-check-circle':''; ?> float-right"></i>
                                     <h6 class="card-title text-muted"><?php echo $address->accountAddressName==''?$address->address->name:$address->accountAddressName; ?></h6>
                                      <address class="small mb-0 text-body">
                                         <?php // echo $address->name; ?><br>
@@ -219,18 +223,9 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                         				<div class="form-group mb-md-0">
                         					<label for="checkoutPaymentMonth">Expiration Month</label>
                                     <select name="newOrderPayment.expirationMonth" class="custom-select required" id="checkoutPaymentMonth" >
-                                                <option value="1">January</option>
-                                                <option value="2">February</option>
-                                                <option value="3">March</option>
-                                                <option value="4">April</option>
-                                                <option value="5">May</option>
-                                                <option value="6">June</option>
-                                                <option value="7">July</option>
-                                                <option value="8">August</option>
-                                                <option value="9">September</option>
-                                                <option value="10">October</option>
-                                                <option value="11">November</option>
-                                                <option value="12">December</option>
+                                              <?php foreach($months as $key => $value) {
+                                           if ($key >= $current_month){ echo "<option value='$key'>$value</option>";}
+                                         } ?>
                         					</select>
                                             <div class="invalid-feedback">Expiration Month Required</div>
                         				</div>
@@ -239,16 +234,9 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                         				<div class="form-group mb-md-0">
                         					<label for="checkoutPaymentCardYear">Expiration Year</label>
                                      <select name="newOrderPayment.expirationYear" class="custom-select required" id="checkoutPaymentCardYear" >
-                                                <option value="2021">2021</option>
-                                                <option value="2022">2022</option>
-                                                <option value="2023">2023</option>
-                                                <option value="2024">2024</option>
-                                                <option value="2025">2025</option>
-                                                <option value="2026">2026</option>
-                                                <option value="2027">2027</option>
-                                                <option value="2028">2028</option>
-                                                <option value="2028">2029</option>
-                                                <option value="2028">2030</option>
+                                                <?php for($i = 0;$i<=10;$i++){ ?>
+                                        <option value="<?php echo $current_year+$i; ?>"><?php echo $current_year+$i; ?></option>
+                                      <?php  } ?>
                         					</select>
                                             <div class="invalid-feedback">Expiration Year Required</div>
                         				</div>
@@ -293,7 +281,7 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                                 <input type="hidden" name="order_type" value="purchase_order">
                                 <div class="form-group w-50">
                                     <!-- Toggle disabled attribute after form submit validation to continue -->
-                                    <button class="btn btn-secondary btn-block" type="submit">Continue <i class="fas fa-circle-notch fa-spin"></i></button>
+                                    <button class="btn btn-secondary btn-block" type="submit">Continue</button>
                                 </div>
                             </form>
                             <!-- /End Purchase Order Payment Form -->

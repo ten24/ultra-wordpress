@@ -10,6 +10,8 @@
     <h2 class="mt-5 mb-4">Reviews</h3>
 <?php foreach($reviews->productReviews as $review){
             $pieces = explode(" ", $review->createdDateTime, 4);
+            $pieces[0] = str_replace(',','',$pieces[0]);
+            $pieces[1] = $pieces[1].',';
             $review_date = implode(" ", array_splice($pieces, 0, 3));
 ?>
     <div class="card mb-4">

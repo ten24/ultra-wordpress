@@ -9,7 +9,7 @@
                             <p class="lead text-muted">Build headless commerce storefronts with WordPress powered by Slatwall
                                 Commerce. Launch quickly with an enterprise toolset that will scale as
                                 you grow.</p>
-                            <p> <a href="<?php echo get_site_url().'/'.PRODUCT_LISTING_SLUG;?>" class="btn btn-primary btn-lg rounded-pill shadow mr-2 mt-3">
+                            <p> <a href="<?php echo get_site_url().'/'.SLATWALL_PRODUCT_LISTING_SLUG;?>" class="btn btn-primary btn-lg rounded-pill shadow mr-2 mt-3">
                             Shop Products <i class="fas fa-long-arrow-alt-right"></i>
                         </a>
 
@@ -42,7 +42,7 @@
                             <div class="card shadow-sm h-100">
                                 <div class="card-body text-center">	<i class="fas fa-tshirt fa-4x mb-4"></i>
 
-                                    	<h4 class="card-title"><a href="<?php echo get_site_url().'/'.MERCHANDISED_PRODUCT; ?>">Merchandise Products</a></h4>
+                                    	<h4 class="card-title"><a href="<?php echo get_site_url().'/'.SLATWALL_MERCHANDISED_PRODUCT; ?>">Merchandise Products</a></h4>
 
                                     <p class="card-text text-left text-muted">Sell physical goods with multiple options and complex pricing.</p>
                                 </div>
@@ -133,7 +133,7 @@
                                             <li class="pb-2"><i class="far fa-check-circle pr-2"></i>Product Type Listing</li>
                                             <li class="pb-2"><i class="far fa-check-circle pr-2"></i>Customizable filtering & sorting</li>
                                         </ul>
-                                        <p><a href="<?php echo get_site_url().'/'.PRODUCT_LISTING_SLUG; ?>" class="btn-link">Shop Products <i class="fas fa-long-arrow-alt-right"></i></a>
+                                        <p><a href="<?php echo get_site_url().'/'.SLATWALL_PRODUCT_LISTING_SLUG; ?>" class="btn-link">Shop Products <i class="fas fa-long-arrow-alt-right"></i></a>
 
                                         </p>
                                     </div>
@@ -155,7 +155,7 @@
                                             class="pb-2"><i class="far fa-check-circle pr-2"></i>View Order History, Manage Carts
                                                 &amp; Quotes</li>
                                         </ul>
-                                        <p><a href="<?php echo get_site_url().'/'.MY_ACCOUNT_SLUG;?>" class="btn-link">Create Account <i class="fas fa-long-arrow-alt-right"></i></a>
+                                        <p><a href="<?php echo get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG;?>" class="btn-link">Create Account <i class="fas fa-long-arrow-alt-right"></i></a>
 
                                         </p>
                                     </div>
@@ -172,7 +172,7 @@
                         	<h2 class="font-weight-light">Create a Flexible Customer Purchase Experience</h2>
 
                         <p class="lead text-muted">A secure &amp; PCI compliant checkout experience that just works.</p>
-                        <p><a href="<?php echo get_site_url().'/'.CART; ?>" class="btn btn-outline-primary btn-lg rounded-pill mt-2">Shopping Cart <i class="fas fa-long-arrow-alt-right"></i></a>
+                        <p><a href="<?php echo get_site_url().'/'.SLATWALL_CART; ?>" class="btn btn-outline-primary btn-lg rounded-pill mt-2">Shopping Cart <i class="fas fa-long-arrow-alt-right"></i></a>
 
                         </p>
                     </div>

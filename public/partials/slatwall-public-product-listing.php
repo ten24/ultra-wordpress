@@ -6,7 +6,7 @@
 				<div class="col-sm-3">
 					<!--h6><strong>3</strong> Available Products</h6-->
 					<!-- Show Applied Filters -->
-					<h6 class="available_product"><strong><?php echo $products->recordsCount; ?></strong> Available <?php echo $products->recordsCount>1?'Products':'Product'; ?></h6>
+					<h6 class="available_product"><strong><?php echo isset($products->recordsCount)?$products->recordsCount:''; ?></strong> Available <?php echo (isset($products->recordsCount) && $products->recordsCount>1)?'Products':'Product'; ?></h6>
 					<div class="applied_filters"> </div>
 				</div>
 				<div class="col-sm-6">
@@ -44,5 +44,5 @@
 
 
 		</div>
-<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>
 

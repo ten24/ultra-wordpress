@@ -63,7 +63,7 @@ $payment_mathod_name = isset($cart_data->orderPayments[0]->paymentMethod->paymen
                     </div>
 
                     <!-- Place Order: Toggle disabled attribute after form submit validation to continue -->
-                    <button type="button" class="btn btn-block btn-primary mt-5" id="place-order">Place Order <i class="fas fa-circle-notch fa-spin"></i></button>
+                    <button type="button" class="btn btn-block btn-primary mt-5" id="place-order">Place Order </button>
                     <!-- /End Review Order -->
 				</div>
                 <!-- /End Body -->

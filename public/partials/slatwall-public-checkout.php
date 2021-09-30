@@ -6,7 +6,6 @@
  ?>
 
 <?php //d($availale_payment_method);
-//echo $_SESSION['token'];
 if(isset($cart_data->orderID) && $cart_data->orderID){
 $complete_step_required = array('account','fulfillment','payment');
 if(isset($cart_data->orderRequiredStepsList) && $cart_data->orderRequiredStepsList != ''){
@@ -26,7 +25,7 @@ foreach($cart_data->orderFulfillments as $orderFulfillments){
 }
 $account_address = new stdClass();
 if(isset($_SESSION['token'])){
-$account = json_decode($account);
+$account = json_decode($account)->account;
 $account_address = $account->accountAddresses;
 }
 }
@@ -36,7 +35,7 @@ $account_address = $account->accountAddresses;
 			<!-- Page Title -->
             <div class="mt-4 d-flex justify-content-between align-items-center checkout_heading_section">
                 <h1>Checkout</h1>
-                <a href="<?php echo get_site_url().'/'.CART; ?>" class="btn btn-link btn-sm backtocart">Go Back to My Cart</a>
+                <a href="<?php echo get_site_url().'/'.SLATWALL_CART; ?>" class="btn btn-link btn-sm backtocart">Go Back to My Cart</a>
             </div>
                         <!-- Start Row -->
                         <div class="row mt-3 printarea">
@@ -69,7 +68,7 @@ $account_address = $account->accountAddresses;
 
 
 
-<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>
 <script>
 var token;
 <?php

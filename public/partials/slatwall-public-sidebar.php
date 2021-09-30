@@ -154,12 +154,56 @@ $para_categoryID = isset($_GET['categoryID'])?$_GET['categoryID']:'';
                           </div>
                     		</div>
                     	</div>
-                        <?php }  if(isset($urlTitle_slug) && isset($template_name) && $template_name == 'type'){ ?>
+                        <?php }  if(isset($urlTitle_slug) && isset($template_name) && $template_name == 'type'){ 
+                            $value_key = array_search($urlTitle_slug, array_column($types, 'urlTitle'));
+            $current_type_id = $types[$value_key]->productTypeID;
+            $types_childs = array();
+            foreach($types as $type){
+                if( strpos($type->productTypeIDPath, $current_type_id) !== false) {               
+                    $types_childs[] = $type;
+                }
+                
+            }
+            if(count($types_childs) <= 1){
+            
+                            ?>
                            <div class="form-check">
                             <input style="visibility: hidden;" class="form-check-input hide_applied_filter" name="types" type="checkbox" id="<?php echo $types[$value_key]->urlTitle; ?>" value="<?php echo $types[$value_key]->productTypeID; ?>"  checked>
                             <label class="form-check-label" for="<?php echo $types[$value_key]->urlTitle; ?>"></label>
                            </div>
-                                <?php } else if($types){ ?>
+            <?php } else { ?>
+             <div class="card">
+                    		<div class="card-header" id="heading5">
+                            <h5 class="mb-0">
+                    				<button type="button" class="btn btn-link p-0" data-toggle="collapse" data-target="#collapse5" aria-expanded="true">
+                    				Product Type
+                    				</button>
+                    			</h5>
+                    		</div>
+                    		<div id="collapse5" class="collapse show">
+                    			<div class="card-body">
+                            <div class="inner">
+                              <?php foreach($types_childs as $type){ ?>
+                                <div class="form-check">
+                                    <?php if($type->productTypeID == $current_type_id){ ?>
+                                  <input class="form-check-input" name="types" type="checkbox" id="<?php echo $type->urlTitle; ?>" value="<?php echo $type->productTypeID; ?>" <?php echo $para_typeID==$type->productTypeID?'checked':''; ?> style="visibility: hidden;" checked>
+                                    <?php } else { ?>
+                                        <input class="form-check-input" name="types" type="checkbox" id="<?php echo $type->urlTitle; ?>" value="<?php echo $type->productTypeID; ?>" <?php echo $para_typeID==$type->productTypeID?'checked':''; ?>>
+                             <label class="form-check-label" for="<?php echo $type->urlTitle; ?>"><?php echo $type->productTypeName; ?></label>
+                                            <?php } ?>
+                                </div>
+                              <?php } ?>
+                            </div>
+                            <?php if(count($types_childs) > 10){ ?>
+                            <div class="text-center m-0 mt-2 show-more">
+                              <span class="morebtn">Show More</span>
+                              <span class="lessbtn">Show Less</span>
+                            </div>
+                              <?php }?>
+                    			</div>
+                    		</div>
+                    	</div>   
+            <?php } } else if($types){ ?>
                         <div class="card">
                     		<div class="card-header" id="heading5">
                             <h5 class="mb-0">

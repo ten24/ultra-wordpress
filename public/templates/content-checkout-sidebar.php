@@ -49,7 +49,7 @@ foreach($cart_data->orderItems as $item){
 //                             if(isset($normal_items[$item_key])){
 //                                    unset($normal_items[$item_key]);
 //                                }
-                            $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item['sku']->product->urlTitle;
+                            $product_single_url = get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$item['sku']->product->urlTitle;
                             ?>
                         <li class="media mb-4 pb-4 ml-0 border-bottom">
                             <div class="mr-3 sidebar-prodimg col-print-4">
@@ -69,7 +69,7 @@ foreach($cart_data->orderItems as $item){
                                 <?php if(count($item['items']) > 0){ foreach($item['items'] as $bundle_sku){ ?>
                                      <!-- Product
                                     Bundle Options -->
-                                    <p class="text-muted small mb-0"><?php echo $bundle_sku[0]->productBundleGroup->productBundleGroupType->typeName; ?></p>
+                                    <!--p class="text-muted small mb-0"><?php echo $bundle_sku[0]->productBundleGroup->productBundleGroupType->typeName; ?></p-->
                                     <p class="font-weight-bold small"><?php echo $bundle_sku[0]->sku->product->productName; ?></p>
                                     <?php } } ?>
                             </div>
@@ -78,7 +78,7 @@ foreach($cart_data->orderItems as $item){
                        <?php } ?>
                          <?php if(isset($normal_items) && !empty($normal_items)){ ?>
                         <?php foreach($normal_items as $item){
-                            $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle;
+                            $product_single_url = get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle;
                             ?>
                         <li class="media mb-4 pb-4 ml-0 border-bottom">
                             <div class="mr-3 sidebar-prodimg col-print-4">
@@ -110,7 +110,7 @@ foreach($cart_data->orderItems as $item){
             					<span>Subtotal</span> <span class="ml-auto font-size-sm subtotal">$<?php echo price_number_format($cart_data->subtotal); ?></span>
             				</li>
             				<li class="d-flex mb-3 pb-3 ml-0 border-bottom">
-            					<span>Tax</span> <span class="ml-auto font-size-sm taxTotal">$<?php echo price_number_format($cart_data->cart->taxTotal); ?></span>
+            					<span>Tax</span> <span class="ml-auto font-size-sm taxTotal">$<?php echo price_number_format($cart_data->taxTotal); ?></span>
             				</li>
                                         <?php if($cart_data->orderAndItemDiscountAmountTotal){ ?>
                             <li class="d-flex mb-3 ml-0 pb-3 border-bottom">
@@ -121,17 +121,17 @@ foreach($cart_data->orderItems as $item){
             					<span>Shipping</span> <span class="ml-auto font-size-sm shipping_value">$<?php echo price_number_format($cart_data->fulfillmentTotal); ?></span>
             				</li>
             				<li class="d-flex font-size-lg ml-0 font-weight-bold">
-            					<span>Total</span> <span class="ml-auto grand_total">$<?php echo price_number_format($cart_data->cart->total); ?></span>
+            					<span>Total</span> <span class="ml-auto grand_total">$<?php echo price_number_format($cart_data->total); ?></span>
             				</li>
             			</ul>
                     </div>
                     <!--/End Order Totals -->
 
                     <!-- Place Order: Toggle disabled attribute after form submit validation to continue -->
-                    <?php if($cart_data->cart->orderRequirementsList == ''){?>
-                	<button type="button" id="place-order" class="btn btn-block btn-primary sidebar-place-order">Place Order <i class="fas fa-circle-notch fa-spin"></i></button>
+                    <?php if($cart_data->orderRequirementsList == ''){?>
+                	<button type="button" id="place-order" class="btn btn-block btn-primary sidebar-place-order">Place Order</button>
                     <?php } else { ?>
-                        <button type="button" id="place-order" class="btn btn-block btn-primary sidebar-place-order" disabled="disabled">Place Order <i class="fas fa-circle-notch fa-spin"></i></button>
+                        <button type="button" id="place-order" class="btn btn-block btn-primary sidebar-place-order" disabled="disabled">Place Order</button>
                     <?php } ?>
   <?php } else { ?>
                         <p>No Items In Your Shopping Cart</p>
