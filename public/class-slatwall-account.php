@@ -11,7 +11,7 @@
  * @since      1.0.0
  *
  * @package    Slatwall_Ecommerce
- * @subpackage Slatwall_Ecommerce/public
+ * @subpackage Slatwall_Ecommerce/includes
  */
 
 /**
