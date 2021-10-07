@@ -7,7 +7,7 @@
 <?php if(isset($_SESSION['token'])){
      wp_redirect(get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/dashboard');
 } ?>
-<div class="container my-5">
+<div class="container my-5 mb-5">
 
         <div class="text-center my-3">
             <h1>My Account</h1>
@@ -129,7 +129,7 @@
 				<div class="form-group w-50">
 					<!-- Toggle disabled attribute & spinner icon after form submit validation & loading -->
 					<!-- <button class="btn btn-secondary btn-block" type="submit">Continue <i class="fas fa-circle-notch fa-spin"></i></button> -->
-					<button class="btn btn-primary btn-block" name="account" type="submit" value="register">Sign Up<i class="fas fa-circle-notch fa-spin"></i></button>
+					<button class="btn btn-primary btn-block" name="account" type="submit" value="register">Sign Up</button>
 				</div>
 			</form>
                             </div>

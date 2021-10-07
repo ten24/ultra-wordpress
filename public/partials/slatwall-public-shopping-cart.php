@@ -28,7 +28,6 @@ foreach($cart_data->orderItems as $item){
         $normal_items[$item->orderItemID] = $item;
     }
 }
-//d($bundle_items);
 ?>
 <div class="container my-5 cart-area">
             <h1>Shopping Cart</h1>

@@ -25,6 +25,21 @@ class Slatwall_Integration {
                return false;
            }
         }
+        
+        private function post_field_args($post_field_data = '',$http_header = ''){
+            $post_field_arg = array('returntransfer'=>true,
+                    'encoding'=>'',
+                    'maxredirs'=>10,
+                    'verbose'=>1,
+                   'body'=>$post_field_data,
+                    'followlocation'=>true,
+                 'timeout' => 10,
+                'header'=>1,
+                    'headers' => $http_header
+                    
+                    );
+            return $post_field_arg;
+        }
 
          protected function get_API_Integration(string $API_URL,string $method = 'GET',string $urlParameter = '',array $post_field_data = array()){
             $auth = SLATWALL_AUTHORIZATION;
@@ -35,19 +50,9 @@ class Slatwall_Integration {
             $access_key = $key_data->access_key;
             $access_key_secret = $key_data->access_key_secret;
             $full_api_url = $domain.$API_URL.$urlParameter;
-               $post_field_arg = array('returntransfer'=>true,
-                    'encoding'=>'',
-                    'maxredirs'=>10,
-                    'verbose'=>1,
-                    'followlocation'=>true,
-                 'timeout' => 10,
-                'header'=>1,
-                    'headers' => array(
-                "Authorization" => "Basic ".$auth
-              )
-                    
-                    );
-               //d($auth);
+            $http_header = array();
+            $http_header["Authorization"] = "Basic ".$auth;
+             $post_field_arg = $this->post_field_args($post_field_data, $http_header);
                 $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
                     
@@ -99,17 +104,8 @@ class Slatwall_Integration {
             if($auth){
                 $http_header["Authorization"] = "Basic ".$auth;
             }
-            $post_field_arg = array('returntransfer'=>true,
-                    'encoding'=>'',
-                    'maxredirs'=>10,
-                    'verbose'=>1,
-                   'body'=>$post_field_data,
-                    'followlocation'=>true,
-                 'timeout' => 10,
-                'header'=>1,
-                    'headers' => $http_header
-                    
-                    );
+            $post_field_arg = $this->post_field_args($post_field_data, $http_header);
+            
                 $content_data = wp_remote_post($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
             $response= $content_data['body'];
@@ -132,21 +128,12 @@ class Slatwall_Integration {
             $post_field_data = $request;
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
+              $http_header["Cookie"] = $cookies;
+            if($auth){
+                $http_header["Authorization"] = "Basic ".$auth;
+            }
             
-            $post_field_arg = array('returntransfer'=>true,
-                    'encoding'=>'',
-                    'maxredirs'=>10,
-                    'verbose'=>1,
-                   'body'=>$post_field_data,
-                    'followlocation'=>true,
-                 'timeout' => 10,
-                'header'=>1,
-                    'headers' => array(
-                "Authorization" => "Basic ".$auth,
-                        "Cookie" => $cookies
-              )
-                    
-                    );
+            $post_field_arg = $this->post_field_args($post_field_data, $http_header);
                 $content_data = wp_remote_post($full_api_url, $post_field_arg);
                  if( !is_wp_error( $content_data ) ) {
                 $response = $content_data['body'];
@@ -181,25 +168,16 @@ class Slatwall_Integration {
                // d($cookies);
                 $auth = SLATWALL_AUTHORIZATION;
                 $key_data = $this->getKeyValue();
+                $post_field_data = $request;
             if($key_data){
                 $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
-
-                $post_data = $request;
-                 $post_field_arg = array('returntransfer'=>true,
-                    'encoding'=>'',
-                    'maxredirs'=>10,
-                    'verbose'=>1,
-                   'body'=>$post_data,
-                    'followlocation'=>true,
-                 'timeout' => 10,
-                'header'=>1,
-                    'headers' => array(
-                "Authorization" => "Basic ".$auth,
-                        "Cookie" => $cookies
-              )
-                    
-                    );
+             $http_header["Cookie"] = $cookies;
+            if($auth){
+                $http_header["Authorization"] = "Basic ".$auth;
+            }
+                
+                $post_field_arg = $this->post_field_args($post_field_data, $http_header);
                    
                 $content_data = wp_remote_post($full_api_url, $post_field_arg);
                 
@@ -253,17 +231,7 @@ class Slatwall_Integration {
             $post_field_data = $request;
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
-            $post_field_arg = array('returntransfer'=>true,
-                    'encoding'=>'',
-                    'maxredirs'=>10,
-                    'verbose'=>1,
-                   'body'=>$post_field_data,
-                    'followlocation'=>true,
-                 'timeout' => 10,
-                'header'=>1,
-                    'headers' => $http_header
-                    
-                    );
+            $post_field_arg = $this->post_field_args($post_field_data, $http_header);
                 $content_data = wp_remote_post($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
                     
@@ -314,17 +282,8 @@ class Slatwall_Integration {
             $post_field_data = $request;
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
-            $post_field_arg = array('returntransfer'=>true,
-                    'encoding'=>'',
-                    'maxredirs'=>10,
-                    'verbose'=>1,
-                   'body'=>$post_field_data,
-                    'followlocation'=>true,
-                 'timeout' => 10,
-                'header'=>1,
-                    'headers' => $http_header
-                    
-                    );
+            
+            $post_field_arg = $this->post_field_args($post_field_data, $http_header);
                 $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
                     
@@ -350,19 +309,8 @@ class Slatwall_Integration {
             if($auth){
                 $http_header["Authorization"] = "Basic ".$auth;
             }
-              $post_data = $request;
-              
-              $post_field_arg = array('returntransfer'=>true,
-                    'encoding'=>'',
-                    'maxredirs'=>10,
-                    'verbose'=>1,
-                   'body'=>$post_field_data,
-                    'followlocation'=>true,
-                 'timeout' => 10,
-                'header'=>1,
-                    'headers' => $http_header
-                    
-                    );
+              $post_field_data = $request;
+              $post_field_arg = $this->post_field_args($post_field_data, $http_header);
                 $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
                 $content = $content_data['body'];
