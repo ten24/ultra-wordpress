@@ -26,7 +26,7 @@ class Slatwall_Integration {
            }
         }
         
-        private function post_field_args($post_field_data = '',$http_header = ''){
+        private function fetch_api_result($full_api_url,$method,$post_field_data = '',$http_header = ''){
             $post_field_arg = array('returntransfer'=>true,
                     'encoding'=>'',
                     'maxredirs'=>10,
@@ -38,7 +38,29 @@ class Slatwall_Integration {
                     'headers' => $http_header
                     
                     );
-            return $post_field_arg;
+            if($method == 'post'){
+               $content_data = wp_remote_post($full_api_url, $post_field_arg);
+            }else {
+                $content_data = wp_remote_get($full_api_url, $post_field_arg);
+            }
+            return $content_data;
+        }
+        
+        private function cookies_data($set_cookies){
+            $cookies_data = array();
+         foreach($set_cookies as $cookie){
+                $cookie_array = explode('=',$cookie);
+                $cookie_array_value_split = explode(';',$cookie_array[1]);
+                if($cookie_array_value_split[0] != ""){
+                $cookie_key = (string)$cookie_array[0];
+                if($cookie_key != 'SLATWALL-NPSID' && $cookie_key != 'SLATWALL-PSID'){
+                    $cookie_value = str_replace('; Path', '', $cookie_array[1]);
+                    $cookie_value = str_replace(';Path', '', $cookie_value);
+                $cookies_data[$cookie_key] = $cookie_value;
+                }
+                }
+            }   
+            return $cookies_data;
         }
 
          protected function get_API_Integration(string $API_URL,string $method = 'GET',string $urlParameter = '',array $post_field_data = array()){
@@ -52,30 +74,16 @@ class Slatwall_Integration {
             $full_api_url = $domain.$API_URL.$urlParameter;
             $http_header = array();
             $http_header["Authorization"] = "Basic ".$auth;
-             $post_field_arg = $this->post_field_args($post_field_data, $http_header);
-                $content_data = wp_remote_get($full_api_url, $post_field_arg);
+             $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
+               // $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
-                    
-                
-                $content = $content_data['body'];
+                 $content = $content_data['body'];
                 //d($content1);
                 $headerResult = wp_remote_retrieve_headers($content_data);
             $set_cookies =$headerResult->getAll()['set-cookie'];
-            $cookies1 = array();
-            foreach($set_cookies as $cookie){
-                $cookie_array = explode('=',$cookie);
-                $cookie_array_value_split = explode(';',$cookie_array[1]);
-                if($cookie_array_value_split[0] != ""){
-                $cookie_key = (string)$cookie_array[0];
-                if($cookie_key != 'SLATWALL-NPSID' && $cookie_key != 'SLATWALL-PSID'){
-                    $cookie_value = str_replace('; Path', '', $cookie_array[1]);
-                    $cookie_value = str_replace(';Path', '', $cookie_value);
-                $cookies1[$cookie_key] = $cookie_value;
-                }
-                }
-            }
+            $cookies_data = $this->cookies_data($set_cookies);
             $content_obj = json_decode($content);
-            $cookies = (object) $cookies1;
+            $cookies = (object) $cookies_data;
             $content_obj->cookies = $cookies;
            // d($content_obj);
              return $content_obj;
@@ -104,9 +112,8 @@ class Slatwall_Integration {
             if($auth){
                 $http_header["Authorization"] = "Basic ".$auth;
             }
-            $post_field_arg = $this->post_field_args($post_field_data, $http_header);
-            
-                $content_data = wp_remote_post($full_api_url, $post_field_arg);
+            $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
+               // $content_data = wp_remote_post($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
             $response= $content_data['body'];
             return $response;
@@ -133,27 +140,15 @@ class Slatwall_Integration {
                 $http_header["Authorization"] = "Basic ".$auth;
             }
             
-            $post_field_arg = $this->post_field_args($post_field_data, $http_header);
-                $content_data = wp_remote_post($full_api_url, $post_field_arg);
+            $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
+            //$content_data = wp_remote_post($full_api_url, $post_field_arg);
                  if( !is_wp_error( $content_data ) ) {
                 $response = $content_data['body'];
                 $headerResult = wp_remote_retrieve_headers($content_data);
             $set_cookies =$headerResult->getAll()['set-cookie'];
-            $cookies = array();
-            foreach($set_cookies as $cookie){
-                $cookie_array = explode('=',$cookie);
-                $cookie_array_value_split = explode(';',$cookie_array[1]);
-                if($cookie_array_value_split[0] != ""){
-                $cookie_key = (string)$cookie_array[0];
-                if($cookie_key != 'SLATWALL-NPSID' && $cookie_key != 'SLATWALL-PSID'){
-                    $cookie_value = str_replace('; Path', '', $cookie_array[1]);
-                    $cookie_value = str_replace(';Path', '', $cookie_value);
-                $cookies[$cookie_key] = $cookie_value;
-                }
-                }
-            }
+            $cookies_data = $this->cookies_data($set_cookies);
             $content_obj = json_decode($response);
-            $content_obj->cookies = $cookies;
+            $content_obj->cookies = $cookies_data;
                 return $content_obj;
                  } else {
                      return false;
@@ -177,30 +172,16 @@ class Slatwall_Integration {
                 $http_header["Authorization"] = "Basic ".$auth;
             }
                 
-                $post_field_arg = $this->post_field_args($post_field_data, $http_header);
-                   
-                $content_data = wp_remote_post($full_api_url, $post_field_arg);
+                 $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);  
+               // $content_data = wp_remote_post($full_api_url, $post_field_arg);
                 
                  if( !is_wp_error( $content_data ) ) {
                 $response = $content_data['body'];
                 $headerResult = wp_remote_retrieve_headers($content_data);
             $set_cookies =$headerResult->getAll()['set-cookie'];
-            $cookies1 = array();
-          //  d($set_cookies);
-            foreach($set_cookies as $cookie){
-                $cookie_array = explode('=',$cookie);
-                $cookie_array_value_split = explode(';',$cookie_array[1]);
-                if($cookie_array_value_split[0] != ""){
-                $cookie_key = (string)$cookie_array[0];
-               // if($cookie_key != 'SLATWALL-NPSID' && $cookie_key != 'SLATWALL-PSID'){
-                    $cookie_value = str_replace('; Path', '', $cookie_array[1]);
-                    $cookie_value = str_replace(';Path', '', $cookie_value);
-                $cookies1[$cookie_key] = $cookie_value;
-                //}
-                }
-            }
+            $cookies_data = $this->cookies_data($set_cookies);
             $content_obj = json_decode($response);
-            $cookies = $cookies1;
+            $cookies = $cookies_data;
            // d($cookies1);
             $content_obj->cookies = $cookies;
             //d($content_obj);
@@ -231,8 +212,8 @@ class Slatwall_Integration {
             $post_field_data = $request;
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
-            $post_field_arg = $this->post_field_args($post_field_data, $http_header);
-                $content_data = wp_remote_post($full_api_url, $post_field_arg);
+            $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
+                //$content_data = wp_remote_post($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
                     
                 
@@ -240,21 +221,9 @@ class Slatwall_Integration {
                 //d($content1);
                 $headerResult = wp_remote_retrieve_headers($content_data);
             $set_cookies =$headerResult->getAll()['set-cookie'];
-            $cookies1 = array();
-            foreach($set_cookies as $cookie){
-                $cookie_array = explode('=',$cookie);
-                $cookie_array_value_split = explode(';',$cookie_array[1]);
-                if($cookie_array_value_split[0] != ""){
-                $cookie_key = (string)$cookie_array[0];
-                if($cookie_key != 'SLATWALL-NPSID' && $cookie_key != 'SLATWALL-PSID'){
-                    $cookie_value = str_replace('; Path', '', $cookie_array[1]);
-                    $cookie_value = str_replace(';Path', '', $cookie_value);
-                $cookies1[$cookie_key] = $cookie_value;
-                }
-                }
-            }
+            $cookies_data = $this->cookies_data($set_cookies);
             $content_obj = json_decode($content);
-            $cookies = (object) $cookies1;
+            $cookies = (object) $cookies_data;
             $content_obj->cookies = $cookies;
            // d($content_obj);
              return json_encode($content_obj);
@@ -282,9 +251,8 @@ class Slatwall_Integration {
             $post_field_data = $request;
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
-            
-            $post_field_arg = $this->post_field_args($post_field_data, $http_header);
-                $content_data = wp_remote_get($full_api_url, $post_field_arg);
+            $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
+            //    $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
                     
                 
@@ -310,8 +278,8 @@ class Slatwall_Integration {
                 $http_header["Authorization"] = "Basic ".$auth;
             }
               $post_field_data = $request;
-              $post_field_arg = $this->post_field_args($post_field_data, $http_header);
-                $content_data = wp_remote_get($full_api_url, $post_field_arg);
+             $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
+             //   $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
                 $content = $content_data['body'];
             $content_obj = json_decode($content);
