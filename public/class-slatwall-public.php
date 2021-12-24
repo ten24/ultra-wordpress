@@ -1818,18 +1818,14 @@ session_start();
                                     $request['skuIDList'] = implode(',', array_keys($skuIDs));
                                     $request['productBundleGroupID'] = $_POST['productBundleGroupID'][$sku_data_key];
                                     $request['defaultSkuID'] = $_POST['defaultSkuID'][$sku_data_key];
-                                    
                                     $create_bundle_result = $cart->create_bundle_group($token, $request);
-                                   
                                 } else {
                                     
                          $request['quantities'] = $_POST['quantity'][$sku_data_key];
                          $request['skuIDList'] = $sku_data;
                          $request['productBundleGroupID'] = $_POST['productBundleGroupID'][$sku_data_key];
                          $request['defaultSkuID'] = $_POST['defaultSkuID'][$sku_data_key];
-                         
                          $create_bundle_result = $cart->create_bundle_group($token, $request);
-                        
                                 }
                                $create_bundle_result_array = json_decode($create_bundle_result);
                             //  d($create_bundle_result_array);

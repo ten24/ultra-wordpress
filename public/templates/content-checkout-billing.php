@@ -73,7 +73,7 @@ $paymentMethodID = $neededeligiblePaymentMethodDetails[$first_key]->paymentMetho
                     <div class="create_new_billing_address" style="display:none;">
                         <div id="billingCreateAddress" class="collapse multi-collapse">
                             <?php if(count((array)$account_address)!==0){ ?>
-                            <div class="col-sm-4 text-right pull-right">
+                            <div class="col-sm-4 text-right pull-right float-right">
                                 <button class="btn btn-sm btn-outline-secondary show-address-book" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="billingAddressBook billingCreateAddress">Show Address Book</button>
                             </div>
                             <?php } ?>

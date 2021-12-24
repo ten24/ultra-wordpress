@@ -1490,6 +1490,8 @@ var required_list = response.cart_data.orderRequiredStepsList;
                 jQuery('#nav-selectAddress,#nav-selectAddress-tab').addClass('show active').removeClass('d-none');
                 jQuery('#nav-addNewAddress,#nav-addNewAddress-tab').removeClass('show active');
                     });
+                    jQuery('#shippingCreateAddress .row.mb-4.mt-3').append('<div class="col-sm-4 text-right"><button class="btn btn-sm btn-outline-secondary show-address-book" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="shippingAddressBook shippingCreateAddress">Show Address Book</button></div>');
+            jQuery('#billingCreateAddress').prepend('<div class="col-sm-4 text-right pull-right float-right"><button class="btn btn-sm btn-outline-secondary show-address-book" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="billingAddressBook billingCreateAddress">Show Address Book</button></div>');
             jQuery('.account_address_for_shipping .row').append('<div class="col-md-12 mb-2"><button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="shippingAddressBook shippingCreateAddress"><i class="fa fa-plus"></i> Add New Address</button></div>');
                 } else {
                  jQuery('.account_address_for_shipping').html('');

@@ -38,7 +38,7 @@ class Slatwall_Integration {
                     'headers' => $http_header
                     
                     );
-            if($method == 'post'){
+            if($method == 'POST'){
                $content_data = wp_remote_post($full_api_url, $post_field_arg);
             }else {
                 $content_data = wp_remote_get($full_api_url, $post_field_arg);
@@ -48,6 +48,7 @@ class Slatwall_Integration {
         
         private function cookies_data($set_cookies){
             $cookies_data = array();
+            if(isset($set_cookies) && !empty($set_cookies)){
          foreach($set_cookies as $cookie){
                 $cookie_array = explode('=',$cookie);
                 $cookie_array_value_split = explode(';',$cookie_array[1]);
@@ -59,7 +60,8 @@ class Slatwall_Integration {
                 $cookies_data[$cookie_key] = $cookie_value;
                 }
                 }
-            }   
+            }  
+            }
             return $cookies_data;
         }
 
@@ -220,13 +222,18 @@ class Slatwall_Integration {
                 $content = $content_data['body'];
                 //d($content1);
                 $headerResult = wp_remote_retrieve_headers($content_data);
-            $set_cookies =$headerResult->getAll()['set-cookie'];
+            $set_cookies = isset($headerResult->getAll()['set-cookie'])?$headerResult->getAll()['set-cookie']:'';
+            //if($set_cookies){
             $cookies_data = $this->cookies_data($set_cookies);
             $content_obj = json_decode($content);
             $cookies = (object) $cookies_data;
             $content_obj->cookies = $cookies;
+            
            // d($content_obj);
              return json_encode($content_obj);
+//            } else {
+//                return false;
+//            }
                 } else {
                     return false;
                 }

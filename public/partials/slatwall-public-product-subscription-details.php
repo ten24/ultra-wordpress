@@ -312,7 +312,7 @@ foreach($cart_data->orderItems as $item){
             </div>
         </div>
         </div>
-            
+        </div>
             
 <div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>
 <script>
