@@ -34,7 +34,7 @@ $account_address = $account->accountAddresses;
 		<div class="container my-5 checkoutpage">
 			<!-- Page Title -->
             <div class="mt-4 d-flex justify-content-between align-items-center checkout_heading_section">
-                <h1>Checkout</h1>
+                <!--h1>Checkout</h1-->
                 <a href="<?php echo get_site_url().'/'.SLATWALL_CART; ?>" class="btn btn-link btn-sm backtocart">Go Back to My Cart</a>
             </div>
                         <!-- Start Row -->

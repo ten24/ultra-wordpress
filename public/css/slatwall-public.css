@@ -9,7 +9,9 @@
  */
 
 body img{display: inherit;}
-.singular .entry-header {display: none;}
+.singular .entry-header card h-100{display: none;}
+.card.h-100 a{text-align: center;}
+.card.h-100 a .img-fluid {display: inline-block;}
 body .wp-block-group:not(.has-background):not(.alignwide):not(.alignfull) {margin-top: 0;}
 #qloader{
     position: fixed;
@@ -364,7 +366,7 @@ body table {
     margin-top: 0;
 }
 body table th, body table td {
-    font-size: 1.5rem;
+    font-size: 16px;
     line-height: 1.5;
 }
 body table th strong {

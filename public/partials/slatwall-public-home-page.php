@@ -2,7 +2,7 @@
 <main role="main">
             <section class="jumbotron bg-white">
                 <div class="container">
-                    	<h1 class="text-center mb-5 pb-4 font-weight-light">Welcome to WordPress + Slatwall Commerce</h1>
+                    	<h1 class="text-center mb-5 pb-4 font-weight-light"><?php echo get_bloginfo('name'); ?></h1>
 
                     <div class="row align-items-center justify-content-between">
                         <div class="col-md-5">

@@ -6,6 +6,7 @@
  ?>
  
 <?php
+//d($cart_data);
 function multiple_in_array($cart_data_items,$seach_value){
     foreach($cart_data_items as $cart_data_item){
 
@@ -30,7 +31,7 @@ foreach($cart_data->orderItems as $item){
 }
 ?>
 <div class="container my-5 cart-area">
-            <h1>Shopping Cart</h1>
+            <!--h1>Shopping Cart</h1-->
 <?php if(isset($cart_data->orderItems) && !empty($cart_data->orderItems)){ ?>
             <div class="row">
                 <div class="col-lg-8 col-md-12 ">
@@ -128,8 +129,14 @@ foreach($cart_data->orderItems as $item){
                                         <h5 style="color:#000;"><?php echo $item->sku->product->productName; ?></h5>
                                     </a>
                                     <!--span class="d-block d-sm-none"><strong>$ 25.00</strong></span-->
-
+                                    <?php if(isset($item->orderItemGiftRecipients[0]->emailAddress) && $item->orderItemGiftRecipients[0]->emailAddress != ''){ ?>
+                                        <small
+                                    class="text-muted">Recipient:
+                                        <br><strong><?php echo $item->orderItemGiftRecipients[0]->emailAddress; ?></strong>
+                                        </small>
+                                    <?php } else { ?>
                                     <small class="text-muted"><?php echo $item->sku->skuDefinition ;?></small>
+                                    <?php } ?>
                                 </div>
                                 <div class="col-sm-12 col-md-6 d-none d-sm-block">
                                     <div class="row">

@@ -309,7 +309,8 @@ class Slatwall_Public extends Slatwall_Products {
         if($atts['products'] != ''){
             $product_codes = $atts['products'];
              $templates = new SW_Template_Loader;
-        $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:productCode:eq='.$product_codes;
+        $typePara = '?pageShow=12&f:publishedFlag=1&includeImages=true&f:activeFlag=1&orderBy=productName|ASC&f:productCode:eq='.$product_codes;
+        
         $products_result =  $this->productListIntegration($typePara);
 
          if($products_result){
@@ -324,8 +325,7 @@ class Slatwall_Public extends Slatwall_Products {
         } else {
              $templates = new SW_Template_Loader;
            
-            $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC';
-            
+            $typePara = '?pageShow=12&includeImages=true&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC';
          $products_result =  $this->productListIntegration($typePara);
          $product_filter_data =  $this->product_filter_options();
          $brands = $product_filter_data->data->brand;
@@ -356,7 +356,7 @@ class Slatwall_Public extends Slatwall_Products {
             ob_start();
             $search_val = isset($_GET['search'])?$_GET['search']:'';
             
-            $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC';
+            $typePara = '?pageShow=12&includeImages=true&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC';
             if($search_val){
               $search_val_encoded = urlencode($search_val);
                  $typePara .= "&keywords=$search_val_encoded";
@@ -401,7 +401,7 @@ class Slatwall_Public extends Slatwall_Products {
              $slatwall_types = new Slatwall_Type;
              $slatwall_options = new Slatwall_Options;
             ob_start();
-            $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:brand.urlTitle='.$urlTitle_slug;
+            $typePara = '?pageShow=12&includeImages=true&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:brand.urlTitle='.$urlTitle_slug;
          $products =  $this->productListIntegration($typePara);
          
          $product_filter_data =  $this->product_filter_options();
@@ -430,7 +430,7 @@ class Slatwall_Public extends Slatwall_Products {
              $slatwall_types = new Slatwall_Type;
              $slatwall_options = new Slatwall_Options;
             ob_start();
-            $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:categories.urlTitle:eq='.$urlTitle_slug;
+            $typePara = '?pageShow=12&includeImages=true&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:categories.urlTitle:eq='.$urlTitle_slug;
          $products =  $this->productListIntegration($typePara);
          $product_filter_data =  $this->product_filter_options();
          $brands = $product_filter_data->data->brand;
@@ -458,7 +458,7 @@ class Slatwall_Public extends Slatwall_Products {
              $slatwall_types = new Slatwall_Type;
              $slatwall_options = new Slatwall_Options;
             ob_start();
-            $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:defaultSku.options.optionName='.$urlTitle_slug;
+            $typePara = '?pageShow=12&includeImages=true&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&f:defaultSku.options.optionName='.$urlTitle_slug;
          $products =  $this->productListIntegration($typePara);
          $product_filter_data =  $this->product_filter_options();
          $brands = $product_filter_data->data->brand;
@@ -486,7 +486,7 @@ class Slatwall_Public extends Slatwall_Products {
              $slatwall_types = new Slatwall_Type;
              $slatwall_options = new Slatwall_Options;
             ob_start();
-            $typePara = '?pageShow=12&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&includeChildProductType=1&f:productType.urlTitle='.$urlTitle_slug;
+            $typePara = '?pageShow=12&includeImages=true&f:publishedFlag=1&f:activeFlag=1&orderBy=productName|ASC&includeChildProductType=1&f:productType.urlTitle='.$urlTitle_slug;
        
             $products =  $this->productListIntegration($typePara);
          $product_filter_data =  $this->product_filter_options();
@@ -583,7 +583,7 @@ class Slatwall_Public extends Slatwall_Products {
               $search_val = urlencode($search_val);
                  $typePara .= "&keywords=$search_val";
             }
-            $typePara .= '&pageShow=12&f:publishedFlag=1&f:activeFlag=1';
+            $typePara .= '&includeImages=true&pageShow=12&f:publishedFlag=1&f:activeFlag=1';
             
             $currentPage = ( isset( $_POST['id'] ) ) ? $_POST['id'] : 1;
             $urlPara = "?p:current=$currentPage$typePara";
@@ -1753,7 +1753,7 @@ session_start();
             $product_slug = get_query_var('pslug');
             if($product_slug != ''){
                 global $product_single_data; 
-                $urlPara = "?f:urlTitle=$product_slug";
+                $urlPara = "?includeImages=true&f:urlTitle=$product_slug";
             $product_data =  $this->productListIntegration($urlPara);
             //dd($product_data);
             $product_single_data = $product_data->data->pageRecords[0];
@@ -1783,6 +1783,16 @@ session_start();
            $token = isset($_SESSION['token'])?$_SESSION['token']:'';
            $cart = new Slatwall_Cart();
            $request['returnJSONObjects'] = 'cart';
+           if(isset($request['giftMessage'])){
+               $gift_request['skuID'] = $request['skuID'];
+            $gift_request['quantity'] = (int)$request['quantity'];
+             $gift_request['price'] = $request['price'];
+             $gift_request['returnJSONObjects'] = $request['returnJSONObjects'];
+              $gift_request['recipients'][] = array('firstName' => $request['firstName'],'lastName' => $request['lastName'],'quantity' => (int)$request['quantity'],'emailAddress' => $request['emailAddress'],'giftMessage' => $request['giftMessage']);
+             $request = $gift_request;
+             
+           }
+           //d($request);
            $cart_result = $cart->add_to_cart($token,$request);
            $cart_added = json_decode($cart_result);
            

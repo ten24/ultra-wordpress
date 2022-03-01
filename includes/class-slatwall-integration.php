@@ -38,11 +38,13 @@ class Slatwall_Integration {
                     'headers' => $http_header
                     
                     );
+            
             if($method == 'POST'){
                $content_data = wp_remote_post($full_api_url, $post_field_arg);
             }else {
                 $content_data = wp_remote_get($full_api_url, $post_field_arg);
             }
+            
             return $content_data;
         }
         
@@ -210,12 +212,16 @@ class Slatwall_Integration {
             if($auth){
                 $http_header["Authorization"] = "Basic ".$auth;
             }
-            
             $post_field_data = $request;
+            if(isset($request['recipients'])){
+            $http_header["Content-Type"] = "application/json";
+            
+            $post_field_data = json_encode($request);
+            }
+            //d($post_field_data);
             $domain = $key_data->domain;
             $full_api_url = $domain.$API_URL;
             $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
-                //$content_data = wp_remote_post($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
                     
                 

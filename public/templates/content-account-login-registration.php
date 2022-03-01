@@ -7,10 +7,10 @@
 <?php if(isset($_SESSION['token'])){
      wp_redirect(get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/dashboard');
 } ?>
-<div class="container my-5 mb-5">
+<div class="container my-5 mb-5 account_login_register">
 
         <div class="text-center my-3">
-            <h1>My Account</h1>
+            <!--h1>My Account</h1-->
             <p>Please login or signup to continue.</p>
         </div>
 

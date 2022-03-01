@@ -31,10 +31,10 @@
                 <div class="card-body">
                     <small><a href="javascript:void(0);" class="text-secondary"><?php echo $related_product->relatedProduct_productType_productTypeName; ?></a></small>
                     <h5><a href="<?php echo $related_product_single_url; ?>"><?php echo $related_product->relatedProduct_productName; ?></a></h5>
-                   <?php if($related_product->relatedProduct_calculatedSalePrice < $related_product->relatedProduct_defaultSku_listPrice){ ?>
-                    <s class="float-right small">$<?php echo price_number_format($related_product->relatedProduct_defaultSku_listPrice); ?></s>
+                   <?php if($related_product->salePrice < $related_product->listPrice){ ?>
+                    <s class="float-right small">$<?php echo price_number_format($related_product->listPrice); ?></s>
                    <?php } ?>
-                    <p>$<?php echo price_number_format($related_product->relatedProduct_calculatedSalePrice); ?> </p>
+                    <p>$<?php echo price_number_format($related_product->salePrice); ?> </p>
                 </div>
             </div>
         </div>

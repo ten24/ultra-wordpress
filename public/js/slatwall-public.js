@@ -162,12 +162,12 @@ function update_cart_items(orderItems,bundleItems = '',normal_items = ''){
     }
 
     function update_cart_payment(cart_data){
-
-        jQuery('.order-summary').html('<li class="list-group-item m-0">Item Total <span class="float-right"><strong>$'+cart_data.subtotal+'</strong></span></li><li class="list-group-item m-0">Shipping & Delivery <span class="float-right"><strong>$'+cart_data.fulfillmentTotal+'</strong></span></li><li class="list-group-item m-0">Tax <span class="float-right"><strong>$'+cart_data.taxTotal+'</strong></span></li>');
-        if(cart_data.orderAndItemDiscountAmountTotal > 0){
-         jQuery('.order-summary').append('<li class="list-group-item m-0">Discount <span class="float-right"><span class="badge badge-success">- $'+ cart_data.orderAndItemDiscountAmountTotal+'</span></li>');
+//console.log(cart_data);
+        jQuery('.order-summary').html('<li class="list-group-item m-0">Item Total <span class="float-right"><strong>$'+cart_data.cart.subtotal+'</strong></span></li><li class="list-group-item m-0">Shipping & Delivery <span class="float-right"><strong>$'+cart_data.cart.fulfillmentTotal+'</strong></span></li><li class="list-group-item m-0">Tax <span class="float-right"><strong>$'+cart_data.cart.taxTotal+'</strong></span></li>');
+        if(cart_data.cart.orderAndItemDiscountAmountTotal > 0){
+         jQuery('.order-summary').append('<li class="list-group-item m-0">Discount <span class="float-right"><span class="badge badge-success">- $'+ cart_data.cart.orderAndItemDiscountAmountTotal+'</span></li>');
         }
-        jQuery('.order-summary').append('<li class="list-group-item m-0">Total <span class="float-right"><strong>$'+ cart_data.total +'</strong></span></li>');
+        jQuery('.order-summary').append('<li class="list-group-item m-0">Total <span class="float-right"><strong>$'+ cart_data.cart.total +'</strong></span></li>');
     }
 function update_mini_cart_count(){
     jQuery('.mini-cart-count').html(jQuery('#mini-cart ul li').length);
@@ -201,7 +201,13 @@ function update_mini_cart(cart_data,bundleItems = '',normal_items = ''){
                         if(typeof(item.items) !== "undefined"){
             var bundle_skus = item.items;
             bundle_skus.forEach(function(bundle_sku) {
-        html_data += '<!--p class="text-muted medium mb-0">'+ bundle_sku[0].productBundleGroup.productBundleGroupType.typeName+ '</p--><p class="font-weight-bold medium">'+ bundle_sku[0].sku.product.productName +'</p>';
+               // console.log(bundle_sku[0]);
+                if(typeof bundle_sku[0].productBundleGroup != "undefined" ){
+                    var productBundleGroupType_typeName = bundle_sku[0].productBundleGroup.productBundleGroupType.typeName;
+                } else {
+                    var productBundleGroupType_typeName = '';
+                }
+        html_data += '<!--p class="text-muted medium mb-0">'+ productBundleGroupType_typeName+ '</p--><p class="font-weight-bold medium">'+ bundle_sku[0].sku.product.productName +'</p>';
         });
             }
                         html_data += '</div>';
@@ -407,7 +413,14 @@ function remove_mini_cart_item(id){
     jQuery(document).ajaxStart(function() {
   jQuery("#qloader").show();
 }).ajaxStop(function() {
-  jQuery("#qloader").hide('slow');
+    if(jQuery('div').hasClass('account_login_register')){
+        if(jQuery('.accounterror').is(":visible")){
+             jQuery("#qloader").hide('slow');
+        }
+    } else {
+        jQuery("#qloader").hide('slow');
+    }
+  
 });
 
 
@@ -494,7 +507,6 @@ if(sku_ids.length == 1 && sku_ids.includes(sku_id) === true){
        jQuery('.bundle-product-form .card').each(function(){
            var sku_value_count = 0;
            if(jQuery(this).find('.selection_limit_area').hasClass('input_selection')){
-
           var data_min_value = jQuery(this).find('.min-max-sku-selection').attr('data-min-value');
           var data_max_value = jQuery(this).find('.min-max-sku-selection').attr('data-max-value');
           jQuery(this).find('.row.mt-3').each(function(){
@@ -505,15 +517,16 @@ if(sku_ids.length == 1 && sku_ids.includes(sku_id) === true){
           console.log(sku_value_count);
            if(sku_value_count >= data_min_value && sku_value_count <= data_max_value){
               console.log(2);
+               jQuery('#qloader').show();
            jQuery(this).find('.row.mt-3 .sku_input_value,.row .selection_limit_area small').removeClass('red_border');
       } else {
           console.log(1);
+          jQuery('#qloader').hide();
           jQuery(this).find('.row.mt-3 .sku_input_value,.row .selection_limit_area small').addClass('red_border');
           e.preventDefault();
         return false;
       }
       } else {
-
           if(jQuery(this).find('.select-option').val() != ''){
               sku_value_count++;
           }
@@ -521,9 +534,12 @@ if(sku_ids.length == 1 && sku_ids.includes(sku_id) === true){
            if(sku_value_count >= 1){
               console.log(2);
            jQuery(this).find('.select-option').removeClass('red_border');
+           jQuery('#qloader').show();
+           
       } else {
           console.log(1);
           jQuery(this).find('.select-option').addClass('red_border');
+           jQuery('#qloader').hide();
           e.preventDefault();
         return false;
       }
@@ -1069,10 +1085,12 @@ if(place_order_flag == true){
     }
     if(typeof cart_data.orderPayments[0].paymentMethod.paymentMethodName !== 'undefined'){
         var payment_method_name = cart_data.orderPayments[0].paymentMethod.paymentMethodName;
-    } else {
+    var purchaseOrderNumber = cart_data.orderPayments[0].purchaseOrderNumber;
+            } else {
          var payment_method_name = false;
+         var purchaseOrderNumber = false;
     }
-   // console.log(cart_data.orderPayments[0]);
+    console.log(purchaseOrderNumber);
     if(typeof cart_data.orderPayments[0].creditCardLastFour !== 'undefined'){
         var credit_card_last_four = cart_data.orderPayments[0].creditCardLastFour;
     } else {
@@ -1092,7 +1110,7 @@ if(place_order_flag == true){
        if(credit_card_last_four){
            jQuery('.order_review_area').append('<div class="col-md-6 mb-4 col-print-6"><div class="bg-light p-4 h-100"><a href="javascript:void(0);" data-section="billinginfo" class="small float-right edit_review">Edit</a><h6 class="card-title text-muted">Payment Information</h6><p class="small">Credit Card ending in ' + credit_card_last_four + '</p></div></div>');
        } else {
-           jQuery('.order_review_area').append('<div class="col-md-6 mb-4 col-print-6"><div class="bg-light p-4 h-100"><a href="javascript:void(0);" data-section="billinginfo" class="small float-right edit_review">Edit</a><h6 class="card-title text-muted">Payment Information</h6><p class="small">' + payment_method_name + '</p></div></div>');
+           jQuery('.order_review_area').append('<div class="col-md-6 mb-4 col-print-6"><div class="bg-light p-4 h-100"><a href="javascript:void(0);" data-section="billinginfo" class="small float-right edit_review">Edit</a><h6 class="card-title text-muted">Payment Information</h6><p class="small">' + payment_method_name + ' ' + purchaseOrderNumber + '</p></div></div>');
        }
        checkout_sidebar_update(cart_data);
         jQuery('.add_order_payment').hide();
@@ -2395,7 +2413,8 @@ jQuery(document).ready(function(){
 					jQuery('.accountregerror').removeClass('alert-danger');
 					jQuery('.accountregerror').addClass('alert-success');
 					jQuery('.accountregerror').text('Account created succesfully').show();
-					setTimeout(function(){
+					
+                setTimeout(function(){
 						window.location.reload();
 			 }, 3000);
 

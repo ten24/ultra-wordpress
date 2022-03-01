@@ -146,7 +146,7 @@ foreach($cart_data->orderItems as $item){
                             <div class="alert alert-info account_billing_address_add_error" style="display:none;">Billing Address Added successfully</div>
                             <select class="custom-select subscription_billing_account_address mb-4 <?php echo empty($cart_data->account->accountAddresses)==true?'d-none':''; ?>" name="billingAddress" style="font-size:100%;">   
                                 <?php if(!empty($cart_data->account->accountAddresses)){ $address_count = 1; foreach($cart_data->account->accountAddresses as $address){ ?>
-                                <option value="<?php echo $address->accountAddressID; ?>" <?php echo $address_count==1?'selected':''; ?>><?php echo $address->accountAddressName.' - '.$address->address->streetAddress.','.$address->address->streetAddress.' '.$address->address->stateCode.' '.$address->address->postalCode; ?></option>
+                                <option value="<?php echo $address->accountAddressID; ?>" <?php echo $address_count==1?'selected':''; ?>><?php echo $address->accountAddressName.' - '.$address->address->streetAddress.','.$address->address->city.' '.$address->address->stateCode.' '.$address->address->postalCode; ?></option>
                                 <?php $address_count++; } } else {
                                 echo '<option>No Address Added</option>';
                             } ?>                              

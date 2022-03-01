@@ -6,7 +6,7 @@
  ?>
  
 <div class="container mt-5">
-			<h1 class="mb-4">Product Listing</h4>
+			<!--h1 class="mb-4">Product Listing</h4-->
       <div class="alert alert-success added-cart" style="display: none;">Item Added to Cart</div>
 			<div class="alert alert-danger failed-add-cart" style="display: none;">There was an error adding item to cart</div>
 			<div class="row">

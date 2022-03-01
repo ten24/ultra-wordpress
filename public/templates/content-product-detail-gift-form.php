@@ -9,6 +9,20 @@
     <input type="hidden" value="<?php echo $rand; ?>" name="randcheck" />
      <input type="hidden" name="skuID" id="option" value="<?php echo $product->defaultSku_skuID; ?>">
      <input type="hidden" name="userDefinedPriceFlag" value="1">
+     <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="option">First Name</label>
+                <input type="text" class="form-control" name="firstName" value="">
+            </div>
+        </div>
+         <div class="col-md-6">
+            <div class="form-group">
+                <label for="option">Last Name</label>
+                <input type="text" class="form-control" name="lastName" value="">
+            </div>
+        </div>
+     </div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
