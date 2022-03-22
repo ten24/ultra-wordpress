@@ -15,6 +15,17 @@
 
 
 class Slatwall_Integration {
+    
+        private function api_time_log($API_url,$API_process = 'End'){
+            //$log  = "Time: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL;
+        $log  = "Process: ".($API_process=='Start'?$API_process:'End').PHP_EOL.
+        "API url: ".$API_url.PHP_EOL.
+        "Date Time: ".date("F j, Y, g:i:s a").PHP_EOL.
+        "-------------------------".PHP_EOL;
+
+//Save string to log, use FILE_APPEND to append.
+file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
+        }
 
         private function getKeyValue(){
             global $table_prefix, $wpdb;
@@ -68,7 +79,8 @@ class Slatwall_Integration {
         }
 
          protected function get_API_Integration(string $API_URL,string $method = 'GET',string $urlParameter = '',array $post_field_data = array()){
-            $auth = SLATWALL_AUTHORIZATION;
+           $this->api_time_log($API_URL,'Start');
+             $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
             if($key_data){
             $token = $key_data->token;
@@ -81,6 +93,7 @@ class Slatwall_Integration {
              $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
                // $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
+                    $this->api_time_log($API_URL);
                  $content = $content_data['body'];
                 //d($content1);
                 $headerResult = wp_remote_retrieve_headers($content_data);
@@ -101,6 +114,7 @@ class Slatwall_Integration {
         }
 
         protected function post_API_integration(array $request,string $API_URL,string $method = 'POST'){
+            $this->api_time_log($API_URL,'Start');
             $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
             if($key_data){
@@ -119,6 +133,7 @@ class Slatwall_Integration {
             $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
                // $content_data = wp_remote_post($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
+                    $this->api_time_log($API_URL);
             $response= $content_data['body'];
             return $response;
                 } else {
@@ -131,6 +146,7 @@ class Slatwall_Integration {
             }
 
             protected function register_integration(array $request,string $API_URL,string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
+            $this->api_time_log($API_URL,'Start');
             $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
             if($key_data){
@@ -147,6 +163,7 @@ class Slatwall_Integration {
             $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
             //$content_data = wp_remote_post($full_api_url, $post_field_arg);
                  if( !is_wp_error( $content_data ) ) {
+                     $this->api_time_log($API_URL);
                 $response = $content_data['body'];
                 $headerResult = wp_remote_retrieve_headers($content_data);
             $set_cookies =$headerResult->getAll()['set-cookie'];
@@ -165,6 +182,7 @@ class Slatwall_Integration {
 
             protected function login_integration(array $request,string $API_URL,string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
                // d($cookies);
+                $this->api_time_log($API_URL,'Start');
                 $auth = SLATWALL_AUTHORIZATION;
                 $key_data = $this->getKeyValue();
                 $post_field_data = $request;
@@ -180,6 +198,7 @@ class Slatwall_Integration {
                // $content_data = wp_remote_post($full_api_url, $post_field_arg);
                 
                  if( !is_wp_error( $content_data ) ) {
+                     $this->api_time_log($API_URL);
                 $response = $content_data['body'];
                 $headerResult = wp_remote_retrieve_headers($content_data);
             $set_cookies =$headerResult->getAll()['set-cookie'];
@@ -201,6 +220,7 @@ class Slatwall_Integration {
 
 
             protected function userAccountPost(string $API_URL,$token = '',array $request = array(),string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
+            $this->api_time_log($API_URL,'Start');
             $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
             $http_header = array();
@@ -223,8 +243,7 @@ class Slatwall_Integration {
             $full_api_url = $domain.$API_URL;
             $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
                 if( !is_wp_error( $content_data ) ) {
-                    
-                
+                $this->api_time_log($API_URL);
                 $content = $content_data['body'];
                 //d($content1);
                 $headerResult = wp_remote_retrieve_headers($content_data);
@@ -250,6 +269,7 @@ class Slatwall_Integration {
 
              protected function userAccountGet(string $API_URL,$token = '',array $request = array(),string $method = 'GET',$cookies = 'Cookie: cftoken=0;'){
             $auth = SLATWALL_AUTHORIZATION;
+            $this->api_time_log($API_URL,'Start');
             $key_data = $this->getKeyValue();
             $http_header = array();
             if($token != ""){
@@ -267,7 +287,7 @@ class Slatwall_Integration {
             $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
             //    $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
-                    
+                    $this->api_time_log($API_URL);
                 
                 $response = $content_data['body'];
             return $response;
@@ -279,7 +299,7 @@ class Slatwall_Integration {
 
 
             protected function stateCode_integration(array $request,string $API_URL,string $method = 'GET',$cookies = 'Cookie: cftoken=0;'){
-
+                $this->api_time_log($API_URL,'Start');
               $auth = SLATWALL_AUTHORIZATION;
               $key_data = $this->getKeyValue();
           if($key_data){
@@ -294,6 +314,7 @@ class Slatwall_Integration {
              $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
              //   $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
+                    $this->api_time_log($API_URL);
                 $content = $content_data['body'];
             $content_obj = json_decode($content);
               return $content_obj;
