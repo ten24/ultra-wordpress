@@ -620,6 +620,8 @@ class Slatwall_Public extends Slatwall_Products {
               if($product){
                   $templates = new SW_Template_Loader;
                   $product_flag = 0;
+                  $cart_data = new stdClass;
+                  $cart_data->orderItems = array();
                   $product_id = $product->productID;
                  if(isset($product->baseProductTypeSystemCode) &&  $product->baseProductTypeSystemCode == 'productBundle'){
                       $product_flag = 1;
@@ -640,22 +642,30 @@ class Slatwall_Public extends Slatwall_Products {
                 
                 
                 if($product_flag == 1){
+                     if((isset($_SESSION['login_status']) && $_SESSION['login_status'] == 1) || ((isset($_SESSION['add_in_cart']) && $_SESSION['add_in_cart'] == 1))){
+           
                     $result = $cart->get_cart($token);                
                 $cart_details = json_decode($result);
                 $cart_data = $cart_details->cart;
+                     }
                     $request = array('productID' => $product_id);
                  $bundle_result = $this->productBundleIntegration($request);
                  $bundle_data = json_decode($bundle_result);
                      require 'partials/slatwall-public-product-bundle-details.php';
                 } else if($product_flag == 2){
+                     if((isset($_SESSION['login_status']) && $_SESSION['login_status'] == 1) || ((isset($_SESSION['add_in_cart']) && $_SESSION['add_in_cart'] == 1))){          
                     $result = $cart->get_cart($token); 
                 $cart_details = json_decode($result);
                 $cart_data = $cart_details->cart;
+                     }
                      require 'partials/slatwall-public-product-gift-details.php';
                 } else if($product_flag == 3){
+                     if((isset($_SESSION['login_status']) && $_SESSION['login_status'] == 1) || ((isset($_SESSION['add_in_cart']) && $_SESSION['add_in_cart'] == 1))){
+           
                     $result = $cart->get_cart($token,'account'); 
                  $cart_details = json_decode($result);
                 $cart_data = $cart_details->cart;
+                     }
                 $cart_data->account = $cart_details->account;
                     $this->auth_check();
                     $countries = get_transient('slatwall_default_countries');
@@ -675,9 +685,11 @@ class Slatwall_Public extends Slatwall_Products {
                     
                      require 'partials/slatwall-public-product-subscription-details.php';
                 } else {
+                     if((isset($_SESSION['login_status']) && $_SESSION['login_status'] == 1) || ((isset($_SESSION['add_in_cart']) && $_SESSION['add_in_cart'] == 1))){           
                      $result = $cart->get_cart($token);                
                  $cart_details = json_decode($result);
                 $cart_data = $cart_details->cart;
+                     }
                     require 'partials/slatwall-public-product-details.php';
                 }
                   
@@ -888,12 +900,14 @@ class Slatwall_Public extends Slatwall_Products {
            $result_json = json_decode($cart_result);
            if(isset($result_json->token) && $result_json->token !== "" && $_SESSION['login_status'] == 1){
                $_SESSION['token'] = $result_json->token;
+               
            }
            $_SESSION['JSESSIONID'] = $result_json->cookies->JSESSIONID;
            if(isset($result_json->cookies->cfid)){
                    $_SESSION['cfid'] = $result_json->cookies->cfid;
          $_SESSION['cftoken'] = $result_json->cookies->cftoken;
                    }
+                   $_SESSION['add_in_cart'] = 1;
            $orderItems = $result_json->cart->orderItems;
                     foreach($orderItems as $item){
 
@@ -1706,14 +1720,17 @@ session_start();
             ob_start();
            $cart = new Slatwall_Cart();
            $token = isset($_SESSION['token'])?$_SESSION['token']:'';
+           $cart_data = array();
+           $bundle_items = array();
+           $normal_items = array();
+           if((isset($_SESSION['login_status']) && $_SESSION['login_status'] == 1) || ((isset($_SESSION['add_in_cart']) && $_SESSION['add_in_cart'] == 1))){
            $result = $cart->get_cart($token);
            $cart_result_data = json_decode($result);
            $cart_data = $cart_result_data->cart;
-           $bundle_items = array();
-           $normal_items = array();
+           
            
            foreach($cart_data->orderItems as $item){
-    if(isset($item->parentOrderItemID) && $item->parentOrderItemID !== ''){
+         if(isset($item->parentOrderItemID) && $item->parentOrderItemID !== ''){
         $value =  $this->multiple_in_array1($cart_data->orderItems, $item->parentOrderItemID);
         if(isset($value) && !isset($bundle_items[$value->orderItemID])){
         $bundle_items[$value->orderItemID] = (array)$value;
@@ -1721,10 +1738,11 @@ session_start();
         }
         array_push($bundle_items[$value->orderItemID]['items'], array($item));
       
-    } else {
-        $normal_items[$item->orderItemID] = $item;
-    }
-}
+            } else {
+                $normal_items[$item->orderItemID] = $item;
+            }
+        }
+           }
            $templates = new SW_Template_Loader;
            $templates->set_template_data( $cart_data, 'cart_data' )->set_template_data( $bundle_items, 'bundle_items' )->set_template_data( $normal_items, 'normal_items' )->get_template_part( 'content', 'mini-cart',true );
             return ob_get_clean();
@@ -1740,9 +1758,12 @@ session_start();
             
            $cart = new Slatwall_Cart();
            $token = isset($_SESSION['token'])?$_SESSION['token']:'';
+           $cart_data = array();
+            if((isset($_SESSION['login_status']) && $_SESSION['login_status'] == 1) || ((isset($_SESSION['add_in_cart']) && $_SESSION['add_in_cart'] == 1))){         
            $result = $cart->get_cart($token);
            $cart_details = json_decode($result);
            $cart_data = $cart_details->cart;
+            }
            $templates = new SW_Template_Loader;
            $templates->set_template_data( $cart_data, 'cart_data' )->get_template_part( 'content', 'mini-cart',true );
            $templates->get_template_part( 'content', 'product-search-form',true );
@@ -1806,6 +1827,7 @@ session_start();
          $_SESSION['cftoken'] = $cart_added->cookies->cftoken;
                    }
                //}
+               $_SESSION['add_in_cart'] = 1;
                $_SESSION['added_into_cart'] = 1;
                $_SESSION['added_into_cart_error'] = 0;
            } else {
@@ -1862,6 +1884,7 @@ session_start();
                $cart_result_data = json_decode($cart_result_json);
              //  d($cart_result_data);
              if(isset($cart_result_data->successfulActions[0]) && $cart_result_data->successfulActions[0] == 'public:cart.addOrderItem'){
+                $_SESSION['add_in_cart'] = 1;
                  if(isset($cart_result_data->token) && (isset($_SESSION['login_status']) && $_SESSION['login_status'] == 1)){
                     $_SESSION['token'] = $cart_result_data->token;
                    

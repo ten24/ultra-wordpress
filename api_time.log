@@ -22,3 +22,19 @@ Process: End
 API url: /api/scope/getProductFilterOptions
 Date Time: March 22, 2022, 9:51:26 am
 -------------------------
+Process: Start
+API url: /api/scope/getCartData/
+Date Time: March 29, 2022, 7:09:40 am
+-------------------------
+Process: End
+API url: /api/scope/getCartData/
+Date Time: March 29, 2022, 7:09:41 am
+-------------------------
+Process: Start
+API url: /api/public/product/
+Date Time: March 29, 2022, 7:09:41 am
+-------------------------
+Process: End
+API url: /api/public/product/
+Date Time: March 29, 2022, 7:09:42 am
+-------------------------

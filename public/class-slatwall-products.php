@@ -27,11 +27,11 @@
 
 class Slatwall_Products extends Slatwall_Integration{
         
-       // private $url = '/api/scope/getProductList/'; 
+       // private $url = '/api/scope/productSearch/'; 
     
         private $url = '/api/public/product/';
         
-        private $detail_url = '/api/public/product/';
+        private $detail_url = '/api/scope/productSearch/';
         
         private $bundle_product = '/api/scope/getProductBundles';
         

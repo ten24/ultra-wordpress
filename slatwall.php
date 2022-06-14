@@ -48,7 +48,7 @@ define('SLATWALL_PRODUCT_LISTING_SLUG','/');
 define('SLATWALL_MERCHANDISED_PRODUCT', 'merchandised-product-listing');
 define('SLATWALL_DEFAULT_LOCATION', '2c9180856c26ea22016c2f7615460210');
 define('SLATWALL_API_CACHE_EXPIRE_TIME',604800);
-register_activation_hook( __FILE__, 'install' );
+//register_activation_hook( __FILE__, 'install' );
 
 /**
  * The code that runs during slatwallactivation.

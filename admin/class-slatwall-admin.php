@@ -55,8 +55,8 @@ class Slatwall_Admin {
 		$this->slatwall = $slatwall;
 		$this->version = $version;
 
-                add_action( 'wp_ajax_nopriv_send_key_data', array( $this, 'send_key_data' ) );
-    add_action( 'wp_ajax_send_key_data', array( $this, 'send_key_data' ) );
+               add_action( 'wp_ajax_nopriv_send_key_data', array( $this, 'send_key_data' ) );
+               add_action( 'wp_ajax_send_key_data', array( $this, 'send_key_data' ) );
 
 	}
 
@@ -110,7 +110,7 @@ class Slatwall_Admin {
 	}
 
         public function menu_options(){
-            $this->plugin_screen_hook_suffix = add_menu_page('Slatwall', 'Slatwall', 'manage_options', 'slatwall', array( $this, 'dashboard' ));
+            $this->plugin_screen_hook_suffix = add_menu_page('Ultra Commerce', 'Ultra Commerce', 'manage_options', 'slatwall', array( $this, 'dashboard' ));
         }
 
         public function dashboard(){
@@ -139,18 +139,18 @@ class Slatwall_Admin {
             }
             $access_key = $key_data['access_key'];
             $access_key_secret = $key_data['access_key_secret'];
-           $API_URL = $this->apiUrl($key_data['domain']);
+            $API_URL = $this->apiUrl($key_data['domain']);
 
-           if($API_URL){
+            if($API_URL){
                 
             $post_field_data = array('returntransfer'=>true,
-                    'encoding'=>'',
-                    'maxredirs'=>10,
-                    'verbose'=>1,
-                    'followlocation'=>true,
-                 'timeout' => 10,
+                'encoding'=>'',
+                'maxredirs'=>10,
+                'verbose'=>1,
+                'followlocation'=>true,
+                'timeout' => 10,
                 'header'=>1,
-                    'headers' => array(
+                'headers' => array(
                 "Access-Key" => $access_key,
                 "Access-Key-Secret" => $access_key_secret,
                 "Authorization: Basic" => $auth
@@ -208,6 +208,4 @@ class Slatwall_Admin {
                     return false;
                 }
             }
-
-
 }

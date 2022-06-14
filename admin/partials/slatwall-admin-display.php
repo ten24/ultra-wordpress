@@ -18,36 +18,33 @@
 ?>
 <div>
 <form method="POST" action="slatwall_integration" id="slatwall_integration">
-
       <div class="col-12 py-4 pr-4 wrap-inner">
         <!-- Header Section (Logo) -->
         <div class="row py-2 align-items-center header-section">
           <div class="col-sm-6 left-container logo">
-            <img src="<?php echo SLATWALL_PLUGIN_DIR_ULR; ?>/admin/images/logo.png" alt="Slatwall Commerce" class="img-fluid w-25" />
+            <img src="<?php echo SLATWALL_PLUGIN_DIR_ULR; ?>/admin/images/logo.png" alt="Ultra Commerce" class="img-fluid w-25" />
           </div>
           <div class="col-sm-6 text-right right-container email-text">
-            <a href="mailto: www.slatwallcommerce.com" class="text-body">www.slatwallcommerce.com</a>
+            <a href="mailto: www.slatwallcommerce.com" class="text-body">www.ultracommerce.co</a>
           </div>
         </div>
         <!-- End -->
-
         <!-- Intro Section -->
         <div class="row py-2 into-section">
           <div class="col-12 intro-inner">
             <div class="py-4 mt-3 jumbotron">
-                <h3>Slatwall Commerce for WordPress</h3>
-                <p class="mb-1">Power your WordPress storefronts with the complete enterprise eCommerce functionality of Slatwall Commerce. </p>
-                <p>Designed to be a headless commerce solution that easily integrates into WordPress using the Slatwall Commerce API.</p>
+                <h3>Ultra Commerce for WordPress</h3>
+                <p class="mb-1">Power your WordPress storefronts with the complete enterprise eCommerce functionality of Ultra Commerce. </p>
+                <p>Designed to be a headless commerce solution that easily integrates into WordPress using the Ultra Commerce API.</p>
                 <p>
-                  <a href="https://publicapi.slatwallcommerce.com/" title="" class="btn btn-outline-secondary mr-3" target="_blank">Slatwall API Documentation</a>
-                  <a href="https://www.slatwallcommerce.com/user-guide/" title="" class="btn btn-outline-secondary" target="_blank">Slatwall User Guide</a>
+                  <a href="https://publicapi.slatwallcommerce.com/" title="" class="btn btn-outline-secondary mr-3" target="_blank">Ultra Commerce API Documentation</a>
+                  <a href="https://www.slatwallcommerce.com/user-guide/" title="" class="btn btn-outline-secondary" target="_blank">Ultra Commerce User Guide</a>
                 </p>
               </div>
             </div>
           </div>
         </div>
         <!-- End -->
-
         <!-- Setting Form Section -->
         <div class="row form-section">
           <div class="col-12 form-inner">
@@ -85,7 +82,6 @@
         </div>
         <!-- End -->
       </div>
-
 </form>
 
 <div id="qloader" style="display: none; margin-left: 20px;"><img src="<?php echo SLATWALL_PLUGIN_DIR_ULR; ?>/public/images/spinner.gif"></div>

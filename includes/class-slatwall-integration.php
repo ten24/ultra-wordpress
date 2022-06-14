@@ -16,15 +16,28 @@
 
 class Slatwall_Integration {
     
-        private function api_time_log($API_url,$API_process = 'End'){
+        private function api_time_log($API_url,$start_time,$request){
             //$log  = "Time: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL;
-        $log  = "Process: ".($API_process=='Start'?$API_process:'End').PHP_EOL.
+        $web_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $d = new DateTime();
+        $endTime = $d->format("d-m-Y H:i:s.v");
+        $log  = "Start: ".$start_time.PHP_EOL.
         "API url: ".$API_url.PHP_EOL.
-        "Date Time: ".date("F j, Y, g:i:s a").PHP_EOL.
+        "End Time: ".$endTime.PHP_EOL.
+        "Web URL: ".$web_link.PHP_EOL.
         "-------------------------".PHP_EOL;
-
+        $api_log['api_url'] =  $API_url;
+        $api_log['request'] = $request;
+        $api_log['start_time'] =  $start_time;
+        $api_log['end_time'] =  $endTime;
+        $api_log['web_url'] =  $web_link;
+        $log_data = file_get_contents (ABSPATH.'api_time.json');
+        $log_data_array = json_decode($log_data);
+        $log_data_array[] = $api_log;
+        $api_log_json = json_encode($log_data_array);
+        file_put_contents(ABSPATH.'api_time.json', $api_log_json);
 //Save string to log, use FILE_APPEND to append.
-file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
+file_put_contents(ABSPATH.'/api_time.log', $log, FILE_APPEND);
         }
 
         private function getKeyValue(){
@@ -79,7 +92,8 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
         }
 
          protected function get_API_Integration(string $API_URL,string $method = 'GET',string $urlParameter = '',array $post_field_data = array()){
-           $this->api_time_log($API_URL,'Start');
+            $d = new DateTime();
+             $start_time = $d->format("d-m-Y H:i:s.v");
              $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
             if($key_data){
@@ -93,7 +107,7 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
              $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
                // $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
-                    $this->api_time_log($API_URL);
+                    $this->api_time_log($full_api_url,$start_time,$post_field_data);
                  $content = $content_data['body'];
                 //d($content1);
                 $headerResult = wp_remote_retrieve_headers($content_data);
@@ -114,7 +128,8 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
         }
 
         protected function post_API_integration(array $request,string $API_URL,string $method = 'POST'){
-            $this->api_time_log($API_URL,'Start');
+            $d = new DateTime();
+            $start_time = $d->format("d-m-Y H:i:s.v");
             $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
             if($key_data){
@@ -133,7 +148,7 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
             $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
                // $content_data = wp_remote_post($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
-                    $this->api_time_log($API_URL);
+                    $this->api_time_log($full_api_url,$start_time,$request);
             $response= $content_data['body'];
             return $response;
                 } else {
@@ -146,7 +161,8 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
             }
 
             protected function register_integration(array $request,string $API_URL,string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
-            $this->api_time_log($API_URL,'Start');
+             $d = new DateTime();
+             $start_time = $d->format("d-m-Y H:i:s.v");
             $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
             if($key_data){
@@ -163,7 +179,7 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
             $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
             //$content_data = wp_remote_post($full_api_url, $post_field_arg);
                  if( !is_wp_error( $content_data ) ) {
-                     $this->api_time_log($API_URL);
+                     $this->api_time_log($full_api_url,$start_time,$request);
                 $response = $content_data['body'];
                 $headerResult = wp_remote_retrieve_headers($content_data);
             $set_cookies =$headerResult->getAll()['set-cookie'];
@@ -182,7 +198,8 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
 
             protected function login_integration(array $request,string $API_URL,string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
                // d($cookies);
-                $this->api_time_log($API_URL,'Start');
+                 $d = new DateTime();
+               $start_time = $d->format("d-m-Y H:i:s.v");
                 $auth = SLATWALL_AUTHORIZATION;
                 $key_data = $this->getKeyValue();
                 $post_field_data = $request;
@@ -198,7 +215,7 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
                // $content_data = wp_remote_post($full_api_url, $post_field_arg);
                 
                  if( !is_wp_error( $content_data ) ) {
-                     $this->api_time_log($API_URL);
+                     $this->api_time_log($full_api_url,$start_time,$request);
                 $response = $content_data['body'];
                 $headerResult = wp_remote_retrieve_headers($content_data);
             $set_cookies =$headerResult->getAll()['set-cookie'];
@@ -220,7 +237,8 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
 
 
             protected function userAccountPost(string $API_URL,$token = '',array $request = array(),string $method = 'POST',$cookies = 'Cookie: cftoken=0;'){
-            $this->api_time_log($API_URL,'Start');
+             $d = new DateTime();
+             $start_time = $d->format("d-m-Y H:i:s.v");
             $auth = SLATWALL_AUTHORIZATION;
             $key_data = $this->getKeyValue();
             $http_header = array();
@@ -243,7 +261,7 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
             $full_api_url = $domain.$API_URL;
             $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
                 if( !is_wp_error( $content_data ) ) {
-                $this->api_time_log($API_URL);
+                $this->api_time_log($full_api_url,$start_time,$request);
                 $content = $content_data['body'];
                 //d($content1);
                 $headerResult = wp_remote_retrieve_headers($content_data);
@@ -269,7 +287,8 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
 
              protected function userAccountGet(string $API_URL,$token = '',array $request = array(),string $method = 'GET',$cookies = 'Cookie: cftoken=0;'){
             $auth = SLATWALL_AUTHORIZATION;
-            $this->api_time_log($API_URL,'Start');
+             $d = new DateTime();
+            $start_time = $d->format("d-m-Y H:i:s.v");
             $key_data = $this->getKeyValue();
             $http_header = array();
             if($token != ""){
@@ -287,7 +306,7 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
             $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
             //    $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
-                    $this->api_time_log($API_URL);
+                    $this->api_time_log($full_api_url,$start_time,$request);
                 
                 $response = $content_data['body'];
             return $response;
@@ -299,7 +318,8 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
 
 
             protected function stateCode_integration(array $request,string $API_URL,string $method = 'GET',$cookies = 'Cookie: cftoken=0;'){
-                $this->api_time_log($API_URL,'Start');
+              $d = new DateTime();
+                $start_time = $d->format("d-m-Y H:i:s.v");
               $auth = SLATWALL_AUTHORIZATION;
               $key_data = $this->getKeyValue();
           if($key_data){
@@ -314,7 +334,7 @@ file_put_contents(SLATWALL_PLUGIN_DIR.'api_time.log', $log, FILE_APPEND);
              $content_data = $this->fetch_api_result($full_api_url,$method,$post_field_data, $http_header);
              //   $content_data = wp_remote_get($full_api_url, $post_field_arg);
                 if( !is_wp_error( $content_data ) ) {
-                    $this->api_time_log($API_URL);
+                    $this->api_time_log($full_api_url,$start_time,$request);
                 $content = $content_data['body'];
             $content_obj = json_decode($content);
               return $content_obj;
