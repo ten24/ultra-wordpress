@@ -50,5 +50,5 @@
 
 
 		</div>
-<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>
 

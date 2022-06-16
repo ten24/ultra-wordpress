@@ -154,7 +154,7 @@
 				</div>
 				<div class="form-group w-50">
 					<!-- Toggle disabled attribute & spinner icon after form submit validation & loading -->
-					<button class="btn btn-secondary btn-block" type="submit">Continue <i class="fas fa-circle-notch fa-spin"></i></button>
+					<button class="btn btn-secondary btn-block" type="submit">Continue </button>
 				</div>
 			</form>
 			<!-- /End Create Account Form  -->

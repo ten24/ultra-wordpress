@@ -88,8 +88,8 @@ $group_options['Size'] = $sizes;
         <div class="col-md-5 prod-content">
             <h1><?php echo $product->productName; ?></h1>
             <?php echo $product->productDescription; ?>
-            <p>Price : $<span id="defaultSku_price"><?php echo price_number_format($product->calculatedSalePrice); ?></span></p>
-            <?php  if($product_sku->pageRecords){ $product_sku_ids = array_column($product_sku->pageRecords,'skuID'); ?>
+            <p>Price : $<span id="defaultSku_price"><?php echo price_number_format($product->salePrice); ?></span></p>
+              <?php  if($product_sku->pageRecords){ $product_sku_ids = array_column($product_sku->pageRecords,'skuID'); ?>
                 <div class="card mt-5">
                     <div class="card-body">
                 <!-- Add to cart form -->
@@ -120,7 +120,7 @@ $group_options['Size'] = $sizes;
         <?php $templates->set_template_data( $related_product_data, 'related_product_data' )->get_template_part( 'content', 'product-detail-related-product',true ); ?>
 
             </div>
-        <div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+        <div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>
         <script>
         jQuery(document).on('submit','form',function(){
             jQuery('#qloader').show();

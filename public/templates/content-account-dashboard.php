@@ -6,8 +6,8 @@
 ?>
 <?php if(isset($_SESSION['token'])){
     $orderDeliveries = $orders->ordersOnAccount->orderDeliveries;
-   //  wp_redirect(get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details');
-    // $order_single_url = get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details'.'/'.;
+   //  wp_redirect(get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/order-details');
+    // $order_single_url = get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/order-details'.'/'.;
 } ?>
 <div class="container my-5">
   <div class="row">
@@ -62,7 +62,7 @@ $orderDelivery = array_filter($orderDeliveries, function($ar,$ak)  use ($order_i
                   <td style="text-align: right; vertical-align: middle;"><?php echo $order->calculatedTotalItemQuantity?></td>
                   <td style="text-align: center; vertical-align: middle;"><?php echo $order->orderStatusType_typeName?> <?php echo !empty($tracking_ids)?'<a href="javascript:void(0);"><small> Tracking #'.$tracking_ids[0].'</small></a>':''; ?></td>
                   <td style="text-align: right; vertical-align: middle;">$<?php echo price_number_format($order->calculatedTotal);?></td>
-                  <td style="text-align: center; vertical-align: middle;"><a href="<?php echo get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details'.'/'.$order->orderID; ?>" id="<?php echo $order->orderID; ?>">View</a></td>
+                  <td style="text-align: center; vertical-align: middle;"><a href="<?php echo get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/order-details'.'/'.$order->orderID; ?>" id="<?php echo $order->orderID; ?>">View</a></td>
           			</tr>
                   <?php } else {
                       break;

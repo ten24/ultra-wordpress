@@ -5,12 +5,12 @@
  */
 ?>
 <?php if(isset($_SESSION['token'])){
-     wp_redirect(get_site_url().'/'.MY_ACCOUNT_SLUG.'/dashboard');
+     wp_redirect(get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/dashboard');
 } ?>
-<div class="container my-5">
+<div class="container my-5 mb-5 account_login_register">
 
         <div class="text-center my-3">
-            <h1>My Account</h1>
+            <!--h1>My Account</h1-->
             <p>Please login or signup to continue.</p>
         </div>
 
@@ -129,7 +129,7 @@
 				<div class="form-group w-50">
 					<!-- Toggle disabled attribute & spinner icon after form submit validation & loading -->
 					<!-- <button class="btn btn-secondary btn-block" type="submit">Continue <i class="fas fa-circle-notch fa-spin"></i></button> -->
-					<button class="btn btn-primary btn-block" name="account" type="submit" value="register">Sign Up<i class="fas fa-circle-notch fa-spin"></i></button>
+					<button class="btn btn-primary btn-block" name="account" type="submit" value="register">Sign Up</button>
 				</div>
 			</form>
                             </div>
@@ -159,4 +159,4 @@
 </div>
 <!-- /End Terms & Conditions Modal -->
 
-<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>

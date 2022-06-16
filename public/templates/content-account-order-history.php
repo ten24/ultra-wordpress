@@ -32,7 +32,7 @@
         	                <td><?php echo $order->order_calculatedTotalItemQuantity?></td>
         	                <td><?php echo $order->orderDeliveryID?></td>
         	                <td><?php echo $order->trackingNumber?></td>
-        	                <td><a href="<?php echo get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details'.'/'.$order->order_orderID; ?>" id="<?php echo $order->order_orderID; ?>">View</a></td>
+        	                <td><a href="<?php echo get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/order-details'.'/'.$order->order_orderID; ?>" id="<?php echo $order->order_orderID; ?>">View</a></td>
 						</tr>
 						<?php } ?>
             		</tbody>

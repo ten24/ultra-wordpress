@@ -19,7 +19,7 @@
 
                 <table class="table table-condensed table-bordered table-striped table-responsive-sm">
                 	<tbody>
-					<?php foreach($accounts->accountEmailAddresses as $accountEmail) {
+					<?php if($accounts->accountEmailAddresses){ foreach($accounts->accountEmailAddresses as $accountEmail) {
 
                    if($accounts->primaryEmailAddress->accountEmailAddressID==$accountEmail->accountEmailAddressID){
                    ?>
@@ -42,7 +42,13 @@
                 				<a href="#" title="Delete Email Address - <?php echo $accountEmail->emailAddress; ?>" class="delete-emailAddress" data-id="<?php echo $accountEmail->accountEmailAddressID; ?>">Delete</a>
                 			</td>
 						</tr>
-				   <?php }}?>
+                                        <?php }} 
+                                        
+                                   } else {
+                                       echo '<p>No email address found</p>';
+                                   }
+                                        
+                                        ?>
                 	</tbody>
                 </table>
             </div>
@@ -92,4 +98,4 @@
     </div>
 
 
-<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>

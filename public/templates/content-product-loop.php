@@ -5,7 +5,7 @@
  */
 
 $image_url = DOMAIN.$product->images[2];
-$product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$product->urlTitle; ?>
+$product_single_url = get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$product->urlTitle; ?>
 <div class="col-lg-4 col-md-6 mb-4">
     <div class="card h-100">
             <a href="<?php echo $product_single_url; ?>">
@@ -13,14 +13,14 @@ $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$product->urlTi
             </a>
             <div class="card-body">
                 <?php if($product->productType_productTypeID){ ?>
-                <small><a href="javascript:void(0);" id="<?php echo $product->productType_productTypeID; ?>" class="product_type_on_list text-secondary"><?php echo $product->productType_productTypeName; ?></a></small>
+                <small><a href="<?php echo get_site_url().'/'.SLATWALL_TYPE_SLUG.'/'.$product->productType_urlTitle; ?>" id="<?php echo $product->productType_productTypeID; ?>" class="product_type_on_list text-secondary"><?php echo $product->productType_productTypeName; ?></a></small>
                 <?php } ?>
                     <h5><a href="<?php echo $product_single_url; ?>"><?php echo $product->productName; ?></a></h5>
-                    <?php  if($product->calculatedSalePrice < $product->defaultSku_listPrice){ ?>
-                    <s class="float-right small">$<?php echo price_number_format($product->defaultSku_listPrice); ?></s>
+                    <?php  if($product->salePrice < $product->listPrice){ ?>
+                    <s class="float-right small">$<?php echo price_number_format($product->listPrice); ?></s>
                     <?php } ?>
-                    <?php if($product->calculatedSalePrice){ ?>
-                    <p>$<?php echo price_number_format($product->calculatedSalePrice); ?></p>
+                    <?php if($product->salePrice){ ?>
+                    <p>$<?php echo price_number_format($product->salePrice); ?></p>
                     <?php } ?>
             </div>
           <div class="card-footer">

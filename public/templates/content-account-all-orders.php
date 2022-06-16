@@ -5,8 +5,8 @@
  */
 ?>
 <?php if(isset($_SESSION['token'])){
-   //  wp_redirect(get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details');
-    // $order_single_url = get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details'.'/'.;
+   //  wp_redirect(get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/order-details');
+    // $order_single_url = get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/order-details'.'/'.;
 } ?>
 <div class="container my-5">
   <div class="row">
@@ -37,7 +37,7 @@
                   <td style="text-align: right; vertical-align: middle;"><?php echo $order->calculatedTotalItemQuantity?></td>
                   <td style="text-align: center; vertical-align: middle;"><?php echo $order->orderStatusType_typeName?></td>
                   <td style="text-align: right; vertical-align: middle;">$<?php echo price_number_format($order->calculatedTotal);?></td>
-                  <td style="text-align: center; vertical-align: middle;"><a href="<?php echo get_site_url().'/'.MY_ACCOUNT_SLUG.'/order-details'.'/'.$order->orderID; ?>" id="<?php echo $order->orderID; ?>">View</a></td>
+                  <td style="text-align: center; vertical-align: middle;"><a href="<?php echo get_site_url().'/'.SLATWALL_MY_ACCOUNT_SLUG.'/order-details'.'/'.$order->orderID; ?>" id="<?php echo $order->orderID; ?>">View</a></td>
           			</tr>
           		<?php } ?>
           	</tbody>

@@ -6,14 +6,14 @@
  ?>
  
 <div class="container mt-5">
-			<h1 class="mb-4">Product Listing</h4>
+			<!--h1 class="mb-4">Product Listing</h4-->
       <div class="alert alert-success added-cart" style="display: none;">Item Added to Cart</div>
 			<div class="alert alert-danger failed-add-cart" style="display: none;">There was an error adding item to cart</div>
 			<div class="row">
 				<div class="col-sm-3">
 					<!--h6><strong>3</strong> Available Products</h6-->
 					<!-- Show Applied Filters -->
-					<h6 class="available_product"><strong><?php echo $products->recordsCount; ?></strong> Available <?php echo $products->recordsCount>1?'Products':'Product'; ?></h6>
+					<h6 class="available_product"><strong><?php echo isset($products->recordsCount)?$products->recordsCount:''; ?></strong> Available <?php echo (isset($products->recordsCount) && $products->recordsCount>1)?'Products':'Product'; ?></h6>
 					<div class="applied_filters"> </div>
 				</div>
 				<div class="col-sm-6">
@@ -51,4 +51,4 @@
 
 
 		</div>
-<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>

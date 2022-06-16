@@ -57,9 +57,8 @@ class Slatwall_Registration extends Slatwall_Integration{
             $this->JSESSIONID = $_SESSION['JSESSIONID']??'';
 //            $this->SLATWALL_NPSID = $_SESSION['SLATWALL-NPSID']??'';
 //            $this->SLATWALL_PSID = $_SESSION['SLATWALL-PSID']??'';
-            $this->cookies = "Cookie: PRINTQUEUE=; cfid=$this->cfid; cftoken=$this->cftoken; JSESSIONID=$this->JSESSIONID";
-
-
+            $this->cookies = "cfid=$this->cfid; cftoken=$this->cftoken; JSESSIONID=$this->JSESSIONID";
+	        
 	}
 
 	public function registration($request){

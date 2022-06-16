@@ -107,9 +107,8 @@ class Slatwall_Cart extends Slatwall_Integration{
             return $result;
         }
 
-        public function get_cart($token = ''){
-
-           $result =  $this->userAccountGet( $this->get_cart,$token, array('returnJSONObjects' => 'cart'),'GET',$this->cookies);
+        public function get_cart($token = '',$returnObject = 'cart'){
+           $result =  $this->userAccountGet( $this->get_cart,$token, array('returnJSONObjects' => $returnObject),'GET',$this->cookies);
 
             return $result;
         }

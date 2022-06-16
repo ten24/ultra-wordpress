@@ -55,8 +55,8 @@ class Slatwall_Admin {
 		$this->slatwall = $slatwall;
 		$this->version = $version;
 
-                add_action( 'wp_ajax_nopriv_send_key_data', array( $this, 'send_key_data' ) );
-    add_action( 'wp_ajax_send_key_data', array( $this, 'send_key_data' ) );
+               add_action( 'wp_ajax_nopriv_send_key_data', array( $this, 'send_key_data' ) );
+               add_action( 'wp_ajax_send_key_data', array( $this, 'send_key_data' ) );
 
 	}
 
@@ -110,7 +110,7 @@ class Slatwall_Admin {
 	}
 
         public function menu_options(){
-            $this->plugin_screen_hook_suffix = add_menu_page('Slatwall', 'Slatwall', 'manage_options', 'slatwall', array( $this, 'dashboard' ));
+            $this->plugin_screen_hook_suffix = add_menu_page('Ultra Commerce', 'Ultra Commerce', 'manage_options', 'slatwall', array( $this, 'dashboard' ));
         }
 
         public function dashboard(){
@@ -129,7 +129,7 @@ class Slatwall_Admin {
         }
 
         private function integration(array $data_array){
-            $auth = AUTHORIZATION;
+            $auth = SLATWALL_AUTHORIZATION;
             foreach($data_array as $data_value){
                 if(!isset($data_value['send_option'])){
                 $key_data[$data_value['name']] = $data_value['value'];
@@ -139,42 +139,31 @@ class Slatwall_Admin {
             }
             $access_key = $key_data['access_key'];
             $access_key_secret = $key_data['access_key_secret'];
-           $API_URL = $this->apiUrl($key_data['domain']);
+            $API_URL = $this->apiUrl($key_data['domain']);
 
-           if($API_URL){
-            try {
-                $ch = curl_init();
-
-                // Check if initialization had gone wrong*
-                if ($ch === false) {
-                    throw new Exception('failed to initialize');
-                }
-
-                curl_setopt_array($ch, array(
-              CURLOPT_URL => $API_URL,
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => "",
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 0,
-              CURLOPT_FOLLOWLOCATION => true,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_SSL_VERIFYHOST => FALSE,
-              CURLOPT_SSL_VERIFYPEER => FALSE,
-              CURLOPT_CUSTOMREQUEST => "POST",
-              CURLOPT_HTTPHEADER => array(
-                "Access-Key: $access_key",
-                "Access-Key-Secret: $access_key_secret",
-                "Authorization: Basic $auth"
-              ),
-            ));
-
-                $content = curl_exec($ch);
+            if($API_URL){
+                
+            $post_field_data = array('returntransfer'=>true,
+                'encoding'=>'',
+                'maxredirs'=>10,
+                'verbose'=>1,
+                'followlocation'=>true,
+                'timeout' => 10,
+                'header'=>1,
+                'headers' => array(
+                "Access-Key" => $access_key,
+                "Access-Key-Secret" => $access_key_secret,
+                "Authorization: Basic" => $auth
+              )
+                    
+                    );
+                $content_data = wp_remote_post($API_URL, $post_field_data);
+                $content = $content_data['body'];
+                //$content = curl_exec($ch);
 
                 // Check the return value of curl_exec(), too
-                if($content === false) {
-                    throw new Exception(curl_error($ch), curl_errno($ch));
-                } else {
-                    $response_obj = json_decode($content);
+                 if( !is_wp_error( $content_data ) ) {
+                     $response_obj = json_decode($content);
                     if(!empty($response_obj) && isset($response_obj->token))
                     {
                         $key_data['token'] = $response_obj->token;
@@ -183,27 +172,15 @@ class Slatwall_Admin {
                       $insert_result =  $this->keyStore($key_data);
                         }
                     }
-
+                } else {
+                   
+                    return false;
 
                 }
 
                 /* Process $content here */
 
-                // Close curl handle
-                curl_close($ch);
-            } catch(Exception $e) {
-
-            if($e->getCode() !== 6){
-              $content = trigger_error(sprintf(
-                    'Curl failed with error #%d: %s',
-                    $e->getCode(), $e->getMessage()),
-                    E_USER_ERROR);
-                    } else {
-                      $error_msg = $e->getMessage();
-                            $content = '{"errors" : "'.$error_msg.'"}';
-                    }
-
-            }
+                
              return $content;
            } else {
                return '{"errors" : "Not Valid URL"}';
@@ -231,6 +208,4 @@ class Slatwall_Admin {
                     return false;
                 }
             }
-
-
 }

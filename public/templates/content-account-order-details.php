@@ -87,7 +87,7 @@
                         } else {
                             $image_url = $missing_image_url;
                         }
-                       $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$val->sku_product_urlTitle;
+                       $product_single_url = get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$val->sku_product_urlTitle;
                         ?>
                         <!-- Order Items -->
                         <div class="row align-items-center mb-5">
@@ -241,7 +241,7 @@
                                 } else{
                                     $deliveredQuntity = $order_item->calculatedQuantityDelivered;
                                 }
-                                $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$order_item->sku_product_urlTitle;?>
+                                $product_single_url = get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$order_item->sku_product_urlTitle;?>
                             <div class="row align-items-center mb-5">
                                 <div class="col-12 col-lg-6">
                                     <img  src="<?php echo $image_url; ?>" alt="<?php echo $val->sku_product_productName;?>" class="img-fluid rounded float-left mr-3"> <a class="text-body font-weight-bold" href="<?php echo $product_single_url; ?>"><?php echo $order_item->sku_product_productName; ?></a>
@@ -265,4 +265,4 @@
             </div>
 </div>
 </div>
-<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>

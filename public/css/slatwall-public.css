@@ -9,7 +9,9 @@
  */
 
 body img{display: inherit;}
-.singular .entry-header {display: none;}
+.singular .entry-header card h-100{display: none;}
+.card.h-100 a{text-align: center;}
+.card.h-100 a .img-fluid {display: inline-block;}
 body .wp-block-group:not(.has-background):not(.alignwide):not(.alignfull) {margin-top: 0;}
 #qloader{
     position: fixed;
@@ -38,9 +40,14 @@ body .modal-header .close {
     right: 0;
     top: 0;
 }
-.slatwall-body .entry-content > *:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.is-style-wide) {
-    max-width: 100%;
+body #staticBackdrop .modal-header .close {
+    margin: 9px 8px;
+    background: none;
+    font-size: 22px;
 }
+/*.slatwall-body .entry-content > *:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.is-style-wide) {
+    max-width: 100%;
+}*/
 .loader {
     display: flex;
     align-items: center;
@@ -62,7 +69,7 @@ body .modal-header .close {
     text-decoration: none;
     font-size: 18px;
 }
-
+.fa-check-circle{font-size: 20px;}
 /* @media (min-width: 768px) { */
 html, body {background: #fff !important;/* font-size: 16px !important; */font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;letter-spacing: normal !important;}
 .btn:focus {
@@ -84,6 +91,10 @@ body .entry-content {
   font-size: 16px;
   font-family:inherit;
 }
+/*body.slatwall-body .entry-content h2,body.slatwall-body div.entry-content > *:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.is-style-wide){
+        margin: 0 0 20px;
+    width: 100%;
+}*/
 input#customGiftCard::-webkit-outer-spin-button,
 input#customGiftCard::-webkit-inner-spin-button,
 input.number-field::-webkit-outer-spin-button,
@@ -355,7 +366,7 @@ body table {
     margin-top: 0;
 }
 body table th, body table td {
-    font-size: 1.5rem;
+    font-size: 16px;
     line-height: 1.5;
 }
 body table th strong {
@@ -378,7 +389,11 @@ body table td a, .addres-box .card-header a {
 .show-more:hover {color: #005cbf;}
 .show-more .lessbtn, .show-more.Show .morebtn {display: none;}
 .show-more.Show .lessbtn {display: block;}
-
+.subscription_checkout_area .step-two .billig-payment-area .nav.nav-tabs{display: block;width: 100%;overflow: hidden;}
+.subscription_checkout_area .step-two .billig-payment-area .nav-tabs .nav-link{float: right;}
+.subscription_checkout_area .step-two .billig-payment-area .nav-tabs .nav-link.active{float: left;}
+.jumbotron.jumbotron-fluid.product-subscription-main-area {padding: 64px 0!important;margin-bottom: 48px!important;}
+body .entry-content .product-subscription-main-area h1 {font-size: 56px;font-weight: 400;}
 /* } */
 
 @media (max-width: 767px) {

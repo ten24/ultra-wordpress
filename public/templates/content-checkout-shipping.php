@@ -41,6 +41,7 @@ foreach($bundle_items as $item_key => $item){
 $orderItems = array_merge($bundle_items, $normal_items);
 foreach($orderItems as $item){
     $item = (object)$item;
+    if(isset($item->skuFulfillmentMethods)){
    foreach($item->skuFulfillmentMethods as $skuFulfillmentMethod){
      if($skuFulfillmentMethod->fulfillmentMethodType === 'shipping'){
          $shipping_flag = 1;
@@ -49,6 +50,7 @@ foreach($orderItems as $item){
          $pickup_flag = 1;
      }
    }
+  }
 }
 
 ?>
@@ -78,7 +80,7 @@ foreach($orderItems as $item){
                                 <ul class="list-unstyled mb-0 shipping_pickup_items">
                                     <?php foreach($orderItems as $item){
                                          $item = (object)$item;
-                                        $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle;
+                                        $product_single_url = get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle;
                                         ?>
                                     <li class="media mb-4 pb-4 border-bottom">
                                         <img src="<?php echo DOMAIN.'/'.$item->sku->imagePath; ?>" alt="<?php echo $item->sku->product->productName; ?>" class="img-fluid mr-3" width="45" height="45">
@@ -236,7 +238,7 @@ foreach($orderItems as $item){
                             <!-- Shipping Info -->
                             <a href="javascript:void(0);" class="btn btn-block p-0 text-left account-address <?php echo $count==1?'active':''; ?>" id="<?php echo $address->accountAddressID; ?>">
                                 <div class="bg-light p-4 h-100 border">
-                                    <i class="far <?php echo $count==1?'fa-check-circle':''; ?> float-right"></i>
+                                    <i class="fas <?php echo $count==1?'fa-check-circle':''; ?> float-right"></i>
                                     <h6 class="card-title text-muted"><?php echo $address->accountAddressName==''?$address->address->name:$address->accountAddressName; ?></h6>
                                     <address class="small mb-0 text-body">
                                         <?php //echo $address->address->name; ?><br>
@@ -280,7 +282,9 @@ foreach($orderItems as $item){
                                         </div>
                     <div class="form-group w-50 mt-5">
                         <!-- Toggle disabled attribute after form submit validation to continue -->
+
                         <button class="btn btn-secondary btn-block" id="shipping_countinue" type="button">Continue</button>
+
                     </div>
 
 

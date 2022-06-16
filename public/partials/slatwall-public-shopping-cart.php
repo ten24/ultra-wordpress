@@ -6,6 +6,7 @@
  ?>
  
 <?php
+//d($cart_data);
 function multiple_in_array($cart_data_items,$seach_value){
     foreach($cart_data_items as $cart_data_item){
 
@@ -28,10 +29,9 @@ foreach($cart_data->orderItems as $item){
         $normal_items[$item->orderItemID] = $item;
     }
 }
-
 ?>
 <div class="container my-5 cart-area">
-            <h1>Shopping Cart</h1>
+            <!--h1>Shopping Cart</h1-->
 <?php if(isset($cart_data->orderItems) && !empty($cart_data->orderItems)){ ?>
             <div class="row">
                 <div class="col-lg-8 col-md-12 ">
@@ -57,7 +57,7 @@ foreach($cart_data->orderItems as $item){
                                 if(isset($normal_items[$item_key])){
                                     unset($normal_items[$item_key]);
                                 }
-                                $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item['sku']->product->urlTitle;
+                                $product_single_url = get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$item['sku']->product->urlTitle;
                                 ?>
                             <!-- Order Item 1 -->
                             <div class="row border-bottom mb-5 pb-5 cart-row" data-skuid="<?php echo $item['sku']->skuID; ?>" data-orderItemID="<?php echo $item['orderItemID']; ?>">
@@ -77,7 +77,7 @@ foreach($cart_data->orderItems as $item){
                                     <?php if(count($item['items']) > 0){ foreach($item['items'] as $bundle_sku){ //d($bundle_sku);?>
                                      <!-- Product
                                     Bundle Options -->
-                                    <p class="text-muted small mb-0"><?php echo $bundle_sku[0]->productBundleGroup->productBundleGroupType->typeName; ?></p>
+                                    <!--p class="text-muted small mb-0"><?php echo $bundle_sku[0]->productBundleGroup->productBundleGroupType->typeName; ?></p-->
                                     <p class="font-weight-bold small"><?php echo $bundle_sku[0]->sku->product->productName.' ('.$bundle_sku[0]->quantity.')'; ?></p>
                                     <?php } } ?>
                                     <!--span class="d-block d-sm-none"><strong>$ 25.00</strong></span-->
@@ -111,7 +111,7 @@ foreach($cart_data->orderItems as $item){
                             <?php if(isset($normal_items) && !empty($normal_items)){ ?>
                             <?php foreach($normal_items as $item_key => $item){
                                 //d($item_key);
-                                $product_single_url = get_site_url().'/'.PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle;
+                                $product_single_url = get_site_url().'/'.SLATWALL_PRODUCT_SINGLE_SLUG.'/'.$item->sku->product->urlTitle;
                                 ?>
                             <!-- Order Item 1 -->
                             <div class="row border-bottom mb-5 pb-5 cart-row" data-skuid="<?php echo $item->sku->skuID; ?>" data-orderItemID="<?php echo $item->orderItemID; ?>">
@@ -129,8 +129,14 @@ foreach($cart_data->orderItems as $item){
                                         <h5 style="color:#000;"><?php echo $item->sku->product->productName; ?></h5>
                                     </a>
                                     <!--span class="d-block d-sm-none"><strong>$ 25.00</strong></span-->
-
+                                    <?php if(isset($item->orderItemGiftRecipients[0]->emailAddress) && $item->orderItemGiftRecipients[0]->emailAddress != ''){ ?>
+                                        <small
+                                    class="text-muted">Recipient:
+                                        <br><strong><?php echo $item->orderItemGiftRecipients[0]->emailAddress; ?></strong>
+                                        </small>
+                                    <?php } else { ?>
                                     <small class="text-muted"><?php echo $item->sku->skuDefinition ;?></small>
+                                    <?php } ?>
                                 </div>
                                 <div class="col-sm-12 col-md-6 d-none d-sm-block">
                                     <div class="row">
@@ -160,7 +166,7 @@ foreach($cart_data->orderItems as $item){
 
                         <div class="card-footer d-flex justify-content-between">
                             <a href="javascript:void(0);" class="btn btn-link clear-cart">Clear Cart</a>
-                            <a href="<?php echo get_site_url().'/'.CHECKOUT; ?>" class="btn btn-primary">Continue to Checkout</a>
+                            <a href="<?php echo get_site_url().'/'.SLATWALL_CHECKOUT; ?>" class="btn btn-primary">Continue to Checkout</a>
                         </div>
                     </div>
                 </div>
@@ -176,11 +182,11 @@ foreach($cart_data->orderItems as $item){
                                 <ul class="list-group list-group-flush m-0 order-summary">
                                     <li class="list-group-item m-0">Item Total <span class="float-right"><strong>$<?php echo price_number_format($cart_data->subtotal); ?></strong></span></li>
                                     <li class="list-group-item m-0">Shipping & Delivery <span class="float-right"><strong>$<?php echo price_number_format($cart_data->fulfillmentTotal); ?></strong></span></li>
-                                    <li class="list-group-item m-0">Tax <span class="float-right"><strong>$<?php echo price_number_format($cart_data->cart->taxTotal); ?></strong></span></li>
+                                    <li class="list-group-item m-0">Tax <span class="float-right"><strong>$<?php echo price_number_format($cart_data->taxTotal); ?></strong></span></li>
                                     <?php if($cart_data->orderAndItemDiscountAmountTotal > 0){ ?>
                                     <li class="list-group-item m-0">Discount <span class="float-right"><span class="badge badge-success">- $<?php echo price_number_format($cart_data->orderAndItemDiscountAmountTotal); ?></span></li>
                                     <?php } ?>
-                                    <li class="list-group-item m-0">Total <span class="float-right"><strong>$<?php echo price_number_format($cart_data->cart->total); ?></strong></span></li>
+                                    <li class="list-group-item m-0">Total <span class="float-right"><strong>$<?php echo price_number_format($cart_data->total); ?></strong></span></li>
                                 </ul>
                             </div>
                         </div>
@@ -211,12 +217,12 @@ foreach($cart_data->orderItems as $item){
                                         </div>
                                     </form>
                                 </div>
-
-                              <?php if($cart_data->cart->promotionCodeList){?>
+                               
+                              <?php if($cart_data->promotionCodeList){?>
                                 <div class="card-footer-area">
                                 <div class="card-footer">
 
-                                    <span class="badge badge-success" id="<?php echo $cart_data->cart->promotionCodeList; ?>"><?php echo $cart_data->cart->promotionCodeList; ?><a href="javascript:void(0);" class="remove-promo">&times;</a> </span>
+                                    <span class="badge badge-success" id="<?php echo $cart_data->promotionCodeList; ?>"><?php echo $cart_data->promotionCodeList; ?><a href="javascript:void(0);" class="remove-promo">&times;</a> </span>
 
                                 </div>
                                 </div>
@@ -225,7 +231,7 @@ foreach($cart_data->orderItems as $item){
                             </div>
                         </div>
                     </div>
-                    <a href="<?php echo get_site_url().'/'.CHECKOUT; ?>" class="btn btn-primary btn-block">Continue to Checkout</a>
+                    <a href="<?php echo get_site_url().'/'.SLATWALL_CHECKOUT; ?>" class="btn btn-primary btn-block">Continue to Checkout</a>
                 </div>
             </div>
 <?php } else {
@@ -235,7 +241,7 @@ foreach($cart_data->orderItems as $item){
         </div>
 
 
-<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fa-circle-o-notch fa-spin fa-3x"></i></div></div>
+<div  id="qloader" style="display: none;"><div class="loader" style="display: flex;"><i class="fas fa-circle-notch fa-spin fa-3x"></i></div></div>
 <script>
 
     jQuery(document).ajaxStart(function() {
