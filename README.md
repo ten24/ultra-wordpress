@@ -1,16 +1,16 @@
-# Slatwall Commerce for WordPress
+# Ultra Commerce for WordPress
 
-The Slatwall Commerce team is dedicated to making new tools and services available to development teams that make building, creating and launching eCommerce projects faster & easier. The Slatwall Commerce for WordPress plugin will connect your WordPress installation with Slatwall via our API. The plugin will also install starter templates to quickly launch an eCommerce storefront.
+The Ultra Commerce team is dedicated to making new tools and services available to development teams that make building, creating and launching eCommerce projects faster & easier. The Ultra Commerce for WordPress plugin will connect your WordPress installation with Ultra Commerce via our API. The plugin will also install starter templates to quickly launch an eCommerce storefront.
 
 ## Plugin Installation
 Upload the plugin ZIP file to the plugins directory and activate via the WordPress admin.
 
-Find the Slatwall menu settings screen in the WordPress admin menu.
+Find the Ultra Commerce menu settings screen in the WordPress admin menu.
 
 Enter your Domain URL, Access Key, Access Key Secret. Test & verify the settings provided work correctly.
 
 ## Storefront Setup
-The Slatwall Wordpress plugin includes page templates conveniently displayed by shortcodes to quickly launch an eCommerce storefront. The code controlling these shortcodes can be found in the plugin directory.
+The Ultra Commerce Wordpress plugin includes page templates conveniently displayed by shortcodes to quickly launch an eCommerce storefront. The code controlling these shortcodes can be found in the plugin directory.
 
 Create the following pages and add an associated shortcode to render the content for each page:
 
@@ -32,22 +32,15 @@ Product Shopping & Commerce
 
 ## Resources
 
-### API Documentation
-The Slatwall API contains example scripts and endpoints to connect and interact with Slatwall.
+### Learn More About WordPress + Ultra Commerce
+https://ultracommerce.co/wordpress/
 
-https://publicapi.slatwallcommerce.com/
+### API Documentation
+The Ultra Commerce API contains example scripts and endpoints to connect and interact with the platform.
+
+https://publicapi.ultracommerce.co/
 
 ### User Documentation
-The Slatwall User Guide provides documentation on how to use Slatwall features.
+The Ultra Commerce User Guide provides documentation on how to use Ultra Commerce features.
 
-https://www.slatwallcommerce.com/user-guide/
-
-### Frequently Asked Questions
-Commonly asked questions about Slatwall & Wordpress.
-
-https://slatwallcommerce.com/wordpress/slatwall-for-wordpress-faq/
-
-### Slatwall Roadmap
-Get insight into our future plans and when new features and functionality will be released.
-
-https://www.slatwallcommerce.com/slatwall-roadmap/
+https://userguide.ultracommerce.co/
