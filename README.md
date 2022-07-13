@@ -35,6 +35,9 @@ Product Shopping & Commerce
 ### Learn More About WordPress + Ultra Commerce
 https://ultracommerce.co/wordpress/
 
+### WordPress for Ultra Commerce FAQ
+https://ultracommerce.co/wordpress/frequently-asked-questions-headless-commerce-for-wordpress/
+
 ### API Documentation
 The Ultra Commerce API contains example scripts and endpoints to connect and interact with the platform.
 
